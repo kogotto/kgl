@@ -8,17 +8,22 @@ struct GLFWTerminator {
     }
 };
 
+constexpr int GLFW_INIT_FAILED = -1;
+constexpr int GLFW_WINDOW_CREATION_FAILED = -1;
+
 int main() {
     std::cout << "Hi" << std::endl;
 
     if (!glfwInit()) {
-        return -1;
+        std::cout << "glfw cant init" << std::endl;
+        return GLFW_INIT_FAILED;
     }
     const GLFWTerminator autoGlfwTerminator;
 
     GLFWwindow* window = glfwCreateWindow(640, 480, "Hello GLFW", NULL, NULL);
     if (!window) {
-        return -2;
+        std::cout << "glfw window creation failed" << std::endl;
+        return GLFW_WINDOW_CREATION_FAILED;
     }
 
     glfwMakeContextCurrent(window);
