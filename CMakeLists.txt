@@ -22,8 +22,14 @@ find_package(
     OpenGL REQUIRED
 )
 
+set(GLEW_USE_STATIC_LIBS TRUE)
+find_package(
+    GLEW REQUIRED
+)
+
 target_link_libraries(
     kgl
     OpenGL::GL
     glfw
+    GLEW::glew_s
 )

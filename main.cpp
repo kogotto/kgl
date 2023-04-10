@@ -1,5 +1,7 @@
 #include <iostream>
 
+#define GLEW_NO_GLU
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 struct GLFWTerminator {
@@ -10,6 +12,7 @@ struct GLFWTerminator {
 
 constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -1;
+constexpr int GLEW_INIT_FAILED = -3;
 
 int main() {
     std::cout << "Hi" << std::endl;
@@ -27,6 +30,11 @@ int main() {
     }
 
     glfwMakeContextCurrent(window);
+
+    if (glewInit() != GLEW_OK) {
+        std::cout << "glew cant init" << std::endl;
+        return GLEW_INIT_FAILED;
+    }
 
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
