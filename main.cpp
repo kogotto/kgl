@@ -1,5 +1,9 @@
 #include <iostream>
+#include <string>
 #include <string_view>
+#include <fstream>
+#include <sstream>
+#include <filesystem>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
@@ -17,6 +21,46 @@ struct GLFWTerminator {
 constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -1;
 constexpr int GLEW_INIT_FAILED = -3;
+
+struct ShaderParseResult {
+    std::string vertex;
+    std::string fragment;
+};
+
+ShaderParseResult parseShaderFile(const std::string& filename) {
+    std::ifstream stream(filename);
+    if (!stream.is_open()) {
+        std::cout << "Failed to open shader source file " << filename << std::endl;
+        std::cout << "Current dir is " << std::filesystem::current_path() << std::endl;
+        return {};
+    }
+
+
+    std::stringstream vertextStream;
+    std::stringstream fragmentStream;
+
+    std::stringstream* current = nullptr;
+
+    std::string line;
+    while (getline(stream, line)) {
+        if (line.find("#shader") != std::string::npos) {
+            if (line.find("vertex") != std::string::npos) {
+                current = &vertextStream;
+            } else if (line.find("fragment") != std::string::npos) {
+                current = &fragmentStream;
+            }
+        } else {
+            if (!current) {
+                std::cout << "Warning: Next string do not belong to any shader type" << std::endl;
+                std::cout << line << std::endl;
+            } else {
+                (*current) << line << '\n';
+            }
+        }
+    }
+
+    return {vertextStream.str(), fragmentStream.str()};
+}
 
 const char* shaderTypeToStr(unsigned int type) {
     switch (type) {
@@ -109,23 +153,11 @@ int main() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    const std::string_view vertexShaderSource =
-        "#version 330 core\n"
-        "layout(location = 0) in vec4 position;\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = position;\n"
-        "}\n"
-    ;
+    auto [vertexShaderSource, fragmentShaderSource] =
+        parseShaderFile("res/shaders/basic.shader");
 
-    const std::string_view fragmentShaderSource =
-        "#version 330 core\n"
-        "out vec4 color;\n"
-        "void main()\n"
-        "{\n"
-        "   color = vec4(1.0, 1.0, 0.0, 1.0);\n"
-        "}\n"
-    ;
+    std::cout << "Vertex shader source is: \n" << vertexShaderSource << std::endl;
+    std::cout << "Fragment shader source is: \n" << fragmentShaderSource << std::endl;
 
     unsigned int shader = compileProgram(vertexShaderSource, fragmentShaderSource);
     glUseProgram(shader);
