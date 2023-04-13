@@ -34,10 +34,10 @@ target_link_libraries(
     GLEW::glew_s
 )
 
-# TODO This does not update files in bin dir when files is changed
+# TODO Reconsider mechanics for using resources in build
 add_custom_command(
     TARGET ${PROJECT_NAME} PRE_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
         ${CMAKE_CURRENT_SOURCE_DIR}/res
         ${CMAKE_CURRENT_BINARY_DIR}/res
 )
