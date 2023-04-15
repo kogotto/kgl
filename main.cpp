@@ -9,6 +9,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#define GLASSERT(x) { if (!(x)) std::abort(); }
+
 namespace {
 
 void GLClearError() {
@@ -44,16 +46,30 @@ bool GLCheckErrors(const char* function, const char* file, int line) {
     return errorsCount == 0;
 }
 
+struct GLErrorHandler {
+    GLErrorHandler(const char* function, const char* file, int line)
+        : function{function}
+        , file{file}
+        , line{line} {
+        GLClearError();
+    }
+    ~GLErrorHandler() {
+        GLASSERT(GLCheckErrors(function, file, line));
+    }
+private:
+    const char* function;
+    const char* file;
+    int line;
+};
+
 } // namespace
 
-#define GLASSERT(x) { if (!(x)) std::abort(); }
+#define GLCALL(x)                              \
+    [&] {                                                \
+        GLErrorHandler handler{#x, __FILE__, __LINE__};  \
+        return (x);                                      \
+    } ()
 
-#define GLCALL(x)                                    \
-{                                                    \
-    GLClearError();                                  \
-    x;                                               \
-    GLASSERT(GLCheckErrors(#x, __FILE__, __LINE__))  \
-}
 
 namespace
 {
