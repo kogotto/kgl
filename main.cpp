@@ -232,6 +232,9 @@ int main() {
     unsigned int shader = compileProgram(vertexShaderSource, fragmentShaderSource);
     GLCALL(glUseProgram(shader));
 
+    const int location = GLCALL(glGetUniformLocation(shader, "u_Color"));
+    GLCALL(glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0));
+
     while (!glfwWindowShouldClose(window)) {
         GLCALL(glClear(GL_COLOR_BUFFER_BIT));
 
