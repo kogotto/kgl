@@ -167,9 +167,6 @@ int main() {
     auto [vertexShaderSource, fragmentShaderSource] =
         parseShaderFile("res/shaders/basic.shader");
 
-    std::cout << "Vertex shader source is: \n" << vertexShaderSource << std::endl;
-    std::cout << "Fragment shader source is: \n" << fragmentShaderSource << std::endl;
-
     unsigned int shader = compileProgram(vertexShaderSource, fragmentShaderSource);
     glUseProgram(shader);
 
