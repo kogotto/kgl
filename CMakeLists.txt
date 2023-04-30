@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(
     ${PROJECT_NAME}
     main.cpp
+    debug.cpp
 )
 
 find_package(

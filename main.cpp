@@ -9,67 +9,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#define GLASSERT(x) { if (!(x)) std::abort(); }
-
-namespace {
-
-void GLClearError() {
-    while (glGetError() != GL_NO_ERROR);
-}
-
-struct GLErrorCode {
-    GLenum code;
-};
-
-std::ostream& operator<<(std::ostream& stream, GLErrorCode code) {
-    return stream <<
-        std::hex << std::showbase <<
-        code.code <<
-        std::noshowbase << std::dec;
-}
-
-void GLLogError(GLErrorCode code, const char* function, const char* file, int line) {
-    std::cout <<
-        "[OpenGl] error, code = " << code <<
-        " in call " << function <<
-        " on " << file << ":" << line <<
-        std::endl;
-}
-
-bool GLCheckErrors(const char* function, const char* file, int line) {
-    int errorsCount = 0;
-    for (auto errorCode = glGetError(); errorCode != GL_NO_ERROR; errorCode = glGetError()) {
-        ++errorsCount;
-        GLLogError({errorCode}, function, file, line);
-    }
-
-    return errorsCount == 0;
-}
-
-struct GLErrorHandler {
-    GLErrorHandler(const char* function, const char* file, int line)
-        : function{function}
-        , file{file}
-        , line{line} {
-        GLClearError();
-    }
-    ~GLErrorHandler() {
-        GLASSERT(GLCheckErrors(function, file, line));
-    }
-private:
-    const char* function;
-    const char* file;
-    int line;
-};
-
-} // namespace
-
-#define GLCALL(x)                              \
-    [&] {                                                \
-        GLErrorHandler handler{#x, __FILE__, __LINE__};  \
-        return (x);                                      \
-    } ()
-
+#include "debug.h"
 
 namespace
 {
