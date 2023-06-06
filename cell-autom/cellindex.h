@@ -28,6 +28,14 @@ public:
         , col{colIndex}
     {}
 
+    constexpr auto getRow() const {
+        return row.row;
+    }
+
+    constexpr auto getCol() const {
+        return col.col;
+    }
+
     constexpr CellIndex& operator+=(const CellIndex& rhs) {
         row += rhs.row;
         col += rhs.col;
