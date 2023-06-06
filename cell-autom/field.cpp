@@ -32,6 +32,13 @@ auto combine(CellIndices input, Func func) {
     return result;
 }
 
+size_t normalize(int32_t raw, size_t modulo) {
+    while (raw < 0) {
+        raw += static_cast<int32_t>(modulo);
+    }
+    return static_cast<size_t>(raw) % modulo;
+}
+
 } // namespace
 
 Cells Field::neighbours(CellIndex index) {
@@ -43,7 +50,9 @@ Cells Field::neighbours(CellIndex index) {
 }
 
 Cell Field::cell(CellIndex index) const {
-    return rows[index.getRow()][index.getCol()];
+    const size_t row = normalize(index.getRow(), getRowsCount());
+    const size_t col = normalize(index.getCol(), getColsCount());
+    return rows[row][col];
 }
 
 size_t aliveCount(Cells neighbours) {

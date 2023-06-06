@@ -12,6 +12,14 @@ public:
         : rows(rowsCount, Row(colsCount))
     {}
 
+    size_t getRowsCount() const {
+        return rows.size();
+    }
+
+    size_t getColsCount() const {
+        return rows.front().size();
+    }
+
     Cells neighbours(CellIndex index);
     Cell cell(CellIndex index) const;
 
