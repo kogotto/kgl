@@ -13,6 +13,7 @@ public:
     {}
 
     Cells neighbours(CellIndex index);
+    Cell cell(CellIndex index) const;
 
 private:
     using Row = std::vector<Cell>;

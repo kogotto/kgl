@@ -1,5 +1,6 @@
 #include <field.h>
 
+#include <cassert>
 #include <algorithm>
 
 namespace {
@@ -14,16 +15,35 @@ constexpr CellIndex topRight{top + right};
 constexpr CellIndex bottomLeft{bottom + left};
 constexpr CellIndex bottomRight{bottom + right};
 
-constexpr std::array<CellIndex, 8u> neighbourIndices {
+using CellIndices = std::array<CellIndex, 8u>;
+
+constexpr CellIndices neighbourIndices {
     topLeft,      top,     topRight,
     left,                     right,
     bottomLeft, bottom, bottomRight,
 };
 
+template <typename Func>
+auto combine(CellIndices input, Func func) {
+    Cells::Raw result;
+    for (size_t i = 0; i < input.size(); ++i) {
+        result[i] = func(input[i]);
+    }
+    return result;
+}
+
 } // namespace
 
 Cells Field::neighbours(CellIndex index) {
-    return {};
+    return combine(
+            neighbourIndices,
+            [this, index] (const CellIndex& neighbourIndex) -> Cell {
+                return cell(index + neighbourIndex);
+            });
+}
+
+Cell Field::cell(CellIndex index) const {
+    return rows[index.getRow()][index.getCol()];
 }
 
 size_t aliveCount(Cells neighbours) {
@@ -47,5 +67,7 @@ Cell rule(Cell cell, Cells neighbours) {
             return (aliveAround == 2) || (aliveAround == 3)
                 ? Cell::Alive
                 : Cell::Died;
+        default:
+            assert(false && "Unknown Cell::<enumerator>");
     };
 }
