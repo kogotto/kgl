@@ -32,6 +32,14 @@ auto combine(CellIndices input, Func func) {
     return result;
 }
 
+using NormalizedIndex = Field::NormalizedIndex;
+
+bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) {
+    return
+        lhs.row == rhs.row &&
+        lhs.col == rhs.col;
+}
+
 size_t normalize(int32_t raw, size_t modulo) {
     while (raw < 0) {
         raw += static_cast<int32_t>(modulo);
@@ -39,9 +47,16 @@ size_t normalize(int32_t raw, size_t modulo) {
     return static_cast<size_t>(raw) % modulo;
 }
 
+NormalizedIndex normalize(CellIndex index, NormalizedIndex modulo) {
+    return {
+        normalize(index.getRow(), modulo.row),
+        normalize(index.getCol(), modulo.col)
+    };
+}
+
 } // namespace
 
-Cells Field::neighbours(CellIndex index) {
+Cells Field::neighbours(CellIndex index) const {
     return combine(
             neighbourIndices,
             [this, index] (const CellIndex& neighbourIndex) -> Cell {
@@ -49,10 +64,18 @@ Cells Field::neighbours(CellIndex index) {
             });
 }
 
+Cell& Field::cell(CellIndex index) {
+    const auto normalizedIndex = normalize(index, getNormalizedSize());
+    return operator[](normalizedIndex);
+}
+
 Cell Field::cell(CellIndex index) const {
-    const size_t row = normalize(index.getRow(), getRowsCount());
-    const size_t col = normalize(index.getCol(), getColsCount());
-    return rows[row][col];
+    const auto normalizedIndex = normalize(index, getNormalizedSize());
+    return operator[](normalizedIndex);
+}
+
+Cell Field::cellNextGeneration(CellIndex index) const {
+    return rule(cell(index), neighbours(index));
 }
 
 size_t aliveCount(Cells neighbours) {
@@ -79,4 +102,43 @@ Cell rule(Cell cell, Cells neighbours) {
         default:
             assert(false && "Unknown Cell::<enumerator>");
     };
+}
+
+Field nextGeneration(const Field& current) {
+    const size_t rowCount = current.getRowsCount();
+    const size_t colCount = current.getColsCount();
+    Field result{rowCount, colCount};
+
+    for (int32_t row = 0; row < rowCount; ++row) {
+        for (int32_t col = 0; col < colCount; ++col) {
+            const CellIndex index{RowIndex{row}, ColIndex{col}};
+            result[index] = rule(current[index], current.neighbours(index));
+        }
+    }
+    return result;
+}
+
+namespace {
+
+void nextGenerationSample(const Field& current, Field& result) {
+    const auto size = current.getNormalizedSize();
+    assert(size == result.getNormalizedSize());
+
+    for (int32_t row = 0; row < size.row; ++row) {
+        for (int32_t col = 0; col < size.col; ++col) {
+            const CellIndex index{RowIndex{row}, ColIndex{col}};
+            result[index] = rule(current[index], current.neighbours(index));
+        }
+    }
+}
+
+} // namespace
+
+void nextGeneration(const Field& current, Field& result) {
+    const auto size = current.getNormalizedSize();
+    assert(size == result.getNormalizedSize());
+
+    for (auto index : current.indices()) {
+        result[index] = current.cellNextGeneration(index);
+    }
 }
