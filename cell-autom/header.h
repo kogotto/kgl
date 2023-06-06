@@ -1,6 +1,8 @@
 #pragma once
 
-class Field;
+class Field {
+    Cells neigbours(CellIndex);
+};
 class Cell;
 class Cells;
 
