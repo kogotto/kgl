@@ -81,7 +81,6 @@ private:
     Rows rows;
 };
 
-Cell rule(Cell cell, Cells neighbours);
 Field nextGeneration(const Field& current);
 void nextGeneration(const Field& current, Field& result);
 
