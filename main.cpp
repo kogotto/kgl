@@ -11,6 +11,8 @@
 
 #include "debug.h"
 
+#include <field.h>
+
 namespace
 {
 
@@ -121,6 +123,8 @@ unsigned int compileProgram(std::string_view vertexShaderSource, std::string_vie
 
 int main() {
     std::cout << "Hi" << std::endl;
+
+    Field field(200, 200);
 
     if (!glfwInit()) {
         std::cout << "glfw cant init" << std::endl;
