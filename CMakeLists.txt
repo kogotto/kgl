@@ -9,6 +9,7 @@ add_executable(
     ${PROJECT_NAME}
     main.cpp
     debug.cpp
+    vertex_buffer.cpp
 )
 
 find_package(
