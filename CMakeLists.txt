@@ -10,6 +10,7 @@ add_executable(
     main.cpp
     debug.cpp
     vertex_buffer.cpp
+    index_buffer.cpp
 )
 
 find_package(
