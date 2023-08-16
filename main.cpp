@@ -11,6 +11,9 @@
 
 #include "debug.h"
 
+#include "vertex_buffer.h"
+#include "index_buffer.h"
+
 namespace
 {
 
@@ -154,18 +157,12 @@ int main() {
         2, 3, 0
     };
 
-    unsigned int vb = 0;
-    GLCALL(glGenBuffers(1, &vb));
-    GLCALL(glBindBuffer(GL_ARRAY_BUFFER, vb));
-    GLCALL(glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW));
+    VertexBuffer vb(positions, sizeof(positions));
 
     GLCALL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0));
     GLCALL(glEnableVertexAttribArray(0));
 
-    unsigned int ib = 0;
-    GLCALL(glGenBuffers(1, &ib));
-    GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ib));
-    GLCALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW));
+    IndexBuffer ib(indices, 6);
 
     auto [vertexShaderSource, fragmentShaderSource] =
         parseShaderFile("res/shaders/basic.shader");
@@ -182,6 +179,8 @@ int main() {
         GLCALL(glClear(GL_COLOR_BUFFER_BIT));
 
         GLCALL(glUniform4f(location, r, 0.3f, 0.8f, 1.0));
+
+        // TODO Bind this call to IndexBuffer to fulfill DRY principle
         GLCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
 
         if (r > 1.0) {
