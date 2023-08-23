@@ -129,6 +129,10 @@ int main() {
     }
     const GLFWTerminator autoGlfwTerminator;
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     GLFWwindow* window = glfwCreateWindow(640, 480, "Hello GLFW", NULL, NULL);
     if (!window) {
         std::cout << "glfw window creation failed" << std::endl;
@@ -156,6 +160,10 @@ int main() {
         0, 1, 2,
         2, 3, 0
     };
+
+    unsigned int vao;
+    GLCALL(glGenVertexArrays(1, &vao));
+    GLCALL(glBindVertexArray(vao));
 
     VertexBuffer vb(positions, sizeof(positions));
 
