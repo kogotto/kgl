@@ -123,8 +123,6 @@ unsigned int compileProgram(std::string_view vertexShaderSource, std::string_vie
 } // namespace
 
 int main() {
-    std::cout << "Hi" << std::endl;
-
     if (!glfwInit()) {
         std::cout << "glfw cant init" << std::endl;
         return GLFW_INIT_FAILED;
@@ -144,6 +142,8 @@ int main() {
         std::cout << "glew cant init" << std::endl;
         return GLEW_INIT_FAILED;
     }
+
+    std::cout << GLCALL(glGetString(GL_VERSION)) << std::endl;
 
     float positions[] = {
         -0.5f, -0.5f,
