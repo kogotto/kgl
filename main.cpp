@@ -13,6 +13,7 @@
 
 #include "vertex_buffer.h"
 #include "index_buffer.h"
+#include "vertex_array.h"
 
 namespace
 {
@@ -161,14 +162,15 @@ int main() {
         2, 3, 0
     };
 
-    unsigned int vao;
-    GLCALL(glGenVertexArrays(1, &vao));
-    GLCALL(glBindVertexArray(vao));
-
+    VertexArray vao;
     VertexBuffer vb(positions, sizeof(positions));
 
-    GLCALL(glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0));
-    GLCALL(glEnableVertexAttribArray(0));
+    VertexBufferLayout layout;
+    layout.push<float>(2);
+
+    vao.addBuffer(vb, layout);
+
+    vao.bind();
 
     IndexBuffer ib(indices, 6);
 
