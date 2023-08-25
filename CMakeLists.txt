@@ -12,6 +12,7 @@ add_executable(
     vertex_array.cpp
     vertex_buffer.cpp
     index_buffer.cpp
+    shader.cpp
 )
 
 find_package(
