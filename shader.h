@@ -5,12 +5,16 @@
 class Shader {
 public:
 
-    Shader(std::string_view vertextShaderSource,
-           std::string_view fragmentShaderSource);
+    explicit Shader(unsigned int id)
+        : id{id} {}
     ~Shader();
+
+    static Shader fromFile(std::string_view filepath);
 
     void bind() const;
     void unbind() const;
+
+    unsigned int getUniformLocation(std::string_view name) const;
 
     void setUniform4f(std::string_view name,
                       float v0,
