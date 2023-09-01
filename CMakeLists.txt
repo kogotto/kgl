@@ -13,6 +13,7 @@ add_executable(
     vertex_buffer.cpp
     index_buffer.cpp
     shader.cpp
+    uniform_location.cpp
 )
 
 find_package(

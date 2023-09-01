@@ -2,6 +2,8 @@
 
 #include <string_view>
 
+#include "uniform_location.h"
+
 class Shader {
 public:
 
@@ -14,7 +16,7 @@ public:
     void bind() const;
     void unbind() const;
 
-    unsigned int getUniformLocation(std::string_view name) const;
+    UniformLocation getUniformLocation(std::string_view name) const;
 
     void setUniform4f(std::string_view name,
                       float v0,

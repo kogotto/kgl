@@ -123,8 +123,9 @@ void Shader::unbind() const {
     GLCALL(glUseProgram(0));
 }
 
-unsigned int Shader::getUniformLocation(std::string_view name) const {
-    return GLCALL(glGetUniformLocation(id, name.data()));
+UniformLocation Shader::getUniformLocation(std::string_view name) const {
+    auto uniformId = GLCALL(glGetUniformLocation(id, name.data()));
+    return UniformLocation{uniformId};
 }
 
 void Shader::setUniform4f(std::string_view name,
