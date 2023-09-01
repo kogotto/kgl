@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string_view>
+#include <string>
 
 #include "uniform_location.h"
 
@@ -11,18 +11,12 @@ public:
         : id{id} {}
     ~Shader();
 
-    static Shader fromFile(std::string_view filepath);
+    static Shader fromFile(const std::string& filepath);
 
     void bind() const;
     void unbind() const;
 
-    UniformLocation getUniformLocation(std::string_view name) const;
-
-    void setUniform4f(std::string_view name,
-                      float v0,
-                      float v1,
-                      float v2,
-                      float v3);
+    UniformLocation getUniformLocation(const std::string& name) const;
 
 private:
     unsigned int id;

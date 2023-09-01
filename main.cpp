@@ -65,6 +65,9 @@ int main() {
         2, 3, 0
     };
 
+    const std::string shaderFilepath{"res/shaders/basic.shader"};
+    const std::string colorUniformName{"u_Color"};
+
     VertexArray vao;
     VertexBuffer vb(positions, sizeof(positions));
 
@@ -77,8 +80,8 @@ int main() {
 
     IndexBuffer ib(indices, 6);
 
-    auto shader = Shader::fromFile("res/shaders/basic.shader");
-    auto location = shader.getUniformLocation("u_Color");
+    auto shader = Shader::fromFile(shaderFilepath);
+    auto location = shader.getUniformLocation(colorUniformName);
     shader.bind();
 
     float r = 0.5;

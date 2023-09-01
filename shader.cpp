@@ -109,9 +109,9 @@ Shader::~Shader() {
     GLCALL(glDeleteProgram(id));
 }
 
-Shader Shader::fromFile(std::string_view filepath) {
+Shader Shader::fromFile(const std::string& filepath) {
     auto [vertexShaderSource, fragmentShaderSource] =
-        parseShaderFile("res/shaders/basic.shader");
+        parseShaderFile(filepath);
     return Shader{compileProgram(vertexShaderSource, fragmentShaderSource)};
 }
 
@@ -123,15 +123,7 @@ void Shader::unbind() const {
     GLCALL(glUseProgram(0));
 }
 
-UniformLocation Shader::getUniformLocation(std::string_view name) const {
+UniformLocation Shader::getUniformLocation(const std::string& name) const {
     auto uniformId = GLCALL(glGetUniformLocation(id, name.data()));
     return UniformLocation{uniformId};
 }
-
-void Shader::setUniform4f(std::string_view name,
-                          float v0,
-                          float v1,
-                          float v2,
-                          float v3) {
-}
-
