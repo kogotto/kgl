@@ -14,6 +14,7 @@ add_executable(
     index_buffer.cpp
     shader.cpp
     uniform_location.cpp
+    renderer.cpp
 )
 
 find_package(

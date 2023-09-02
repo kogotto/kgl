@@ -10,6 +10,7 @@
 #include "index_buffer.h"
 #include "vertex_array.h"
 #include "shader.h"
+#include "renderer.h"
 
 namespace
 {
@@ -68,32 +69,30 @@ int main() {
     const std::string shaderFilepath{"res/shaders/basic.shader"};
     const std::string colorUniformName{"u_Color"};
 
-    VertexArray vao;
     VertexBuffer vb(positions, sizeof(positions));
-
     VertexBufferLayout layout;
     layout.push<float>(2);
 
+    VertexArray vao;
     vao.addBuffer(vb, layout);
-
-    vao.bind();
 
     IndexBuffer ib(indices, 6);
 
     auto shader = Shader::fromFile(shaderFilepath);
     auto location = shader.getUniformLocation(colorUniformName);
-    shader.bind();
+
+    Renderer renderer;
 
     float r = 0.5;
     float increment = 0.05;
 
     while (!glfwWindowShouldClose(window)) {
-        GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+        renderer.clear();
 
+        shader.bind();
         location.set(r, 0.3f, 0.8f, 1.0);
 
-        // TODO Bind this call to IndexBuffer to fulfill DRY principle
-        GLCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+        renderer.draw(vao, ib, shader);
 
         if (r > 1.0) {
             increment = -0.05;
