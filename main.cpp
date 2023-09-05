@@ -1,12 +1,16 @@
 #include <iostream>
 
+#define GLEW_NO_GLU
+#include <GL/glew.h>
+
+#include <GLFW/glfw3.h>
+
 #include "vertex_buffer.h"
+#include "vertex_buffer_layout.h"
 #include "index_buffer.h"
 #include "vertex_array.h"
 #include "shader.h"
 #include "renderer.h"
-
-#include <GLFW/glfw3.h>
 
 namespace
 {
