@@ -1,16 +1,12 @@
 #include <iostream>
 
-#define GLEW_NO_GLU
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include "debug.h"
-
 #include "vertex_buffer.h"
 #include "index_buffer.h"
 #include "vertex_array.h"
 #include "shader.h"
 #include "renderer.h"
+
+#include <GLFW/glfw3.h>
 
 namespace
 {
@@ -52,7 +48,9 @@ int main() {
         return GLEW_INIT_FAILED;
     }
 
-    std::cout << GLCALL(glGetString(GL_VERSION)) << std::endl;
+    Renderer renderer;
+
+    std::cout << renderer.getOpenGlVersion() << std::endl;
 
     float positions[] = {
         -0.5f, -0.5f,
@@ -80,8 +78,6 @@ int main() {
 
     auto shader = Shader::fromFile(shaderFilepath);
     auto location = shader.getUniformLocation(colorUniformName);
-
-    Renderer renderer;
 
     float r = 0.5;
     float increment = 0.05;

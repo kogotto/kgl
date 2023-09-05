@@ -8,6 +8,10 @@
 #include "index_buffer.h"
 #include "shader.h"
 
+const unsigned char* Renderer::getOpenGlVersion() const {
+    return GLCALL(glGetString(GL_VERSION));
+}
+
 void Renderer::clear() const {
     GLCALL(glClear(GL_COLOR_BUFFER_BIT));
 }
