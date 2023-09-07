@@ -34,8 +34,11 @@ find_package(
     GLEW REQUIRED
 )
 
+add_subdirectory(cell-autom)
+
 target_link_libraries(
     kgl
+    cell-autom
     OpenGL::GL
     glfw
     GLEW::glew_s
