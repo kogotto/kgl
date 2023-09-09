@@ -12,6 +12,8 @@
 #include "shader.h"
 #include "renderer.h"
 
+#include "prepare_views.h"
+
 namespace
 {
 
