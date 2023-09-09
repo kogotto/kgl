@@ -5,7 +5,7 @@
 
 #include "debug.h"
 
-IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
+IndexBuffer::IndexBuffer(const unsigned int* data, std::ptrdiff_t count)
     : count{count}
 {
     GLCALL(glGenBuffers(1, &id));

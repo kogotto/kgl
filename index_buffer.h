@@ -1,8 +1,10 @@
 #pragma once
 
+#include <cstdint>
+
 class IndexBuffer {
 public:
-    IndexBuffer(const unsigned int* data, unsigned int count);
+    IndexBuffer(const unsigned int* data, std::ptrdiff_t count);
     ~IndexBuffer();
 
     void bind() const;
@@ -11,5 +13,5 @@ public:
     auto getCount() const { return count; }
 private:
     unsigned int id;
-    unsigned int count;
+    std::ptrdiff_t count;
 };

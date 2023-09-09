@@ -1,8 +1,10 @@
 #pragma once
 
+#include <cstdint>
+
 class VertexBuffer {
 public:
-    VertexBuffer(const void* data, unsigned int size);
+    VertexBuffer(const void* data, std::ptrdiff_t size);
     ~VertexBuffer();
 
     void bind() const;

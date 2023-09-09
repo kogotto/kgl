@@ -5,7 +5,7 @@
 
 #include "debug.h"
 
-VertexBuffer::VertexBuffer(const void* data, unsigned int size) {
+VertexBuffer::VertexBuffer(const void* data, std::ptrdiff_t size) {
     GLCALL(glGenBuffers(1, &id));
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
     GLCALL(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
