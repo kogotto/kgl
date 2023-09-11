@@ -8,6 +8,7 @@
 #include "vertex_buffer.h"
 #include "vertex_buffer_layout.h"
 #include "index_buffer.h"
+#include "shader.h"
 
 #include "field_view.h"
 
@@ -120,6 +121,8 @@ inline auto prepareGraphics(const Field& fieldModel) {
 
     auto indices = prepareIndexStorage(cellRows, cellCols);
     IndexBuffer ib{indices.data(), static_cast<ptrdiff_t>(indices.size())};
+
+    auto shader = Shader::fromFile("res/shaders/automata.shader");
 
     FieldView fieldView{fieldModel, storage};
 }
