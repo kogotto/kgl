@@ -1,5 +1,7 @@
 #include "vertex_buffer.h"
 
+#include <utility>
+
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
@@ -10,6 +12,15 @@ VertexBuffer::VertexBuffer(const void* data, std::ptrdiff_t size) {
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
     GLCALL(glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW));
 
+}
+
+VertexBuffer::VertexBuffer(VertexBuffer&& rhs) noexcept
+    : id{std::exchange(rhs.id, 0)}
+{}
+
+VertexBuffer& VertexBuffer::operator=(VertexBuffer&& rhs) noexcept {
+    std::swap(id, rhs.id);
+    return *this;
 }
 
 VertexBuffer::~VertexBuffer() {
