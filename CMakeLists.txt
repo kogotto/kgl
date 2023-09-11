@@ -15,6 +15,9 @@ add_executable(
     shader.cpp
     uniform_location.cpp
     renderer.cpp
+
+    cell_view.cpp
+    field_view.cpp
 )
 
 find_package(

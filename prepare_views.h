@@ -3,10 +3,13 @@
 #include <vector>
 
 #include <field.h>
+#include "storage.h"
 #include "vertex_array.h"
 #include "vertex_buffer.h"
 #include "vertex_buffer_layout.h"
 #include "index_buffer.h"
+
+#include "field_view.h"
 
 struct Rect {
     float left;
@@ -14,13 +17,6 @@ struct Rect {
     float right;
     float bottom;
 };
-
-struct Vertex {
-    float position[2];
-    float color[4];
-};
-
-using Storage = std::vector<Vertex>;
 
 inline float step(float start, float finish, size_t count) {
     return (finish - start) / count;
@@ -110,8 +106,6 @@ std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
 inline auto prepareGraphics(const Field& fieldModel) {
     const auto cellRows = fieldModel.getRowsCount();
     const auto cellCols = fieldModel.getColsCount();
-    const auto verticesRows = cellRows + 1;
-    const auto verticesCols = cellCols + 1;
     const Rect screenRect{-1.f, 1.f, 1.f, -1.f};
 
     auto storage = prepareVertexStorage(cellRows, cellCols, screenRect);
@@ -126,4 +120,6 @@ inline auto prepareGraphics(const Field& fieldModel) {
 
     auto indices = prepareIndexStorage(cellRows, cellCols);
     IndexBuffer ib{indices.data(), static_cast<ptrdiff_t>(indices.size())};
+
+    FieldView fieldView{fieldModel, storage};
 }
