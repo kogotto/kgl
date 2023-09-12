@@ -28,7 +28,7 @@ public:
     };
 
     Field(size_t rowsCount, size_t colsCount)
-        : rows(rowsCount, Row(colsCount))
+        : rows(rowsCount, Row(colsCount, Cell::Died))
     {}
 
     size_t getRowsCount() const {
@@ -52,26 +52,12 @@ public:
     Cell& cell(NormalizedIndex index) {
         return rows[index.row][index.col];
     }
-    Cell cell(NormalizedIndex index) const {
+    const Cell& cell(NormalizedIndex index) const {
         return rows[index.row][index.col];
     }
 
     Cell& cell(CellIndex index);
-    Cell cell(CellIndex index) const;
-
-    Cell& operator[](CellIndex index) {
-        return cell(index);
-    }
-    Cell operator[](CellIndex index) const {
-        return cell(index);
-    }
-
-    Cell& operator[](NormalizedIndex index) {
-        return cell(index);
-    }
-    Cell operator[](NormalizedIndex index) const {
-        return cell(index);
-    }
+    const Cell& cell(CellIndex index) const;
 
     Cell cellNextGeneration(CellIndex index) const;
 

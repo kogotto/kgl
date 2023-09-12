@@ -67,12 +67,12 @@ Cells Field::neighbours(CellIndex index) const {
 
 Cell& Field::cell(CellIndex index) {
     const auto normalizedIndex = normalize(index, getNormalizedSize());
-    return operator[](normalizedIndex);
+    return cell(normalizedIndex);
 }
 
-Cell Field::cell(CellIndex index) const {
+const Cell& Field::cell(CellIndex index) const {
     const auto normalizedIndex = normalize(index, getNormalizedSize());
-    return operator[](normalizedIndex);
+    return cell(normalizedIndex);
 }
 
 Cell Field::cellNextGeneration(CellIndex index) const {
@@ -87,7 +87,7 @@ Field nextGeneration(const Field& current) {
     for (int32_t row = 0; row < rowCount; ++row) {
         for (int32_t col = 0; col < colCount; ++col) {
             const CellIndex index{RowIndex{row}, ColIndex{col}};
-            result[index] = rule(current[index], current.neighbours(index));
+            result.cell(index) = rule(current.cell(index), current.neighbours(index));
         }
     }
     return result;
@@ -102,7 +102,7 @@ void nextGenerationSample(const Field& current, Field& result) {
     for (int32_t row = 0; row < size.row; ++row) {
         for (int32_t col = 0; col < size.col; ++col) {
             const CellIndex index{RowIndex{row}, ColIndex{col}};
-            result[index] = rule(current[index], current.neighbours(index));
+            result.cell(index) = rule(current.cell(index), current.neighbours(index));
         }
     }
 }
@@ -114,6 +114,6 @@ void nextGeneration(const Field& current, Field& result) {
     assert(size == result.getNormalizedSize());
 
     for (auto index : current.indices()) {
-        result[index] = current.cellNextGeneration(index);
+        result.cell(index) = current.cellNextGeneration(index);
     }
 }
