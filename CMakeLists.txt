@@ -16,6 +16,8 @@ add_executable(
     uniform_location.cpp
     renderer.cpp
 
+    timer.cpp
+
     cell_view.cpp
     field_view.cpp
     prepare_views.cpp
