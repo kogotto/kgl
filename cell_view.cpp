@@ -6,9 +6,9 @@ namespace {
 
 using Color = float[4];
 
-constexpr Color deathColor{0.f, 0.f, 0.f, 0.f};
-constexpr Color aliveColor{1.f, 1.f, 1.f, 1.f};
-constexpr Color unknownColor{1.f, 0.f, 0.f, 0.f};
+constexpr Color deathColor{1.f, 1.f, 0.f, 1.f};   // yellow
+constexpr Color aliveColor{0.f, 0.f, 1.f, 1.f};   // blue
+constexpr Color unknownColor{0.f, 0.f, 0.f, 1.f}; // black
 
 const auto& pickColor(Cell cell) {
     switch (cell) {

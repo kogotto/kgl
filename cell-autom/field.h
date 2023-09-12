@@ -29,7 +29,15 @@ public:
 
     Field(size_t rowsCount, size_t colsCount)
         : rows(rowsCount, Row(colsCount, Cell::Died))
-    {}
+    {
+        for (size_t row = 0; row < rowsCount; ++row) {
+            for (size_t col = 0; col < colsCount; ++col) {
+                if ((row + col) % 2 == 0) {
+                    rows[row][col] = Cell::Alive;
+                }
+            }
+        }
+    }
 
     size_t getRowsCount() const {
         return rows.size();
