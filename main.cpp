@@ -12,6 +12,8 @@
 #include "shader.h"
 #include "renderer.h"
 
+#include "timer.h"
+
 #include "prepare_views.h"
 
 namespace
@@ -59,11 +61,15 @@ int main() {
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
     Field field{16, 16};
-
     GraphicsData gd{field};
+    Timer time{std::chrono::milliseconds{500}};
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
+
+        if (time.hasCome()) {
+            field.nextGeneration();
+        }
 
         gd.update();
         renderer.draw(gd.va, gd.ib, gd.shader);
