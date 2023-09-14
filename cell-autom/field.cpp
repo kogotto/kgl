@@ -1,7 +1,5 @@
 #include <field.h>
 
-#include <cassert>
-
 #include <rule.h>
 
 namespace {
@@ -79,6 +77,24 @@ Cell Field::cellNextGeneration(CellIndex index) const {
     return rule(cell(index), neighbours(index));
 }
 
+void Field::nextGeneration() {
+    *this = ::nextGeneration(*this);
+}
+
+void Field::insertGlider(CellIndex topLeft) {
+    constexpr std::array<CellIndex, 5> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{1}, ColIndex{2}},
+        CellIndex{RowIndex{2}, ColIndex{0}},
+        CellIndex{RowIndex{2}, ColIndex{1}},
+        CellIndex{RowIndex{2}, ColIndex{2}}
+    };
+
+    for (const auto index : aliveCells) {
+        cell(topLeft + index) = Cell::Alive;
+    }
+}
+
 Field nextGeneration(const Field& current) {
     const size_t rowCount = current.getRowsCount();
     const size_t colCount = current.getColsCount();
@@ -91,29 +107,4 @@ Field nextGeneration(const Field& current) {
         }
     }
     return result;
-}
-
-namespace {
-
-void nextGenerationSample(const Field& current, Field& result) {
-    const auto size = current.getNormalizedSize();
-    assert(size == result.getNormalizedSize());
-
-    for (int32_t row = 0; row < size.row; ++row) {
-        for (int32_t col = 0; col < size.col; ++col) {
-            const CellIndex index{RowIndex{row}, ColIndex{col}};
-            result.cell(index) = rule(current.cell(index), current.neighbours(index));
-        }
-    }
-}
-
-} // namespace
-
-void nextGeneration(const Field& current, Field& result) {
-    const auto size = current.getNormalizedSize();
-    assert(size == result.getNormalizedSize());
-
-    for (auto index : current.indices()) {
-        result.cell(index) = current.cellNextGeneration(index);
-    }
 }

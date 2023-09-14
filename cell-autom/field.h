@@ -30,13 +30,17 @@ public:
     Field(size_t rowsCount, size_t colsCount)
         : rows(rowsCount, Row(colsCount, Cell::Died))
     {
-        for (size_t row = 0; row < rowsCount; ++row) {
-            for (size_t col = 0; col < colsCount; ++col) {
-                if ((row + col) % 2 == 0) {
-                    rows[row][col] = Cell::Alive;
-                }
+        insertGlider({RowIndex{0}, ColIndex{0}});
+    }
+
+    Field& operator=(const Field& other) {
+        const auto [rowCount, colCount] = getNormalizedSize();
+        for (size_t row = 0; row < rowCount; ++row) {
+            for (size_t col = 0; col < colCount; ++col) {
+                rows[row][col] = other.rows[row][col];
             }
         }
+        return *this;
     }
 
     size_t getRowsCount() const {
@@ -69,12 +73,16 @@ public:
 
     Cell cellNextGeneration(CellIndex index) const;
 
+    void nextGeneration();
+
 private:
+
+    void insertGlider(CellIndex topLeft);
+
     using Row = std::vector<Cell>;
     using Rows = std::vector<Row>;
     Rows rows;
 };
 
 Field nextGeneration(const Field& current);
-void nextGeneration(const Field& current, Field& result);
 
