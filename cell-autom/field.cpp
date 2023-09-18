@@ -81,7 +81,7 @@ void Field::nextGeneration() {
     *this = ::nextGeneration(*this);
 }
 
-void Field::insertGlider(CellIndex topLeft) {
+void Field::insertGlider(CellIndex offset) {
     constexpr std::array<CellIndex, 5> aliveCells = {
         CellIndex{RowIndex{0}, ColIndex{1}},
         CellIndex{RowIndex{1}, ColIndex{2}},
@@ -91,7 +91,19 @@ void Field::insertGlider(CellIndex topLeft) {
     };
 
     for (const auto index : aliveCells) {
-        cell(topLeft + index) = Cell::Alive;
+        cell(offset + index) = Cell::Alive;
+    }
+}
+
+void Field::insertStick(CellIndex offset) {
+    constexpr std::array<CellIndex, 3> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{0}},
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{0}, ColIndex{2}},
+    };
+
+    for (const auto index : aliveCells) {
+        cell(offset + index) = Cell::Alive;
     }
 }
 

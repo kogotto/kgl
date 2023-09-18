@@ -60,9 +60,9 @@ int main() {
 
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
-    Field field{16, 16};
+    Field field{32, 32};
     GraphicsData gd{field};
-    Timer time{std::chrono::milliseconds{500}};
+    Timer time{std::chrono::milliseconds{250}};
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();

@@ -31,6 +31,7 @@ public:
         : rows(rowsCount, Row(colsCount, Cell::Died))
     {
         insertGlider({RowIndex{0}, ColIndex{0}});
+        insertStick({RowIndex{15}, ColIndex{15}});
     }
 
     Field& operator=(const Field& other) {
@@ -77,7 +78,8 @@ public:
 
 private:
 
-    void insertGlider(CellIndex topLeft);
+    void insertGlider(CellIndex offset);
+    void insertStick(CellIndex offset);
 
     using Row = std::vector<Cell>;
     using Rows = std::vector<Row>;
