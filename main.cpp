@@ -12,6 +12,10 @@
 #include "shader.h"
 #include "renderer.h"
 
+#include "timer.h"
+
+#include "prepare_views.h"
+
 namespace
 {
 
@@ -56,50 +60,19 @@ int main() {
 
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
-    float positions[] = {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f,
-        -0.5f,  0.5f
-    };
-
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
-
-    const std::string shaderFilepath{"res/shaders/basic.shader"};
-    const std::string colorUniformName{"u_Color"};
-
-    VertexBuffer vb(positions, sizeof(positions));
-    VertexBufferLayout layout;
-    layout.push<float>(2);
-
-    VertexArray vao;
-    vao.addBuffer(vb, layout);
-
-    IndexBuffer ib(indices, 6);
-
-    auto shader = Shader::fromFile(shaderFilepath);
-    auto location = shader.getUniformLocation(colorUniformName);
-
-    float r = 0.5;
-    float increment = 0.05;
+    Field field{32, 32};
+    GraphicsData gd{field};
+    Timer time{std::chrono::milliseconds{250}};
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
 
-        shader.bind();
-        location.set(r, 0.3f, 0.8f, 1.0);
-
-        renderer.draw(vao, ib, shader);
-
-        if (r > 1.0) {
-            increment = -0.05;
-        } else if (r < 0.0) {
-            increment = +0.05;
+        if (time.hasCome()) {
+            field.nextGeneration();
         }
-        r += increment;
+
+        gd.update();
+        renderer.draw(gd.va, gd.ib, gd.shader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

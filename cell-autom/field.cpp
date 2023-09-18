@@ -1,7 +1,5 @@
 #include <field.h>
 
-#include <cassert>
-
 #include <rule.h>
 
 namespace {
@@ -67,16 +65,46 @@ Cells Field::neighbours(CellIndex index) const {
 
 Cell& Field::cell(CellIndex index) {
     const auto normalizedIndex = normalize(index, getNormalizedSize());
-    return operator[](normalizedIndex);
+    return cell(normalizedIndex);
 }
 
-Cell Field::cell(CellIndex index) const {
+const Cell& Field::cell(CellIndex index) const {
     const auto normalizedIndex = normalize(index, getNormalizedSize());
-    return operator[](normalizedIndex);
+    return cell(normalizedIndex);
 }
 
 Cell Field::cellNextGeneration(CellIndex index) const {
     return rule(cell(index), neighbours(index));
+}
+
+void Field::nextGeneration() {
+    *this = ::nextGeneration(*this);
+}
+
+void Field::insertGlider(CellIndex offset) {
+    constexpr std::array<CellIndex, 5> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{1}, ColIndex{2}},
+        CellIndex{RowIndex{2}, ColIndex{0}},
+        CellIndex{RowIndex{2}, ColIndex{1}},
+        CellIndex{RowIndex{2}, ColIndex{2}}
+    };
+
+    for (const auto index : aliveCells) {
+        cell(offset + index) = Cell::Alive;
+    }
+}
+
+void Field::insertStick(CellIndex offset) {
+    constexpr std::array<CellIndex, 3> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{0}},
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{0}, ColIndex{2}},
+    };
+
+    for (const auto index : aliveCells) {
+        cell(offset + index) = Cell::Alive;
+    }
 }
 
 Field nextGeneration(const Field& current) {
@@ -87,33 +115,8 @@ Field nextGeneration(const Field& current) {
     for (int32_t row = 0; row < rowCount; ++row) {
         for (int32_t col = 0; col < colCount; ++col) {
             const CellIndex index{RowIndex{row}, ColIndex{col}};
-            result[index] = rule(current[index], current.neighbours(index));
+            result.cell(index) = rule(current.cell(index), current.neighbours(index));
         }
     }
     return result;
-}
-
-namespace {
-
-void nextGenerationSample(const Field& current, Field& result) {
-    const auto size = current.getNormalizedSize();
-    assert(size == result.getNormalizedSize());
-
-    for (int32_t row = 0; row < size.row; ++row) {
-        for (int32_t col = 0; col < size.col; ++col) {
-            const CellIndex index{RowIndex{row}, ColIndex{col}};
-            result[index] = rule(current[index], current.neighbours(index));
-        }
-    }
-}
-
-} // namespace
-
-void nextGeneration(const Field& current, Field& result) {
-    const auto size = current.getNormalizedSize();
-    assert(size == result.getNormalizedSize());
-
-    for (auto index : current.indices()) {
-        result[index] = current.cellNextGeneration(index);
-    }
 }

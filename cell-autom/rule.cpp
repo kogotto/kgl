@@ -20,7 +20,7 @@ Cell rule(Cell cell, Cells neighbours) {
 
     switch (cell) {
         case Cell::Died:
-            return aliveAround == 2
+            return aliveAround == 3
                 ? Cell::Alive
                 : Cell::Died;
         case Cell::Alive:

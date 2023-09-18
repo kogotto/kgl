@@ -21,8 +21,7 @@ struct ColIndex {
     }
 };
 
-class CellIndex {
-public:
+struct CellIndex {
     constexpr CellIndex(RowIndex rowIndex, ColIndex colIndex) noexcept
         : row{rowIndex}
         , col{colIndex}
@@ -47,7 +46,6 @@ public:
         return temp += rhs;
     }
 
-private:
     RowIndex row;
     ColIndex col;
 };

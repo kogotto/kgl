@@ -1,5 +1,7 @@
 #include "vertex_array.h"
 
+#include <utility>
+
 #include "debug.h"
 
 #include "vertex_buffer.h"
@@ -18,6 +20,15 @@ auto genVertexArray() {
 VertexArray::VertexArray()
     : id{genVertexArray()}
 {}
+
+VertexArray::VertexArray(VertexArray&& rhs) noexcept
+    : id{std::exchange(rhs.id, 0)}
+{}
+
+VertexArray& VertexArray::operator=(VertexArray&& rhs) noexcept {
+    std::swap(id, rhs.id);
+    return *this;
+}
 
 VertexArray::~VertexArray() {
     GLCALL(glDeleteVertexArrays(1, &id));

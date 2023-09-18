@@ -28,8 +28,21 @@ public:
     };
 
     Field(size_t rowsCount, size_t colsCount)
-        : rows(rowsCount, Row(colsCount))
-    {}
+        : rows(rowsCount, Row(colsCount, Cell::Died))
+    {
+        insertGlider({RowIndex{0}, ColIndex{0}});
+        insertStick({RowIndex{15}, ColIndex{15}});
+    }
+
+    Field& operator=(const Field& other) {
+        const auto [rowCount, colCount] = getNormalizedSize();
+        for (size_t row = 0; row < rowCount; ++row) {
+            for (size_t col = 0; col < colCount; ++col) {
+                rows[row][col] = other.rows[row][col];
+            }
+        }
+        return *this;
+    }
 
     size_t getRowsCount() const {
         return rows.size();
@@ -52,35 +65,26 @@ public:
     Cell& cell(NormalizedIndex index) {
         return rows[index.row][index.col];
     }
-    Cell cell(NormalizedIndex index) const {
+    const Cell& cell(NormalizedIndex index) const {
         return rows[index.row][index.col];
     }
 
     Cell& cell(CellIndex index);
-    Cell cell(CellIndex index) const;
-
-    Cell& operator[](CellIndex index) {
-        return cell(index);
-    }
-    Cell operator[](CellIndex index) const {
-        return cell(index);
-    }
-
-    Cell& operator[](NormalizedIndex index) {
-        return cell(index);
-    }
-    Cell operator[](NormalizedIndex index) const {
-        return cell(index);
-    }
+    const Cell& cell(CellIndex index) const;
 
     Cell cellNextGeneration(CellIndex index) const;
 
+    void nextGeneration();
+
 private:
+
+    void insertGlider(CellIndex offset);
+    void insertStick(CellIndex offset);
+
     using Row = std::vector<Cell>;
     using Rows = std::vector<Row>;
     Rows rows;
 };
 
 Field nextGeneration(const Field& current);
-void nextGeneration(const Field& current, Field& result);
 
