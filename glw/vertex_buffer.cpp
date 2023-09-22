@@ -1,11 +1,11 @@
-#include "vertex_buffer.h"
+#include <glw/vertex_buffer.h>
 
 #include <utility>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include "debug.h"
+#include <glw/debug.h>
 
 VertexBuffer::VertexBuffer(const void* data, std::ptrdiff_t size) {
     GLCALL(glGenBuffers(1, &id));

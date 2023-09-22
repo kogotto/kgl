@@ -8,13 +8,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(
     ${PROJECT_NAME}
     main.cpp
-    debug.cpp
-    vertex_array.cpp
-    vertex_buffer.cpp
-    index_buffer.cpp
-    shader.cpp
-    uniform_location.cpp
-    renderer.cpp
 
     timer.cpp
 
@@ -31,23 +24,15 @@ include_directories(
     ${GLFW3_INCLUDE_DIR}
 )
 
-find_package(
-    OpenGL REQUIRED
-)
-
-set(GLEW_USE_STATIC_LIBS TRUE)
-find_package(
-    GLEW REQUIRED
-)
-
 add_subdirectory(cell-autom)
+add_subdirectory(glw)
 
 target_link_libraries(
     kgl
     cell-autom
-    OpenGL::GL
+    glw
+
     glfw
-    GLEW::glew_s
 )
 
 # TODO Reconsider mechanics for using resources in build

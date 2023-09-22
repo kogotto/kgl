@@ -1,11 +1,11 @@
-#include "vertex_array.h"
+#include <glw/vertex_array.h>
 
 #include <utility>
 
-#include "debug.h"
+#include <glw/debug.h>
 
-#include "vertex_buffer.h"
-#include "vertex_buffer_layout.h"
+#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_layout.h>
 
 namespace {
 

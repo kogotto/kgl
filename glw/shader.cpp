@@ -1,4 +1,4 @@
-#include "shader.h"
+#include <glw/shader.h>
 
 #include <iostream>
 #include <fstream>
@@ -8,7 +8,7 @@
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include "debug.h"
+#include <glw/debug.h>
 
 namespace {
 
