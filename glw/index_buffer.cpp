@@ -1,11 +1,11 @@
-#include "index_buffer.h"
+#include <glw/index_buffer.h>
 
 #include <utility>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include "debug.h"
+#include <glw/debug.h>
 
 IndexBuffer::IndexBuffer(const unsigned int* data, std::ptrdiff_t count)
     : count{count}

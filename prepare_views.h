@@ -4,11 +4,11 @@
 
 #include <field.h>
 #include "storage.h"
-#include "vertex_array.h"
-#include "vertex_buffer.h"
-#include "vertex_buffer_layout.h"
-#include "index_buffer.h"
-#include "shader.h"
+#include <glw/vertex_array.h>
+#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_layout.h>
+#include <glw/index_buffer.h>
+#include <glw/shader.h>
 
 #include "field_view.h"
 

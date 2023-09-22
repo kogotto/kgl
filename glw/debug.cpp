@@ -1,4 +1,4 @@
-#include "debug.h"
+#include <glw/debug.h>
 
 #include <iostream>
 

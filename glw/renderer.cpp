@@ -1,12 +1,12 @@
-#include "renderer.h"
+#include <glw/renderer.h>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include "debug.h"
-#include "vertex_array.h"
-#include "index_buffer.h"
-#include "shader.h"
+#include <glw/debug.h>
+#include <glw/vertex_array.h>
+#include <glw/index_buffer.h>
+#include <glw/shader.h>
 
 const unsigned char* Renderer::getOpenGlVersion() const {
     return GLCALL(glGetString(GL_VERSION));

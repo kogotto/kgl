@@ -1,6 +1,6 @@
 #include "prepare_views.h"
 
-#include "debug.h"
+#include <glw/debug.h>
 
 namespace {
 

@@ -5,12 +5,12 @@
 
 #include <GLFW/glfw3.h>
 
-#include "vertex_buffer.h"
-#include "vertex_buffer_layout.h"
-#include "index_buffer.h"
-#include "vertex_array.h"
-#include "shader.h"
-#include "renderer.h"
+#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_layout.h>
+#include <glw/index_buffer.h>
+#include <glw/vertex_array.h>
+#include <glw/shader.h>
+#include <glw/renderer.h>
 
 #include "timer.h"
 
