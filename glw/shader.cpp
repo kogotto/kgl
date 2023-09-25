@@ -10,6 +10,8 @@
 
 #include <glw/debug.h>
 
+namespace glw {
+
 namespace {
 
 struct ShaderParseResult {
@@ -127,3 +129,5 @@ UniformLocation Shader::getUniformLocation(const std::string& name) const {
     auto uniformId = GLCALL(glGetUniformLocation(id, name.data()));
     return UniformLocation{uniformId};
 }
+
+} // namespace glw

@@ -8,6 +8,8 @@
 #include <glw/index_buffer.h>
 #include <glw/shader.h>
 
+namespace glw {
+
 const unsigned char* Renderer::getOpenGlVersion() const {
     return GLCALL(glGetString(GL_VERSION));
 }
@@ -25,3 +27,5 @@ void Renderer::draw(const VertexArray& va,
 
     GLCALL(glDrawElements(GL_TRIANGLES, ib.getCount(), GL_UNSIGNED_INT, 0));
 }
+
+} // namespace glw

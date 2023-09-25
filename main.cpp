@@ -56,7 +56,7 @@ int main() {
         return GLEW_INIT_FAILED;
     }
 
-    Renderer renderer;
+    glw::Renderer renderer;
 
     std::cout << renderer.getOpenGlVersion() << std::endl;
 

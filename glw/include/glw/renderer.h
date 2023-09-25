@@ -1,8 +1,14 @@
 #pragma once
 
+namespace glw {
+
 class VertexArray;
 class IndexBuffer;
 class Shader;
+
+} // namespace glw
+
+namespace glw {
 
 class Renderer {
 public:
@@ -13,3 +19,5 @@ public:
               const Shader& shader) const;
 private:
 };
+
+} // namespace glw

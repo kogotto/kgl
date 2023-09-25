@@ -7,7 +7,9 @@
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-namespace {
+namespace glw {
+
+namespace detail {
 
 constexpr GLboolean toGlBoolean(bool b) {
     return b
@@ -43,7 +45,7 @@ constexpr GLboolean isNormalized(GLenum glType) {
     return 0;
 }
 
-} // namespace
+} // namespace detail
 
 struct VertexBufferLayoutElement {
     unsigned int count;
@@ -64,11 +66,11 @@ public:
 
     template<typename T>
     void push(unsigned int count) {
-        auto glType = toGlType<T>();
+        auto glType = detail::toGlType<T>();
         elements.emplace_back(
             count,
             glType,
-            toGlBoolean(isNormalized(glType)),
+            detail::toGlBoolean(detail::isNormalized(glType)),
             stride
         );
         stride += count * sizeof(T);
@@ -78,3 +80,5 @@ private:
     std::vector<VertexBufferLayoutElement> elements;
     unsigned int stride{0};
 };
+
+} // namespace glw

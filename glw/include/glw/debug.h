@@ -1,6 +1,6 @@
 #pragma once
 
-namespace debug
+namespace glw::debug
 {
 
 struct GLErrorHandler {
@@ -12,7 +12,7 @@ private:
     int line;
 };
 
-} // namespace debug
+} // namespace glw::debug
 
 #ifdef NDEBUG
 
@@ -22,7 +22,7 @@ private:
 
 #define GLCALL(x)                                               \
     [&] {                                                       \
-        debug::GLErrorHandler handler{#x, __FILE__, __LINE__};  \
+        glw::debug::GLErrorHandler handler{#x, __FILE__, __LINE__};  \
         return (x);                                             \
     } ()
 

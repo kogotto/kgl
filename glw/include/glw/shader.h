@@ -4,6 +4,8 @@
 
 #include "uniform_location.h"
 
+namespace glw {
+
 class Shader {
 public:
 
@@ -21,3 +23,5 @@ public:
 private:
     unsigned int id;
 };
+
+} // namespace glw
