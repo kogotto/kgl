@@ -7,6 +7,8 @@
 
 #include <glw/debug.h>
 
+namespace glw {
+
 IndexBuffer::IndexBuffer(const unsigned int* data, std::ptrdiff_t count)
     : count{count}
 {
@@ -36,3 +38,5 @@ void IndexBuffer::bind() const {
 void IndexBuffer::unbind() const {
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 }
+
+} // namespace glw

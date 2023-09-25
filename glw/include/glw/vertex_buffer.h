@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+namespace glw {
+
 class VertexBuffer {
 public:
     VertexBuffer(const void* data, std::ptrdiff_t size);
@@ -19,3 +21,5 @@ public:
 private:
     unsigned int id;
 };
+
+} // namespace glw

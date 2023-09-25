@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+namespace glw {
+
 class IndexBuffer {
 public:
     IndexBuffer(const unsigned int* data, std::ptrdiff_t count);
@@ -22,3 +24,5 @@ private:
     unsigned int id;
     std::ptrdiff_t count;
 };
+
+} // namespace glw

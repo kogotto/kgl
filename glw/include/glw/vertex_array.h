@@ -1,7 +1,13 @@
 #pragma once
 
+namespace glw {
+
 class VertexBuffer;
 class VertexBufferLayout;
+
+} // namespace glw
+
+namespace glw {
 
 class VertexArray {
 public:
@@ -23,3 +29,5 @@ public:
 private:
     unsigned int id;
 };
+
+} // namespace glw

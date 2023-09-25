@@ -7,6 +7,8 @@
 #include <glw/vertex_buffer.h>
 #include <glw/vertex_buffer_layout.h>
 
+namespace glw {
+
 namespace {
 
 auto genVertexArray() {
@@ -60,3 +62,5 @@ void VertexArray::bind() const {
 void VertexArray::unbind() const {
     GLCALL(glBindVertexArray(0));
 }
+
+} // namespace glw

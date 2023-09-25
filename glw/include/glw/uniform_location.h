@@ -1,5 +1,7 @@
 #pragma once
 
+namespace glw {
+
 class UniformLocation {
 public:
     explicit UniformLocation(int id)
@@ -9,3 +11,5 @@ public:
 private:
     int id;
 };
+
+} // namespace glw

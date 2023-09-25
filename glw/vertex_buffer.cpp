@@ -7,6 +7,8 @@
 
 #include <glw/debug.h>
 
+namespace glw {
+
 VertexBuffer::VertexBuffer(const void* data, std::ptrdiff_t size) {
     GLCALL(glGenBuffers(1, &id));
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
@@ -34,3 +36,5 @@ void VertexBuffer::bind() const {
 void VertexBuffer::unbind() const {
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
+
+} // namespace glw

@@ -44,7 +44,7 @@ bool GLCheckErrors(const char* function, const char* file, int line) {
 
 #define GLASSERT(x) { if (!(x)) std::abort(); }
 
-namespace debug {
+namespace glw::debug {
 
 GLErrorHandler::GLErrorHandler(const char* function, const char* file, int line)
     : function{function}
@@ -57,5 +57,5 @@ GLErrorHandler::~GLErrorHandler() {
     GLASSERT(GLCheckErrors(function, file, line));
 }
 
-} // namespace debug
+} // namespace glw::debug
 
