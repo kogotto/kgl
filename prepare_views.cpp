@@ -71,16 +71,16 @@ std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
 }
 
 auto prepareVertexBuffer(Storage& storage) {
-    VertexBuffer vb{storage.data(), sizeInBytes(storage)};
+    glw::VertexBuffer vb{storage.data(), sizeInBytes(storage)};
     return vb;
 }
 
-auto prepareVertexArray(const VertexBuffer& vb) {
-    VertexBufferLayout layout;
+auto prepareVertexArray(const glw::VertexBuffer& vb) {
+    glw::VertexBufferLayout layout;
     layout.push<float>(2);
     layout.push<float>(4);
 
-    VertexArray va;
+    glw::VertexArray va;
     va.addBuffer(vb, layout);
 
     return va;
@@ -115,7 +115,7 @@ inline auto prepareIndexStorage(size_t rows, size_t cols) {
 }
 
 auto prepareIndexBuffer(IndexStorage& storage) {
-    IndexBuffer ib{storage.data(), static_cast<ptrdiff_t>(storage.size())};
+    glw::IndexBuffer ib{storage.data(), static_cast<ptrdiff_t>(storage.size())};
     return ib;
 }
 
@@ -146,7 +146,7 @@ GraphicsData::GraphicsData(
     , va(prepareVertexArray(vb))
     , indices(prepareIndexStorage(cellRows, cellCols))
     , ib(prepareIndexBuffer(indices))
-    , shader(Shader::fromFile("res/shaders/automata.shader"))
+    , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
     , fieldView(fieldModel, storage)
 {
 }

@@ -25,10 +25,10 @@ public:
     GraphicsData(const Field& fieldModel, size_t cellRows, size_t cellCols);
 
     Storage storage;
-    VertexBuffer vb;
-    VertexArray va;
+    glw::VertexBuffer vb;
+    glw::VertexArray va;
     IndexStorage indices;
-    IndexBuffer ib;
-    Shader shader;
+    glw::IndexBuffer ib;
+    glw::Shader shader;
     FieldView fieldView;
 };
