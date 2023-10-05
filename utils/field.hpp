@@ -4,7 +4,7 @@
 
 namespace ut::details {
 
-inline size_t containerIndex(size_t colsCount, NormalizedIndex index) {
+inline size_t toContainerIndex(size_t colsCount, NormalizedIndex index) {
     return index.row * colsCount + index.col;
 }
 
@@ -25,12 +25,12 @@ inline Field<T>::Field(NormalizedIndex size)
 
 template <typename T>
 inline auto Field<T>::cell(NormalizedIndex index) const -> const_reference {
-    return field[details::containerIndex(colsCount, index)];
+    return field[details::toContainerIndex(getColsCount(), index)];
 }
 
 template <typename T>
 inline auto Field<T>::cell(NormalizedIndex index) -> reference {
-    return field[details::containerIndex(colsCount, index)];
+    return field[details::toContainerIndex(getColsCount(), index)];
 }
 
 template <typename T>
