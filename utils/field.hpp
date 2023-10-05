@@ -24,6 +24,12 @@ inline Field<T>::Field(NormalizedIndex size)
 {}
 
 template <typename T>
+template <typename U>
+Field<U> Field<T>::createWithSameSize() const {
+    return {getSize()};
+}
+
+template <typename T>
 inline auto Field<T>::cell(NormalizedIndex index) const -> const_reference {
     return field[details::toContainerIndex(getColsCount(), index)];
 }

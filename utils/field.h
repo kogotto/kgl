@@ -19,6 +19,12 @@ public:
     Field(size_type rowsCount, size_type colsCount);
     Field(NormalizedIndex size);
 
+    Field(const Field& other) = default;
+    Field(Field&& other) = default;
+
+    template <typename U>
+    Field<U> createWithSameSize() const;
+
     size_type getRowsCount() const { return size.row; }
     size_type getColsCount() const { return size.col; }
     NormalizedIndex getSize() const { return size; }

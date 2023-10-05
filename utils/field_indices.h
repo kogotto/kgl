@@ -55,6 +55,9 @@ struct CellIndex {
 struct NormalizedIndex {
     size_t row;
     size_t col;
+
+    friend
+    bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) = default;
 };
 
 NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
