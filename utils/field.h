@@ -19,9 +19,9 @@ public:
     Field(size_type rowsCount, size_type colsCount);
     Field(NormalizedIndex size);
 
-    size_type getRowsCount() const { return rowsCount; }
-    size_type getColsCount() const { return colsCount; }
-    NormalizedIndex getSize() const { return {rowsCount, colsCount}; }
+    size_type getRowsCount() const { return size.row; }
+    size_type getColsCount() const { return size.col; }
+    NormalizedIndex getSize() const { return size; }
 
     const_reference cell(NormalizedIndex index) const;
     reference cell(NormalizedIndex index);
@@ -30,8 +30,7 @@ public:
     reference cell(CellIndex index);
 
 private:
-    size_type rowsCount;
-    size_type colsCount;
+    NormalizedIndex size;
     container_type field;
 };
 

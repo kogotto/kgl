@@ -14,14 +14,13 @@ namespace ut {
 
 template <typename T>
 inline Field<T>::Field(size_type rowsCount, size_type colsCount)
-    : rowsCount{rowsCount}
-    , colsCount{colsCount}
-    , field(rowsCount * colsCount)
+    : Field(NormalizedIndex{rowsCount, colsCount})
 {}
 
 template <typename T>
-inline Field<T>::Field(NormalizedIndex index)
-    : Field(index.row, index.col)
+inline Field<T>::Field(NormalizedIndex size)
+    : size{size}
+    , field(size.row * size.col)
 {}
 
 template <typename T>
