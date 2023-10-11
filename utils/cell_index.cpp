@@ -1,4 +1,4 @@
-#include "field_indices.h"
+#include "cell_index.h"
 
 namespace {
 

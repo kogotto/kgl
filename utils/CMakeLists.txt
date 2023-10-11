@@ -2,7 +2,7 @@
 add_library(
     ut
 
-    field_indices.cpp
+    cell_index.cpp
     field.cpp
 )
 
