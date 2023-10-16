@@ -67,11 +67,13 @@ NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
 
 namespace ut::detail {
 
-inline size_t toContainerIndex(size_t colsCount, NormalizedIndex index) {
+constexpr
+size_t toContainerIndex(size_t colsCount, NormalizedIndex index) noexcept {
     return index.row * colsCount + index.col;
 }
 
-inline CellIndex fromContainerIndex(size_t colsCount, size_t containerIndex) {
+constexpr
+CellIndex fromContainerIndex(size_t colsCount, size_t containerIndex) noexcept {
     const auto div = std::div(containerIndex, (int32_t)colsCount);
     return {
         RowIndex{div.quot},

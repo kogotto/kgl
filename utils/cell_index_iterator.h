@@ -25,23 +25,21 @@ public:
 
     constexpr CellIndexIterator() noexcept = default;
 
-    CellIndex operator*() const {
+    constexpr CellIndex operator*() const noexcept {
         return detail::fromContainerIndex(cols, positionInContainer);
     }
 
-    CellIndexIterator& operator++() {
+    constexpr CellIndexIterator& operator++() noexcept {
         ++positionInContainer;
         return *this;
     }
     using Base::operator++;
 
-    friend bool operator==(const CellIndexIterator& lhs,
-                           const CellIndexIterator& rhs) {
+    friend constexpr bool operator==(const CellIndexIterator& lhs,
+                                     const CellIndexIterator& rhs) noexcept {
         return lhs.positionInContainer == rhs.positionInContainer;
     }
 private:
-    CellIndex toCellIndex() const;
-
     size_t positionInContainer{0u};
     size_t cols{0u};
 };
