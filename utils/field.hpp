@@ -2,14 +2,6 @@
 
 #include "field.h"
 
-namespace ut::details {
-
-inline size_t toContainerIndex(size_t colsCount, NormalizedIndex index) {
-    return index.row * colsCount + index.col;
-}
-
-} // namespace ut::details
-
 namespace ut {
 
 template <typename T>
@@ -31,12 +23,12 @@ Field<U> Field<T>::createWithSameSize() const {
 
 template <typename T>
 inline auto Field<T>::cell(NormalizedIndex index) const -> const_reference {
-    return field[details::toContainerIndex(getColsCount(), index)];
+    return field[detail::toContainerIndex(getColsCount(), index)];
 }
 
 template <typename T>
 inline auto Field<T>::cell(NormalizedIndex index) -> reference {
-    return field[details::toContainerIndex(getColsCount(), index)];
+    return field[detail::toContainerIndex(getColsCount(), index)];
 }
 
 template <typename T>

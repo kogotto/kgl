@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 
 namespace ut {
 
@@ -63,3 +64,19 @@ struct NormalizedIndex {
 NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
 
 } // namespace ut
+
+namespace ut::detail {
+
+inline size_t toContainerIndex(size_t colsCount, NormalizedIndex index) {
+    return index.row * colsCount + index.col;
+}
+
+inline CellIndex fromContainerIndex(size_t colsCount, size_t containerIndex) {
+    const auto div = std::div(containerIndex, (int32_t)colsCount);
+    return {
+        RowIndex{div.quot},
+        ColIndex{div.rem}
+    };
+}
+
+} // namespace ut::details

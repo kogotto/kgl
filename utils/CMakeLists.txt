@@ -1,8 +1,11 @@
 
+find_package(Boost REQUIRED)
+
 add_library(
     ut
 
     cell_index.cpp
+    cell_index_iterator.cpp
     field.cpp
 )
 
@@ -10,6 +13,7 @@ target_include_directories(
     ut
 
     PUBLIC .
+    PUBLIC ${Boost_INCLUDE_DIRS}
 )
 
 find_package(GTest)
