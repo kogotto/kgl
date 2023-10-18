@@ -23,7 +23,7 @@ public:
     Field(const Field& other) = default;
     Field(Field&& other) = default;
 
-    template <typename U>
+    template <typename U = T>
     Field<U> createWithSameSize() const;
 
     size_type getRowsCount() const { return size.row; }
