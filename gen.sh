@@ -11,4 +11,5 @@ mkdir $BUILD_DIR;
 
 cmake -S . -B $BUILD_DIR $OPTIONS;
 
-ln -s $BUILD_DIR/compile_commands.json .;
+ln -sf $BUILD_DIR/compile_commands.json .;
+cp -n rc build/;

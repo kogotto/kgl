@@ -60,18 +60,20 @@ int main() {
 
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
-    Field field{32, 32};
-    GraphicsData gd{field};
+    ca::FieldModel field{32, 32};
+    ca::insertGlider(field, ca::CellIndex{ca::RowIndex{0}, ca::ColIndex{0}});
+    ca::insertStick(field, ca::CellIndex{ca::RowIndex{10}, ca::ColIndex{10}});
+    GraphicsData gd{field.getSize()};
     Timer time{std::chrono::milliseconds{250}};
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
 
         if (time.hasCome()) {
-            field.nextGeneration();
+            field = ca::nextGeneration(field);
         }
 
-        gd.update();
+        gd.update(field);
         renderer.draw(gd.va, gd.ib, gd.shader);
 
         glfwSwapBuffers(window);

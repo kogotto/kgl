@@ -24,6 +24,7 @@ include_directories(
     ${GLFW3_INCLUDE_DIR}
 )
 
+add_subdirectory(utils)
 add_subdirectory(cell-autom)
 add_subdirectory(glw)
 
