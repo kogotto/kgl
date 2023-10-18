@@ -3,8 +3,8 @@
 #include <cstddef>
 #include <vector>
 
-#include "cell_index.h"
-#include "index_range.h"
+#include <utils/cell_index.h>
+#include <utils/index_range.h>
 
 namespace ut {
 

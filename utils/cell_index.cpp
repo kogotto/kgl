@@ -1,4 +1,4 @@
-#include "cell_index.h"
+#include <utils/cell_index.h>
 
 namespace {
 

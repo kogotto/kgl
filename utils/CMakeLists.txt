@@ -13,7 +13,7 @@ add_library(
 target_include_directories(
     ut
 
-    PUBLIC .
+    PUBLIC include
     PUBLIC ${Boost_INCLUDE_DIRS}
 )
 

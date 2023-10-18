@@ -2,7 +2,7 @@
 
 #include <boost/stl_interfaces/iterator_interface.hpp>
 
-#include "cell_index.h"
+#include <utils/cell_index.h>
 
 namespace ut::detail {
 
