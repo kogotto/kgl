@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "cell_index.h"
+#include "index_range.h"
 
 namespace ut {
 
@@ -34,6 +35,8 @@ public:
 
     const_reference cell(CellIndex index) const;
     reference cell(CellIndex index);
+
+    IndexRange indexRange() const;
 
 private:
     NormalizedIndex size;

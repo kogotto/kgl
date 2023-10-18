@@ -5,7 +5,8 @@ add_library(
     ut
 
     cell_index.cpp
-    cell_index_iterator.cpp
+    index_iterator.cpp
+    index_range.cpp
     field.cpp
 )
 

@@ -41,4 +41,9 @@ inline auto Field<T>::cell(CellIndex index) -> reference {
     return cell(normalize(getSize(), index));
 }
 
+template <typename T>
+inline IndexRange Field<T>::indexRange() const {
+    return IndexRange{getSize()};
+}
+
 } // namespace ut

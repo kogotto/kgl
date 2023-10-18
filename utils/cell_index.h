@@ -6,8 +6,11 @@
 
 namespace ut {
 
+using signed_index_t = int32_t;
+using normal_index_t = size_t;
+
 struct RowIndex {
-    int32_t row;
+    signed_index_t row;
 
     constexpr RowIndex& operator+=(const RowIndex& rhs) {
         row += rhs.row;
@@ -16,7 +19,7 @@ struct RowIndex {
 };
 
 struct ColIndex {
-    int32_t col;
+    signed_index_t col;
 
     constexpr ColIndex& operator+=(const ColIndex& rhs) {
         col += rhs.col;
@@ -54,8 +57,8 @@ struct CellIndex {
 };
 
 struct NormalizedIndex {
-    size_t row;
-    size_t col;
+    normal_index_t row;
+    normal_index_t col;
 
     friend
     bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) = default;
@@ -68,16 +71,16 @@ NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
 namespace ut::detail {
 
 constexpr
-size_t toContainerIndex(size_t colsCount, NormalizedIndex index) noexcept {
+size_t toContainerIndex(normal_index_t colsCount, NormalizedIndex index) noexcept {
     return index.row * colsCount + index.col;
 }
 
 constexpr
-CellIndex fromContainerIndex(size_t colsCount, size_t containerIndex) noexcept {
-    const auto div = std::div(containerIndex, (int32_t)colsCount);
+NormalizedIndex fromContainerIndex(normal_index_t colsCount, size_t containerIndex) noexcept {
+    const auto div = std::div(containerIndex, static_cast<signed_index_t>(colsCount));
     return {
-        RowIndex{div.quot},
-        ColIndex{div.rem}
+        static_cast<normal_index_t>(div.quot),
+        static_cast<normal_index_t>(div.rem)
     };
 }
 
