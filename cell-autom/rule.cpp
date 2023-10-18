@@ -3,6 +3,7 @@
 #include <cassert>
 #include <algorithm>
 
+namespace ca {
 namespace {
 
 size_t aliveCount(Cells neighbours) {
@@ -14,6 +15,9 @@ size_t aliveCount(Cells neighbours) {
 }
 
 } // namespace
+} // namespace ca
+
+namespace ca {
 
 Cell rule(Cell cell, Cells neighbours) {
     auto aliveAround = aliveCount(neighbours);
@@ -31,3 +35,5 @@ Cell rule(Cell cell, Cells neighbours) {
             assert(false && "Unknown Cell::<enumerator>");
     };
 }
+
+} // namespace ca

@@ -14,10 +14,10 @@ constexpr Color deathColor{1.f, 1.f, 0.f, 1.f};   // yellow
 constexpr Color aliveColor{0.f, 0.f, 1.f, 1.f};   // blue
 constexpr Color unknownColor{0.f, 0.f, 0.f, 1.f}; // black
 
-const auto& pickColor(Cell cell) {
+const auto& pickColor(ca::Cell cell) {
     switch (cell) {
-    case Cell::Died: return deathColor;
-    case Cell::Alive: return aliveColor;
+    case ca::Cell::Died: return deathColor;
+    case ca::Cell::Alive: return aliveColor;
     };
 
     return unknownColor;
@@ -32,7 +32,7 @@ void updateColor(Color& target, const Color& source) {
 
 } // namespace
 
-void CellView::update(const Cell& cell) {
+void CellView::update(const ca::Cell& cell) {
     const auto& color = pickColor(cell);
     for (auto&& vertex : GlProxy{firstVertex, 4}) {
         updateColor(vertex.color, color);

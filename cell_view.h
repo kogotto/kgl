@@ -14,7 +14,7 @@ public:
         : firstVertex(&vertex)
     {}
 
-    void update(const Cell& cell);
+    void update(const ca::Cell& cell);
 private:
     Vertex* firstVertex;
 };
