@@ -4,6 +4,12 @@
 
 #include <cell.h>
 
+namespace ca {
+
+using Cells = std::array<Cell, 8>;
+
+} // namespace ca
+
 struct Cells{
     using Raw = std::array<Cell, 8>;
     using iterator = Raw::iterator;

@@ -9,6 +9,14 @@ namespace ut {
 using signed_index_t = int32_t;
 using normal_index_t = size_t;
 
+struct NormalizedIndex {
+    normal_index_t row;
+    normal_index_t col;
+
+    friend
+    bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) = default;
+};
+
 struct RowIndex {
     signed_index_t row;
 
@@ -33,6 +41,11 @@ struct CellIndex {
         , col{colIndex}
     {}
 
+    constexpr CellIndex(NormalizedIndex index)
+        : row{static_cast<signed_index_t>(index.row)}
+        , col{static_cast<signed_index_t>(index.col)}
+    {}
+
     constexpr auto getRawRow() const {
         return row.row;
     }
@@ -54,14 +67,6 @@ struct CellIndex {
 
     RowIndex row;
     ColIndex col;
-};
-
-struct NormalizedIndex {
-    normal_index_t row;
-    normal_index_t col;
-
-    friend
-    bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) = default;
 };
 
 NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
