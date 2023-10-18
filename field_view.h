@@ -3,13 +3,15 @@
 #include "storage.h"
 #include "cell_view.h"
 
+#include <field_model.h>
+
 class Field;
 
 class FieldView {
 public:
-    FieldView(const Field& fieldModel, Storage& storage);
+    FieldView(ut::NormalizedIndex size, Storage& storage);
 
-    void update();
+    void update(const ca::FieldModel& field);
 private:
-    std::vector<CellView> cells;
+    ut::Field<CellView> cells;
 };

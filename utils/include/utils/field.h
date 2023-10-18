@@ -2,13 +2,14 @@
 
 #include <cstddef>
 #include <vector>
+#include <concepts>
 
 #include <utils/cell_index.h>
 #include <utils/index_range.h>
 
 namespace ut {
 
-template <typename T>
+template <typename T> requires std::default_initializable<T>
 class Field {
 public:
     using value_type = T;
@@ -22,6 +23,9 @@ public:
 
     Field(const Field& other) = default;
     Field(Field&& other) = default;
+
+    Field& operator=(const Field& other) = default;
+    Field& operator=(Field&& other) = default;
 
     template <typename U = T>
     Field<U> createWithSameSize() const;

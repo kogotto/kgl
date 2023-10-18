@@ -65,4 +65,30 @@ void nextGeneration(FieldModel& result, const FieldModel& current) {
     }
 }
 
+void insertGlider(FieldModel& field, CellIndex offset) {
+    constexpr std::array<CellIndex, 5> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{1}, ColIndex{2}},
+        CellIndex{RowIndex{2}, ColIndex{0}},
+        CellIndex{RowIndex{2}, ColIndex{1}},
+        CellIndex{RowIndex{2}, ColIndex{2}}
+    };
+
+    for (const auto index : aliveCells) {
+        field.cell(offset + index) = Cell::Alive;
+    }
+}
+
+void insertStick(FieldModel& field, CellIndex offset) {
+    constexpr std::array<CellIndex, 3> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{0}},
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{0}, ColIndex{2}},
+    };
+
+    for (const auto index : aliveCells) {
+        field.cell(offset + index) = Cell::Alive;
+    }
+}
+
 } // namespace ca

@@ -1,19 +1,20 @@
 #pragma once
 
-#include <span>
-
 #include <cell.h>
 
 class Vertex;
 
 class CellView {
 public:
-    using GlProxy = std::span<Vertex, 4>;
+    CellView() noexcept
+        : firstVertex(nullptr)
+    {}
 
-    CellView(const Cell& cell, Vertex& vertex);
+    CellView(Vertex& vertex) noexcept
+        : firstVertex(&vertex)
+    {}
 
-    void update();
+    void update(const Cell& cell);
 private:
-    const Cell* cell;
-    GlProxy cellProxy;
+    Vertex* firstVertex;
 };

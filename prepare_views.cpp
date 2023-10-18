@@ -123,22 +123,22 @@ const Rect screenRect{-1.f, 1.f, 1.f, -1.f};
 
 } // namespace
 
-GraphicsData::GraphicsData(const Field& fieldModel)
+GraphicsData::GraphicsData(ut::NormalizedIndex size)
     : GraphicsData(
-        fieldModel,
-        fieldModel.getRowsCount(),
-        fieldModel.getColsCount())
+        size,
+        size.row,
+        size.col)
 {}
 
-void GraphicsData::update() {
-    fieldView.update();
+void GraphicsData::update(const ca::FieldModel& field) {
+    fieldView.update(field);
 
     vb.bind();
     GLCALL(glBufferSubData(GL_ARRAY_BUFFER, 0, sizeInBytes(storage), storage.data()));
 }
 
 GraphicsData::GraphicsData(
-        const Field& fieldModel,
+        ut::NormalizedIndex size,
         size_t cellRows,
         size_t cellCols)
     : storage(prepareVertexStorage(cellRows, cellCols, screenRect))
@@ -147,6 +147,6 @@ GraphicsData::GraphicsData(
     , indices(prepareIndexStorage(cellRows, cellCols))
     , ib(prepareIndexBuffer(indices))
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-    , fieldView(fieldModel, storage)
+    , fieldView(size, storage)
 {
 }

@@ -3,7 +3,6 @@ add_library(
     cell-autom
     cell.cpp
     field_model.cpp
-    field.cpp
     rule.cpp
 )
 

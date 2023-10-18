@@ -1,8 +1,12 @@
 #include "cell_view.h"
 
+#include <span>
+
 #include "storage.h"
 
 namespace {
+
+using GlProxy = std::span<Vertex, 4>;
 
 using Color = float[4];
 
@@ -28,14 +32,9 @@ void updateColor(Color& target, const Color& source) {
 
 } // namespace
 
-CellView::CellView(const Cell& cell, Vertex& vertex)
-    : cell{&cell}
-    , cellProxy{&vertex, 4}
-{}
-
-void CellView::update() {
-    const auto& color = pickColor(*cell);
-    for (auto&& vertex : cellProxy) {
+void CellView::update(const Cell& cell) {
+    const auto& color = pickColor(cell);
+    for (auto&& vertex : GlProxy{firstVertex, 4}) {
         updateColor(vertex.color, color);
     }
 }

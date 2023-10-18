@@ -2,27 +2,25 @@
 
 #include <cassert>
 
-#include <field.h>
+#include <utils/field.h>
 
-FieldView::FieldView(const Field& fieldModel, Storage& storage) {
-    const auto [fieldRows, fieldCols] = fieldModel.getNormalizedSize();
-    const auto storageSize = storage.size();
+FieldView::FieldView(ut::NormalizedIndex size, Storage& storage)
+    : cells{size}
+{
+    const auto [rows, cols] = size;
+    assert(4 * rows * cols == storage.size());
 
-    assert(4 * fieldRows * fieldCols == storageSize);
-
-    cells.reserve(storageSize);
-    for (size_t row = 0; row < fieldRows; ++row) {
-        for (size_t col = 0; col < fieldCols; ++col) {
-            cells.emplace_back(
-                fieldModel.cell(Field::NormalizedIndex{row, col}),
-                storage[4 * (row * fieldRows + col)]
-            );
-        }
+    for (const auto index : ut::IndexRange{size}) {
+        cells.cell(index) = {
+            storage[4 * ut::detail::toContainerIndex(cols, index)]
+        };
     }
 }
 
-void FieldView::update() {
-    for (auto&& cell : cells) {
-        cell.update();
+void FieldView::update(const ca::FieldModel& field) {
+    assert(field.getSize() == cells.getSize());
+
+    for (auto index : field.indexRange()) {
+        cells.cell(index).update(field.cell(index));
     }
 }
