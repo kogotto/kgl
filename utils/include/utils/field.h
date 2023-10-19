@@ -9,7 +9,7 @@
 
 namespace ut {
 
-template <typename T> requires std::default_initializable<T>
+template <std::default_initializable T>
 class Field {
 public:
     using value_type = T;
