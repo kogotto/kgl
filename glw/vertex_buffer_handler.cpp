@@ -1,4 +1,4 @@
-#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_handler.h>
 
 #include <utility>
 

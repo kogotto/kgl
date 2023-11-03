@@ -4,7 +4,7 @@
 
 #include <glw/debug.h>
 
-#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_handler.h>
 #include <glw/vertex_buffer_layout.h>
 
 namespace glw {
