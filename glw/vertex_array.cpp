@@ -4,7 +4,7 @@
 
 #include <glw/debug.h>
 
-#include <glw/vertex_buffer.h>
+#include <glw/vertex_buffer_handler.h>
 #include <glw/vertex_buffer_layout.h>
 
 namespace glw {
@@ -36,7 +36,7 @@ VertexArray::~VertexArray() {
     GLCALL(glDeleteVertexArrays(1, &id));
 }
 
-void VertexArray::addBuffer(const VertexBuffer& buffer, const VertexBufferLayout& layout) {
+void VertexArray::addBuffer(const VertexBufferHandler& buffer, const VertexBufferLayout& layout) {
     bind();
     buffer.bind();
 

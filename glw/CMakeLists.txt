@@ -8,6 +8,7 @@ add_library(
     shader.cpp
     uniform_location.cpp
     vertex_array.cpp
+    vertex_buffer_handler.cpp
     vertex_buffer.cpp
 )
 

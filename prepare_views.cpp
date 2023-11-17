@@ -65,17 +65,7 @@ inline auto prepareVertexStorage(size_t rows, size_t cols, const Rect& rect) {
     return result;
 }
 
-template <typename T>
-std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
-    return vec.size() * sizeof(T);
-}
-
-auto prepareVertexBuffer(Storage& storage) {
-    glw::VertexBuffer vb{storage.data(), sizeInBytes(storage)};
-    return vb;
-}
-
-auto prepareVertexArray(const glw::VertexBuffer& vb) {
+auto prepareVertexArray(const glw::VertexBufferHandler& vb) {
     glw::VertexBufferLayout layout;
     layout.push<float>(2);
     layout.push<float>(4);
@@ -133,20 +123,18 @@ GraphicsData::GraphicsData(ut::NormalizedIndex size)
 void GraphicsData::update(const ca::FieldModel& field) {
     fieldView.update(field);
 
-    vb.bind();
-    GLCALL(glBufferSubData(GL_ARRAY_BUFFER, 0, sizeInBytes(storage), storage.data()));
+    v.update();
 }
 
 GraphicsData::GraphicsData(
         ut::NormalizedIndex size,
         size_t cellRows,
         size_t cellCols)
-    : storage(prepareVertexStorage(cellRows, cellCols, screenRect))
-    , vb(prepareVertexBuffer(storage))
-    , va(prepareVertexArray(vb))
+    : v{prepareVertexStorage(cellRows, cellCols, screenRect)}
+    , va{prepareVertexArray(v.handler())}
     , indices(prepareIndexStorage(cellRows, cellCols))
     , ib(prepareIndexBuffer(indices))
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-    , fieldView(size, storage)
+    , fieldView(size, v.storage())
 {
 }

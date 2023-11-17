@@ -1,6 +1,5 @@
 #pragma once
 
-#include "storage.h"
 #include <glw/vertex_array.h>
 #include <glw/vertex_buffer.h>
 #include <glw/vertex_buffer_layout.h>
@@ -16,6 +15,8 @@ using IndexStorage = std::vector<unsigned int>;
 
 class GraphicsData {
 public:
+    using VertexBuffer = glw::VertexBuffer<Vertex>;
+
     GraphicsData(ut::NormalizedIndex size);
 
     void update(const ca::FieldModel& field);
@@ -24,8 +25,7 @@ private:
 public:
     GraphicsData(ut::NormalizedIndex size, size_t cellRows, size_t cellCols);
 
-    Storage storage;
-    glw::VertexBuffer vb;
+    VertexBuffer v;
     glw::VertexArray va;
     IndexStorage indices;
     glw::IndexBuffer ib;
