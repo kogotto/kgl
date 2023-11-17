@@ -65,16 +65,6 @@ inline auto prepareVertexStorage(size_t rows, size_t cols, const Rect& rect) {
     return result;
 }
 
-template <typename T>
-std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
-    return vec.size() * sizeof(T);
-}
-
-auto prepareVertexBuffer(Storage& storage) {
-    glw::VertexBufferHandler vb{storage.data(), sizeInBytes(storage)};
-    return vb;
-}
-
 auto prepareVertexArray(const glw::VertexBufferHandler& vb) {
     glw::VertexBufferLayout layout;
     layout.push<float>(2);
