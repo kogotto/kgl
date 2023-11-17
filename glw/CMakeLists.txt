@@ -9,6 +9,7 @@ add_library(
     uniform_location.cpp
     vertex_array.cpp
     vertex_buffer_handler.cpp
+    vertex_buffer.cpp
 )
 
 target_include_directories(
