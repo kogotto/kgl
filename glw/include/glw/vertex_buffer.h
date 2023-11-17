@@ -32,6 +32,11 @@ public:
     VertexBuffer& operator=(const VertexBuffer&) = delete;
     VertexBuffer& operator=(VertexBuffer&&) noexcept = default;
 
+    storage_t& storage() { return storage_; }
+    const storage_t& storage() const { return storage_; }
+
+    const VertexBufferHandler& handler() { return vb_; }
+
     void update() const {
         vb_.update(storage_.data(), detail::sizeInBytes(storage_));
     }

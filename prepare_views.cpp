@@ -133,20 +133,18 @@ GraphicsData::GraphicsData(ut::NormalizedIndex size)
 void GraphicsData::update(const ca::FieldModel& field) {
     fieldView.update(field);
 
-    vb.bind();
-    GLCALL(glBufferSubData(GL_ARRAY_BUFFER, 0, sizeInBytes(storage), storage.data()));
+    v.update();
 }
 
 GraphicsData::GraphicsData(
         ut::NormalizedIndex size,
         size_t cellRows,
         size_t cellCols)
-    : storage(prepareVertexStorage(cellRows, cellCols, screenRect))
-    , vb(prepareVertexBuffer(storage))
-    , va(prepareVertexArray(vb))
+    : v{prepareVertexStorage(cellRows, cellCols, screenRect)}
+    , va{prepareVertexArray(v.handler())}
     , indices(prepareIndexStorage(cellRows, cellCols))
     , ib(prepareIndexBuffer(indices))
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-    , fieldView(size, storage)
+    , fieldView(size, v.storage())
 {
 }
