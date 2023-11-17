@@ -2,7 +2,7 @@
 
 namespace glw {
 
-class VertexBuffer;
+class VertexBufferHandler;
 class VertexBufferLayout;
 
 } // namespace glw
@@ -21,7 +21,7 @@ public:
 
     ~VertexArray();
 
-    void addBuffer(const VertexBuffer& buffer, const VertexBufferLayout& layout);
+    void addBuffer(const VertexBufferHandler& buffer, const VertexBufferLayout& layout);
 
     void bind() const;
     void unbind() const;

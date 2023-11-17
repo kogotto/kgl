@@ -71,11 +71,11 @@ std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
 }
 
 auto prepareVertexBuffer(Storage& storage) {
-    glw::VertexBuffer vb{storage.data(), sizeInBytes(storage)};
+    glw::VertexBufferHandler vb{storage.data(), sizeInBytes(storage)};
     return vb;
 }
 
-auto prepareVertexArray(const glw::VertexBuffer& vb) {
+auto prepareVertexArray(const glw::VertexBufferHandler& vb) {
     glw::VertexBufferLayout layout;
     layout.push<float>(2);
     layout.push<float>(4);

@@ -9,31 +9,31 @@
 
 namespace glw {
 
-VertexBuffer::VertexBuffer(const void* data, std::ptrdiff_t size) {
+VertexBufferHandler::VertexBufferHandler(const void* data, std::ptrdiff_t size) {
     GLCALL(glGenBuffers(1, &id));
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
     GLCALL(glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW));
 
 }
 
-VertexBuffer::VertexBuffer(VertexBuffer&& rhs) noexcept
+VertexBufferHandler::VertexBufferHandler(VertexBufferHandler&& rhs) noexcept
     : id{std::exchange(rhs.id, 0)}
 {}
 
-VertexBuffer& VertexBuffer::operator=(VertexBuffer&& rhs) noexcept {
+VertexBufferHandler& VertexBufferHandler::operator=(VertexBufferHandler&& rhs) noexcept {
     std::swap(id, rhs.id);
     return *this;
 }
 
-VertexBuffer::~VertexBuffer() {
+VertexBufferHandler::~VertexBufferHandler() {
     GLCALL(glDeleteBuffers(1, &id));
 }
 
-void VertexBuffer::bind() const {
+void VertexBufferHandler::bind() const {
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
 }
 
-void VertexBuffer::unbind() const {
+void VertexBufferHandler::unbind() const {
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, 0));
 }
 

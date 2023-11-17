@@ -4,17 +4,17 @@
 
 namespace glw {
 
-class VertexBuffer {
+class VertexBufferHandler {
 public:
-    VertexBuffer(const void* data, std::ptrdiff_t size);
+    VertexBufferHandler(const void* data, std::ptrdiff_t size);
 
-    VertexBuffer(const VertexBuffer&) = delete;
-    VertexBuffer(VertexBuffer&& rhs) noexcept;
+    VertexBufferHandler(const VertexBufferHandler&) = delete;
+    VertexBufferHandler(VertexBufferHandler&& rhs) noexcept;
 
-    VertexBuffer& operator=(const VertexBuffer&) = delete;
-    VertexBuffer& operator=(VertexBuffer&& rhs) noexcept;
+    VertexBufferHandler& operator=(const VertexBufferHandler&) = delete;
+    VertexBufferHandler& operator=(VertexBufferHandler&& rhs) noexcept;
 
-    ~VertexBuffer();
+    ~VertexBufferHandler();
 
     void bind() const;
     void unbind() const;

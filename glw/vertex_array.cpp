@@ -36,7 +36,7 @@ VertexArray::~VertexArray() {
     GLCALL(glDeleteVertexArrays(1, &id));
 }
 
-void VertexArray::addBuffer(const VertexBuffer& buffer, const VertexBufferLayout& layout) {
+void VertexArray::addBuffer(const VertexBufferHandler& buffer, const VertexBufferLayout& layout) {
     bind();
     buffer.bind();
 

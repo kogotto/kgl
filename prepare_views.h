@@ -25,7 +25,7 @@ public:
     GraphicsData(ut::NormalizedIndex size, size_t cellRows, size_t cellCols);
 
     Storage storage;
-    glw::VertexBuffer vb;
+    glw::VertexBufferHandler vb;
     glw::VertexArray va;
     IndexStorage indices;
     glw::IndexBuffer ib;
