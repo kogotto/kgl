@@ -29,6 +29,11 @@ VertexBufferHandler::~VertexBufferHandler() {
     GLCALL(glDeleteBuffers(1, &id));
 }
 
+void VertexBufferHandler::update(const void* data, std::ptrdiff_t size) const {
+    bind();
+    GLCALL(glBufferSubData(GL_ARRAY_BUFFER, 0, size, data));
+}
+
 void VertexBufferHandler::bind() const {
     GLCALL(glBindBuffer(GL_ARRAY_BUFFER, id));
 }

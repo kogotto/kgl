@@ -16,6 +16,8 @@ public:
 
     ~VertexBufferHandler();
 
+    void update(const void* data, std::ptrdiff_t size) const;
+
     void bind() const;
     void unbind() const;
 private:
