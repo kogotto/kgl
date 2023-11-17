@@ -29,6 +29,6 @@ find_package(
 target_link_libraries(
     glw
 
-    OpenGL::GL
     GLEW::glew_s
+    OpenGL::GL
 )
