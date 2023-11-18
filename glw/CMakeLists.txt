@@ -4,6 +4,7 @@ add_library(
 
     debug.cpp
     index_buffer_handler.cpp
+    index_buffer.cpp
     renderer.cpp
     shader.cpp
     uniform_location.cpp
