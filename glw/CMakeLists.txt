@@ -3,7 +3,7 @@ add_library(
     glw
 
     debug.cpp
-    index_buffer.cpp
+    index_buffer_handler.cpp
     renderer.cpp
     shader.cpp
     uniform_location.cpp

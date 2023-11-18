@@ -3,7 +3,7 @@
 #include <glw/vertex_array.h>
 #include <glw/vertex_buffer.h>
 #include <glw/vertex_buffer_layout.h>
-#include <glw/index_buffer.h>
+#include <glw/index_buffer_handler.h>
 #include <glw/shader.h>
 
 #include <utils/cell_index.h>
