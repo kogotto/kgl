@@ -4,17 +4,17 @@
 
 namespace glw {
 
-class IndexBuffer {
+class IndexBufferHandler {
 public:
-    IndexBuffer(const unsigned int* data, std::ptrdiff_t count);
+    IndexBufferHandler(const unsigned int* data, std::ptrdiff_t count);
 
-    IndexBuffer(const IndexBuffer&) = delete;
-    IndexBuffer(IndexBuffer&& rhs) noexcept;
+    IndexBufferHandler(const IndexBufferHandler&) = delete;
+    IndexBufferHandler(IndexBufferHandler&& rhs) noexcept;
 
-    IndexBuffer& operator=(const IndexBuffer&) = delete;
-    IndexBuffer& operator=(IndexBuffer&& rhs) noexcept;
+    IndexBufferHandler& operator=(const IndexBufferHandler&) = delete;
+    IndexBufferHandler& operator=(IndexBufferHandler&& rhs) noexcept;
 
-    ~IndexBuffer();
+    ~IndexBufferHandler();
 
     void bind() const;
     void unbind() const;

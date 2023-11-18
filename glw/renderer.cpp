@@ -19,7 +19,7 @@ void Renderer::clear() const {
 }
 
 void Renderer::draw(const VertexArray& va,
-                    const IndexBuffer& ib,
+                    const IndexBufferHandler& ib,
                     const Shader& shader) const {
     va.bind();
     ib.bind();

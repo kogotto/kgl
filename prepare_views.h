@@ -28,7 +28,7 @@ public:
     VertexBuffer v;
     glw::VertexArray va;
     IndexStorage indices;
-    glw::IndexBuffer ib;
+    glw::IndexBufferHandler ib;
     glw::Shader shader;
     FieldView fieldView;
 };

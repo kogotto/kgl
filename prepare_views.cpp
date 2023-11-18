@@ -105,7 +105,7 @@ inline auto prepareIndexStorage(size_t rows, size_t cols) {
 }
 
 auto prepareIndexBuffer(IndexStorage& storage) {
-    glw::IndexBuffer ib{storage.data(), static_cast<ptrdiff_t>(storage.size())};
+    glw::IndexBufferHandler ib{storage.data(), static_cast<ptrdiff_t>(storage.size())};
     return ib;
 }
 

@@ -9,7 +9,7 @@
 
 namespace glw {
 
-IndexBuffer::IndexBuffer(const unsigned int* data, std::ptrdiff_t count)
+IndexBufferHandler::IndexBufferHandler(const unsigned int* data, std::ptrdiff_t count)
     : count{count}
 {
     GLCALL(glGenBuffers(1, &id));
@@ -18,24 +18,24 @@ IndexBuffer::IndexBuffer(const unsigned int* data, std::ptrdiff_t count)
 
 }
 
-IndexBuffer::IndexBuffer(IndexBuffer&& rhs) noexcept
+IndexBufferHandler::IndexBufferHandler(IndexBufferHandler&& rhs) noexcept
     : id{std::exchange(rhs.id, 0)}
 {}
 
-IndexBuffer& IndexBuffer::operator=(IndexBuffer&& rhs) noexcept {
+IndexBufferHandler& IndexBufferHandler::operator=(IndexBufferHandler&& rhs) noexcept {
     std::swap(id, rhs.id);
     return *this;
 }
 
-IndexBuffer::~IndexBuffer() {
+IndexBufferHandler::~IndexBufferHandler() {
     GLCALL(glDeleteBuffers(1, &id));
 }
 
-void IndexBuffer::bind() const {
+void IndexBufferHandler::bind() const {
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id));
 }
 
-void IndexBuffer::unbind() const {
+void IndexBufferHandler::unbind() const {
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 }
 
