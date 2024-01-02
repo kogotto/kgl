@@ -35,7 +35,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello GLFW", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1280, 960, "Hello GLFW", NULL, NULL);
     if (!window) {
         std::cout << "glfw window creation failed" << std::endl;
         return GLFW_WINDOW_CREATION_FAILED;
@@ -53,11 +53,13 @@ int main() {
 
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
-    ca::FieldModel field{32, 32};
-    ca::insertGlider(field, ca::CellIndex{ca::RowIndex{0}, ca::ColIndex{0}});
-    ca::insertStick(field, ca::CellIndex{ca::RowIndex{10}, ca::ColIndex{10}});
+    constexpr ut::normal_index_t sideSize{100};
+    constexpr ca::NormalizedIndex fieldSize{sideSize, sideSize};
+    ca::FieldModel field{fieldSize};
+    ca::insertRPentamino(field, ca::CellIndex{fieldSize} / 2);
+
     GraphicsData gd{field.getSize()};
-    Timer time{std::chrono::milliseconds{250}};
+    Timer time{std::chrono::milliseconds{25}};
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();

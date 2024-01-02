@@ -24,6 +24,11 @@ struct RowIndex {
         row += rhs.row;
         return *this;
     }
+
+    constexpr RowIndex& operator/=(int factor) {
+        row /= factor;
+        return *this;
+    }
 };
 
 struct ColIndex {
@@ -31,6 +36,11 @@ struct ColIndex {
 
     constexpr ColIndex& operator+=(const ColIndex& rhs) {
         col += rhs.col;
+        return *this;
+    }
+
+    constexpr ColIndex& operator/=(int factor) {
+        col /= factor;
         return *this;
     }
 };
@@ -63,6 +73,17 @@ struct CellIndex {
     friend constexpr CellIndex operator+(const CellIndex& lhs, const CellIndex& rhs) {
         auto temp{lhs};
         return temp += rhs;
+    }
+
+    constexpr CellIndex& operator/=(int factor) {
+        row /= factor;
+        col /= factor;
+        return *this;
+    }
+
+    friend constexpr CellIndex operator/(const CellIndex& lhs, int factor) {
+        auto temp{lhs};
+        return temp /= factor;
     }
 
     RowIndex row;

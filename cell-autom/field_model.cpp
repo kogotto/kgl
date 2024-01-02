@@ -91,4 +91,18 @@ void insertStick(FieldModel& field, CellIndex offset) {
     }
 }
 
+void insertRPentamino(FieldModel& field, CellIndex offset) {
+    constexpr std::array<CellIndex, 5> aliveCells = {
+        CellIndex{RowIndex{0}, ColIndex{1}},
+        CellIndex{RowIndex{0}, ColIndex{2}},
+        CellIndex{RowIndex{1}, ColIndex{0}},
+        CellIndex{RowIndex{1}, ColIndex{1}},
+        CellIndex{RowIndex{2}, ColIndex{1}},
+    };
+
+    for (const auto index : aliveCells) {
+        field.cell(offset + index) = Cell::Alive;
+    }
+}
+
 } // namespace ca

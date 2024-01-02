@@ -27,5 +27,6 @@ FieldModel nextGeneration(const FieldModel& current) {
 
 void insertGlider(FieldModel& field, CellIndex offset);
 void insertStick(FieldModel& field, CellIndex offset);
+void insertRPentamino(FieldModel& field, CellIndex offset);
 
 } // namespace ca
