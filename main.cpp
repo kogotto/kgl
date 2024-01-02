@@ -67,7 +67,7 @@ int main() {
         }
 
         gd.update(field);
-        renderer.draw(gd.va, gd.ib, gd.shader);
+        renderer.draw(gd.va, gd.i.handler(), gd.shader);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

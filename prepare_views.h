@@ -7,7 +7,6 @@
 #include <glw/shader.h>
 
 #include <utils/cell_index.h>
-#include <field_model.h>
 
 #include "field_view.h"
 
@@ -27,8 +26,7 @@ public:
 
     VertexBuffer v;
     glw::VertexArray va;
-    IndexStorage indices;
-    glw::IndexBuffer ib;
+    glw::IndexBuffer i;
     glw::Shader shader;
     FieldView fieldView;
 };

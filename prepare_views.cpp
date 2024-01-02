@@ -104,12 +104,7 @@ inline auto prepareIndexStorage(size_t rows, size_t cols) {
     return result;
 }
 
-auto prepareIndexBuffer(IndexStorage& storage) {
-    glw::IndexBuffer ib{storage.data(), static_cast<ptrdiff_t>(storage.size())};
-    return ib;
-}
-
-const Rect screenRect{-1.f, 1.f, 1.f, -1.f};
+const Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
 
 } // namespace
 
@@ -132,8 +127,7 @@ GraphicsData::GraphicsData(
         size_t cellCols)
     : v{prepareVertexStorage(cellRows, cellCols, screenRect)}
     , va{prepareVertexArray(v.handler())}
-    , indices(prepareIndexStorage(cellRows, cellCols))
-    , ib(prepareIndexBuffer(indices))
+    , i{prepareIndexStorage(cellRows, cellCols)}
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
     , fieldView(size, v.storage())
 {

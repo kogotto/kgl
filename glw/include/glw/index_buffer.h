@@ -1,28 +1,33 @@
 #pragma once
 
-#include <cstdint>
+#include <vector>
+
+#include <glw/index_buffer_handler.h>
 
 namespace glw {
 
 class IndexBuffer {
 public:
-    IndexBuffer(const unsigned int* data, std::ptrdiff_t count);
+    using storage_t = std::vector<unsigned int>;
+
+    IndexBuffer(storage_t storage)
+        : storage_(std::move(storage))
+        , ib_{storage_.data(), static_cast<std::ptrdiff_t>(storage_.size())}
+    {}
 
     IndexBuffer(const IndexBuffer&) = delete;
-    IndexBuffer(IndexBuffer&& rhs) noexcept;
+    IndexBuffer(IndexBuffer&&) noexcept = default;
 
     IndexBuffer& operator=(const IndexBuffer&) = delete;
-    IndexBuffer& operator=(IndexBuffer&& rhs) noexcept;
+    IndexBuffer& operator=(IndexBuffer&&) noexcept = default;
 
-    ~IndexBuffer();
+    const IndexBufferHandler& handler() const { return ib_; }
 
-    void bind() const;
-    void unbind() const;
+    auto getCount() const { return ib_.getCount(); }
 
-    auto getCount() const { return count; }
 private:
-    unsigned int id;
-    std::ptrdiff_t count;
+    storage_t storage_;
+    IndexBufferHandler ib_;
 };
 
 } // namespace glw
