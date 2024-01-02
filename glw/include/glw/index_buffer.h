@@ -12,7 +12,7 @@ public:
 
     IndexBuffer(storage_t storage)
         : storage_(std::move(storage))
-        , ib_{storage_.data(), static_cast<std::ptrdiff_t>(storage.size())}
+        , ib_{storage_.data(), static_cast<std::ptrdiff_t>(storage_.size())}
     {}
 
     IndexBuffer(const IndexBuffer&) = delete;
@@ -20,6 +20,8 @@ public:
 
     IndexBuffer& operator=(const IndexBuffer&) = delete;
     IndexBuffer& operator=(IndexBuffer&&) noexcept = default;
+
+    const IndexBufferHandler& handler() const { return ib_; }
 
     auto getCount() const { return ib_.getCount(); }
 

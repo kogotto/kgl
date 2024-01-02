@@ -3,11 +3,10 @@
 #include <glw/vertex_array.h>
 #include <glw/vertex_buffer.h>
 #include <glw/vertex_buffer_layout.h>
-#include <glw/index_buffer_handler.h>
+#include <glw/index_buffer.h>
 #include <glw/shader.h>
 
 #include <utils/cell_index.h>
-#include <field_model.h>
 
 #include "field_view.h"
 
@@ -27,8 +26,7 @@ public:
 
     VertexBuffer v;
     glw::VertexArray va;
-    IndexStorage indices;
-    glw::IndexBufferHandler ib;
+    glw::IndexBuffer i;
     glw::Shader shader;
     FieldView fieldView;
 };
