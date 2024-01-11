@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export CC=~/.bin/gcc-13.2.0/usr/local/bin/gcc
+export CXX=~/.bin/gcc-13.2.0/usr/local/bin/g++
+
 BUILD_DIR="build"
 OPTIONS="
 -DCMAKE_EXPORT_COMPILE_COMMANDS=1
