@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
@@ -21,6 +22,10 @@ struct GLFWTerminator {
 constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -1;
 constexpr int GLEW_INIT_FAILED = -3;
+
+std::string makeWindowTitle(double x, double y) {
+    return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+}
 
 } // namespace
 
@@ -60,6 +65,12 @@ int main() {
 
     GraphicsData gd{field.getSize()};
     Timer time{std::chrono::milliseconds{25}};
+
+    glfwSetCursorPosCallback(window,
+        +[] (GLFWwindow* window, double x, double y) {
+            glfwSetWindowTitle(window, makeWindowTitle(x, y).c_str());
+        }
+    );
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
