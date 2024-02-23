@@ -27,11 +27,14 @@ include_directories(
 add_subdirectory(utils)
 add_subdirectory(cell-autom)
 add_subdirectory(glw)
+add_subdirectory(ui)
 
 target_link_libraries(
     kgl
+
     cell-autom
     glw
+    ui
 
     glfw
 )

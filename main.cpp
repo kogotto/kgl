@@ -7,6 +7,8 @@
 #include <GLFW/glfw3.h>
 
 #include <glw/renderer.h>
+#include <ui/mouse.h>
+
 #include "timer.h"
 #include "prepare_views.h"
 
@@ -40,7 +42,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(1280, 960, "Hello GLFW", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(ui::winWidth, ui::winHeight, "Hello GLFW", NULL, NULL);
     if (!window) {
         std::cout << "glfw window creation failed" << std::endl;
         return GLFW_WINDOW_CREATION_FAILED;
