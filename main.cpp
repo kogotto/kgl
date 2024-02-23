@@ -25,8 +25,17 @@ constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -2;
 constexpr int GLEW_INIT_FAILED = -3;
 
-std::string makeWindowTitle(double x, double y) {
-    return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+void SetCursorPosCallback(GLFWwindow& window, ui::Mouse& receiver) {
+    glfwSetWindowUserPointer(&window, &receiver);
+
+    glfwSetCursorPosCallback(&window,
+        +[] (GLFWwindow* window, double x, double y) {
+            void* rawReceiver = glfwGetWindowUserPointer(window);
+
+            auto& receiver = *static_cast<ui::Mouse*>(rawReceiver);
+            receiver.setPosition(x, y);
+        }
+    );
 }
 
 } // namespace
@@ -68,11 +77,8 @@ int main() {
     GraphicsData gd{field.getSize()};
     Timer time{std::chrono::milliseconds{25}};
 
-    glfwSetCursorPosCallback(window,
-        +[] (GLFWwindow* window, double x, double y) {
-            glfwSetWindowTitle(window, makeWindowTitle(x, y).c_str());
-        }
-    );
+    ui::Mouse mouse;
+    SetCursorPosCallback(*window, mouse);
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
@@ -83,6 +89,8 @@ int main() {
 
         gd.update(field);
         renderer.draw(gd.va, gd.i.handler(), gd.shader);
+
+        glfwSetWindowTitle(window, mouse.makeCaption().c_str());
 
         glfwSwapBuffers(window);
         glfwPollEvents();
