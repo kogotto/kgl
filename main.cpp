@@ -22,7 +22,7 @@ struct GLFWTerminator {
 };
 
 constexpr int GLFW_INIT_FAILED = -1;
-constexpr int GLFW_WINDOW_CREATION_FAILED = -1;
+constexpr int GLFW_WINDOW_CREATION_FAILED = -2;
 constexpr int GLEW_INIT_FAILED = -3;
 
 std::string makeWindowTitle(double x, double y) {
