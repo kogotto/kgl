@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16.3)
 project(kgl)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 add_executable(
     ${PROJECT_NAME}
@@ -27,11 +27,14 @@ include_directories(
 add_subdirectory(utils)
 add_subdirectory(cell-autom)
 add_subdirectory(glw)
+add_subdirectory(ui)
 
 target_link_libraries(
     kgl
+
     cell-autom
     glw
+    ui
 
     glfw
 )

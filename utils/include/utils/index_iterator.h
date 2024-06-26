@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iterator>
+
 #include <boost/stl_interfaces/iterator_interface.hpp>
 
 #include <utils/cell_index.h>
