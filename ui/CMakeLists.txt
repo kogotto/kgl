@@ -2,7 +2,7 @@
 add_library(
     ui
 
-    mouse.cpp
+    mouse_listener.cpp
 )
 
 target_include_directories(
