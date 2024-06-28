@@ -1,34 +1,9 @@
 #pragma once
 
 #include <cell.h>
-#include <utils/point.h>
+#include <utils/rect.h>
 
 class Vertex;
-
-struct Rect {
-    using Point = ut::Point;
-
-    float left;
-    float top;
-    float right;
-    float bottom;
-
-    Point leftTop() const {
-        return {left, top};
-    }
-
-    Point rightTop() const {
-        return {right, top};
-    }
-
-    Point leftBottom() const {
-        return {left, bottom};
-    }
-
-    Point rightBottom() const {
-        return {right, bottom};
-    }
-};
 
 class CellView {
 public:
@@ -40,12 +15,12 @@ public:
         : firstVertex(&vertex)
     {}
 
-    void setPosition(Rect newPosition) {
+    void setPosition(ut::Rect newPosition) {
         position = newPosition;
     }
 
     void update(const ca::Cell& cell);
 private:
     Vertex* firstVertex;
-    Rect position;
+    ut::Rect position;
 };

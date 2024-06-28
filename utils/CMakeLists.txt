@@ -9,6 +9,7 @@ add_library(
     index_iterator.cpp
     index_range.cpp
     point.cpp
+    rect.cpp
 )
 
 target_include_directories(

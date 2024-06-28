@@ -1,15 +1,9 @@
 #include "prepare_views.h"
 
 #include <glw/debug.h>
+#include <utils/rect.h>
 
 namespace {
-
-struct Rect {
-    float left;
-    float top;
-    float right;
-    float bottom;
-};
 
 inline float step(float start, float finish, size_t count) {
     return (finish - start) / count;
@@ -38,7 +32,7 @@ inline void insertRect(Storage& storage, float left, float top, float sizeX, flo
     insertVertex(storage, right, bottom);
 }
 
-inline auto prepareVertexStorage(size_t rows, size_t cols, const Rect& rect) {
+inline auto prepareVertexStorage(size_t rows, size_t cols, const ut::Rect& rect) {
     Storage result;
     result.reserve(4 * rows * cols);
 
@@ -104,7 +98,7 @@ inline auto prepareIndexStorage(size_t rows, size_t cols) {
     return result;
 }
 
-const Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
+const ut::Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
 
 } // namespace
 
