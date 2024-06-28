@@ -9,7 +9,7 @@ class Field;
 
 class FieldView {
 public:
-    FieldView(ut::NormalizedIndex size, Storage& storage);
+    FieldView(ut::NormalizedIndex size, ut::Rect rect, Storage& storage);
 
     void update(const ca::FieldModel& field);
 private:

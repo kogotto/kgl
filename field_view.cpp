@@ -4,11 +4,30 @@
 
 #include <utils/field.h>
 
-FieldView::FieldView(ut::NormalizedIndex size, Storage& storage)
+namespace {
+
+inline float step(float start, float finish, size_t count) {
+    return (finish - start) / count;
+}
+
+inline float ratio(size_t index, size_t count) {
+    return static_cast<float>(index) / count;
+}
+
+inline float linearInterpolation(float start, float finish, float ratio) {
+    return start + (finish - start) * ratio;
+}
+
+} // namespace
+
+FieldView::FieldView(ut::NormalizedIndex size, ut::Rect rect, Storage& storage)
     : cells{size}
 {
     const auto [rows, cols] = size;
     assert(4 * rows * cols == storage.size());
+
+    const float stepX = step(rect.left, rect.right, cols);
+    const float stepY = step(rect.top, rect.bottom, rows);
 
     for (const auto index : ut::IndexRange{size}) {
         auto&& targetCell = cells.cell(index);
@@ -16,12 +35,27 @@ FieldView::FieldView(ut::NormalizedIndex size, Storage& storage)
         targetCell = {
             *firstVertex
         };
-        targetCell.setPosition({
-            firstVertex[0].position[0],
-            firstVertex[0].position[1],
-            firstVertex[3].position[0],
-            firstVertex[3].position[1],
-        });
+
+        const auto left = linearInterpolation(
+            rect.left,
+            rect.right,
+            ratio(index.col, cols)
+        );
+
+        const auto top = linearInterpolation(
+            rect.top,
+            rect.bottom,
+            ratio(index.row, rows)
+        );
+
+        ut::Rect rect{
+            left,
+            top,
+            left + stepX,
+            top + stepY
+        };
+
+        targetCell.setPosition(rect);
     }
 }
 

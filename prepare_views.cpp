@@ -123,6 +123,6 @@ GraphicsData::GraphicsData(
     , va{prepareVertexArray(v.handler())}
     , i{prepareIndexStorage(cellRows, cellCols)}
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-    , fieldView(size, v.storage())
+    , fieldView(size, screenRect, v.storage())
 {
 }
