@@ -5,9 +5,10 @@ add_library(
     ut
 
     cell_index.cpp
+    field.cpp
     index_iterator.cpp
     index_range.cpp
-    field.cpp
+    point.cpp
 )
 
 target_include_directories(

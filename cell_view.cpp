@@ -30,7 +30,7 @@ void updateColor(Color& target, const Color& source) {
     target[3] = source[3];
 }
 
-void updatePosition(float target[2], Point source) {
+void updatePosition(float target[2], ut::Point source) {
     target[0] = source.x;
     target[1] = source.y;
 }

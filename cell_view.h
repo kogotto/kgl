@@ -1,15 +1,13 @@
 #pragma once
 
 #include <cell.h>
+#include <utils/point.h>
 
 class Vertex;
 
-struct Point {
-    float x;
-    float y;
-};
-
 struct Rect {
+    using Point = ut::Point;
+
     float left;
     float top;
     float right;
