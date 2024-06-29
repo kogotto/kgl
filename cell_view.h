@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cell.h>
+#include <utils/rect.h>
 
 class Vertex;
 
@@ -14,7 +15,12 @@ public:
         : firstVertex(&vertex)
     {}
 
+    void setPosition(ut::Rect newPosition) {
+        position = newPosition;
+    }
+
     void update(const ca::Cell& cell);
 private:
     Vertex* firstVertex;
+    ut::Rect position;
 };
