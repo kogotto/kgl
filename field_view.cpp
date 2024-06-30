@@ -63,6 +63,6 @@ void FieldView::update(const ca::FieldModel& field) {
     assert(field.getSize() == cells.getSize());
 
     for (auto index : field.indexRange()) {
-        cells.cell(index).update(field.cell(index));
+        cells.cell(index).update(field.cell(index), {0.1, 0.1});
     }
 }

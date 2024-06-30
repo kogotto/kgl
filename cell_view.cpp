@@ -37,15 +37,15 @@ void updatePosition(float target[2], ut::Point source) {
 
 } // namespace
 
-void CellView::update(const ca::Cell& cell) {
+void CellView::update(const ca::Cell& cell, ut::Point origin) {
     GlProxy vertices{firstVertex, 4};
     const auto& color = pickColor(cell);
     for (auto&& vertex : vertices) {
         updateColor(vertex.color, color);
     }
 
-    updatePosition(vertices[0].position, position.leftTop());
-    updatePosition(vertices[1].position, position.rightTop());
-    updatePosition(vertices[2].position, position.leftBottom());
-    updatePosition(vertices[3].position, position.rightBottom());
+    updatePosition(vertices[0].position, origin + position.leftTop());
+    updatePosition(vertices[1].position, origin + position.rightTop());
+    updatePosition(vertices[2].position, origin + position.leftBottom());
+    updatePosition(vertices[3].position, origin + position.rightBottom());
 }

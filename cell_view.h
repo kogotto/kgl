@@ -19,7 +19,7 @@ public:
         position = newPosition;
     }
 
-    void update(const ca::Cell& cell);
+    void update(const ca::Cell& cell, ut::Point origin);
 private:
     Vertex* firstVertex;
     ut::Rect position;
