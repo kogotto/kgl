@@ -7,6 +7,7 @@
 #include <glw/shader.h>
 
 #include <utils/cell_index.h>
+#include <utils/color.h>
 
 #include "field_view.h"
 
@@ -19,6 +20,10 @@ public:
     GraphicsData(ut::NormalizedIndex size);
 
     void update(const ca::FieldModel& field);
+
+    size_t pushVertex(ut::Point point, ut::Color color);
+
+    void pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id);
 
 private:
 public:

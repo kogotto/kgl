@@ -8,6 +8,7 @@ add_library(
     field.cpp
     index_iterator.cpp
     index_range.cpp
+    color.cpp
     point.cpp
     rect.cpp
 )

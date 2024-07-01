@@ -2,17 +2,17 @@
 
 #include <span>
 
+#include <utils/color.h>
+
 #include "storage.h"
 
 namespace {
 
 using GlProxy = std::span<Vertex, 4>;
 
-using Color = float[4];
-
-constexpr Color deathColor{1.f, 1.f, 0.f, 1.f};   // yellow
-constexpr Color aliveColor{0.f, 0.f, 1.f, 1.f};   // blue
-constexpr Color unknownColor{0.f, 0.f, 0.f, 1.f}; // black
+constexpr ut::Color deathColor{1.f, 1.f, 0.f, 1.f};   // yellow
+constexpr ut::Color aliveColor{0.f, 0.f, 1.f, 1.f};   // blue
+constexpr ut::Color unknownColor{0.f, 0.f, 0.f, 1.f}; // black
 
 const auto& pickColor(ca::Cell cell) {
     switch (cell) {
@@ -23,7 +23,7 @@ const auto& pickColor(ca::Cell cell) {
     return unknownColor;
 }
 
-void updateColor(Color& target, const Color& source) {
+void updateColor(ut::Color& target, const ut::Color& source) {
     target[0] = source[0];
     target[1] = source[1];
     target[2] = source[2];
@@ -48,4 +48,25 @@ void CellView::update(const ca::Cell& cell, ut::Point origin) {
     updatePosition(vertices[1].position, origin + position.rightTop());
     updatePosition(vertices[2].position, origin + position.leftBottom());
     updatePosition(vertices[3].position, origin + position.rightBottom());
+}
+
+void CellView::update(const ca::Cell& cell, ut::Point origin, GraphicsData& data) {
+    const auto& color = pickColor(cell);
+
+    const auto leftTop = data.pushVertex(position.leftTop(), color);
+    const auto rightTop = data.pushVertex(position.rightTop(), color);
+    const auto leftBottom = data.pushVertex(position.leftBottom(), color);
+    const auto rightBottom = data.pushVertex(position.rightBottom(), color);
+
+    data.pushPolygon(
+        leftTop,
+        rightTop,
+        leftBottom
+    );
+
+    data.pushPolygon(
+        rightTop,
+        rightBottom,
+        leftBottom
+    );
 }

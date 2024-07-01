@@ -88,6 +88,21 @@ void GraphicsData::update(const ca::FieldModel& field) {
     v.update();
 }
 
+size_t GraphicsData::pushVertex(ut::Point point, ut::Color color) {
+    v.storage().push_back({
+        {point.x, point.y},
+        {color[0], color[1], color[2], color[3]}
+    });
+
+    return v.storage().size() - 1;
+}
+
+void GraphicsData::pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id) {
+    i.storage().push_back(vertex1Id);
+    i.storage().push_back(vertex2Id);
+    i.storage().push_back(vertex3Id);
+}
+
 GraphicsData::GraphicsData(
         ut::NormalizedIndex size,
         size_t cellRows,

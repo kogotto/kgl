@@ -21,6 +21,9 @@ public:
     IndexBuffer& operator=(const IndexBuffer&) = delete;
     IndexBuffer& operator=(IndexBuffer&&) noexcept = default;
 
+    storage_t& storage() { return storage_; }
+    const storage_t& storage() const { return storage_; }
+
     const IndexBufferHandler& handler() const { return ib_; }
 
     auto getCount() const { return ib_.getCount(); }
