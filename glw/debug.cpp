@@ -15,8 +15,17 @@ struct GLErrorCode {
     GLenum code;
 };
 
+const char* errorName(GLErrorCode code) {
+    switch (code.code) {
+    case GL_INVALID_VALUE: return "GL_INVALID_VALUE";
+    case GL_INVALID_ENUM: return "GL_INVALID_ENUM";
+    }
+    return "unknown";
+}
+
 std::ostream& operator<<(std::ostream& stream, GLErrorCode code) {
     return stream <<
+        "(" << errorName(code) << ") " <<
         std::hex << std::showbase <<
         code.code <<
         std::noshowbase << std::dec;
