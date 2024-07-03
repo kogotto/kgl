@@ -50,23 +50,7 @@ inline auto prepareIndexStorage(size_t rows, size_t cols) {
     const auto cellCount = rows * cols;
     constexpr size_t polygonsPerCell = 2;
     constexpr size_t verticesPerPolygon = 3;
-    result.reserve(cellCount * polygonsPerCell * verticesPerPolygon);
-
-    for (size_t cell = 0; cell < cellCount; ++cell) {
-        const auto topLeft = 4 * cell;
-        const auto topRight = topLeft + 1;
-        const auto bottomLeft = topRight + 1;
-        const auto bottomRight = bottomLeft + 1;
-
-        // First polygon
-        result.push_back(topLeft);
-        result.push_back(topRight);
-        result.push_back(bottomLeft);
-        // Second polygon
-        result.push_back(topRight);
-        result.push_back(bottomRight);
-        result.push_back(bottomLeft);
-    }
+    result.resize(cellCount * polygonsPerCell * verticesPerPolygon);
 
     return result;
 }
@@ -82,13 +66,12 @@ GraphicsData::GraphicsData(ut::NormalizedIndex size)
         size.col)
 {}
 
-void GraphicsData::update(const ca::FieldModel& field) {
-    fieldView.update(field);
-
+void GraphicsData::update() {
     v.update();
+    i.update();
 }
 
-size_t GraphicsData::pushVertex(ut::Point point, ut::Color color) {
+size_t GraphicsData::pushVertex(ut::Point point, const ut::Color color) {
     v.storage().push_back({
         {point.x, point.y},
         {color[0], color[1], color[2], color[3]}
@@ -111,6 +94,5 @@ GraphicsData::GraphicsData(
     , va{prepareVertexArray(v.handler())}
     , i{prepareIndexStorage(cellRows, cellCols)}
     , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-    , fieldView(size, screenRect, v.storage())
 {
 }

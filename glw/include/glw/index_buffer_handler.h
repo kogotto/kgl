@@ -16,6 +16,8 @@ public:
 
     ~IndexBufferHandler();
 
+    void update(const unsigned int* data, std::ptrdiff_t size);
+
     void bind() const;
     void unbind() const;
 

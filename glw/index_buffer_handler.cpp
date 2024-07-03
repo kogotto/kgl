@@ -31,6 +31,11 @@ IndexBufferHandler::~IndexBufferHandler() {
     GLCALL(glDeleteBuffers(1, &id));
 }
 
+void IndexBufferHandler::update(const unsigned int* data, std::ptrdiff_t size) {
+    bind();
+    GLCALL(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data));
+}
+
 void IndexBufferHandler::bind() const {
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id));
 }

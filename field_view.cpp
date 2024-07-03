@@ -4,6 +4,8 @@
 
 #include <utils/field.h>
 
+#include "prepare_views.h"
+
 namespace {
 
 inline float step(float start, float finish, size_t count) {
@@ -20,21 +22,16 @@ inline float linearInterpolation(float start, float finish, float ratio) {
 
 } // namespace
 
-FieldView::FieldView(ut::NormalizedIndex size, ut::Rect rect, Storage& storage)
+FieldView::FieldView(ut::NormalizedIndex size, ut::Rect rect)
     : cells{size}
 {
     const auto [rows, cols] = size;
-    assert(4 * rows * cols == storage.size());
 
     const float stepX = step(rect.left, rect.right, cols);
     const float stepY = step(rect.top, rect.bottom, rows);
 
     for (const auto index : ut::IndexRange{size}) {
         auto&& targetCell = cells.cell(index);
-        Vertex* firstVertex = &storage[4 * ut::detail::toContainerIndex(cols, index)];
-        targetCell = {
-            *firstVertex
-        };
 
         const auto left = linearInterpolation(
             rect.left,
@@ -59,10 +56,13 @@ FieldView::FieldView(ut::NormalizedIndex size, ut::Rect rect, Storage& storage)
     }
 }
 
-void FieldView::update(const ca::FieldModel& field) {
+void FieldView::update(const ca::FieldModel& field, GraphicsData& data) {
     assert(field.getSize() == cells.getSize());
 
+    data.v.storage().clear();
+    data.i.storage().clear();
+
     for (auto index : field.indexRange()) {
-        cells.cell(index).update(field.cell(index), {0.1, 0.1});
+        cells.cell(index).update(field.cell(index), {0.1, 0.1}, data);
     }
 }
