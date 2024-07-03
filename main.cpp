@@ -125,7 +125,7 @@ int main() {
             gd.update();
         }
 
-        renderer.draw(gd.va, gd.i.handler(), gd.shader);
+        renderer.draw(gd.va, gd.i, gd.shader);
 
         glfwSetWindowTitle(window, mouseListener.makeCaption().c_str());
 

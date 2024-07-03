@@ -10,7 +10,6 @@
 namespace glw {
 
 IndexBufferHandler::IndexBufferHandler(const unsigned int* data, std::ptrdiff_t count)
-    : count{count}
 {
     GLCALL(glGenBuffers(1, &id));
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id));

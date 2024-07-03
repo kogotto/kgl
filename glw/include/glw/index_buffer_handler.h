@@ -21,10 +21,8 @@ public:
     void bind() const;
     void unbind() const;
 
-    auto getCount() const { return count; }
 private:
     unsigned int id;
-    std::ptrdiff_t count;
 };
 
 } // namespace glw
