@@ -24,10 +24,10 @@ const auto& pickColor(ca::Cell cell) {
 void CellView::update(const ca::Cell& cell, ut::Point origin, GraphicsData& data) {
     const auto& color = pickColor(cell);
 
-    const auto leftTop = data.pushVertex(position.leftTop(), color);
-    const auto rightTop = data.pushVertex(position.rightTop(), color);
-    const auto leftBottom = data.pushVertex(position.leftBottom(), color);
-    const auto rightBottom = data.pushVertex(position.rightBottom(), color);
+    const auto leftTop = data.pushVertex(origin + position.leftTop(), color);
+    const auto rightTop = data.pushVertex(origin + position.rightTop(), color);
+    const auto leftBottom = data.pushVertex(origin + position.leftBottom(), color);
+    const auto rightBottom = data.pushVertex(origin + position.rightBottom(), color);
 
     data.pushPolygon(
         leftTop,
