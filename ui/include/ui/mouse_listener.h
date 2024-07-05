@@ -1,4 +1,5 @@
 #include <string>
+#include <functional>
 
 namespace ui {
 
@@ -7,7 +8,11 @@ constexpr int winHeight = 960;
 
 class MouseListener {
 public:
+    using Callback = std::function<void(int, int, int, int)>;
+
     MouseListener() = default;
+
+    MouseListener(Callback callback);
 
     MouseListener(const MouseListener&) = delete;
     MouseListener(MouseListener&&) = default;
@@ -26,6 +31,8 @@ private:
 
     bool leftButtonPressed_{false};
     bool rightButtonPressed_{false};
+
+    Callback callback_;
 };
 
 }

@@ -113,7 +113,11 @@ int main() {
 
     Timer time{std::chrono::milliseconds{25}};
 
-    ui::MouseListener mouseListener;
+    ui::MouseListener mouseListener{
+        [&fieldView] (int oldX, int oldY, int newX, int newY) {
+            fieldView.setOrigin(newX, newY);
+        }
+    };
     setMouseListener(*window, mouseListener);
 
     while (!glfwWindowShouldClose(window)) {

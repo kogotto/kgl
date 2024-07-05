@@ -1,8 +1,28 @@
 #include <ui/mouse_listener.h>
 
 namespace ui {
+namespace {
+
+MouseListener::Callback prepareCallback(MouseListener::Callback callback) {
+    if (callback) {
+        return callback;
+    }
+
+    return [] (int, int, int, int) {};
+}
+
+} // namespace
+} // namespace ui
+
+namespace ui {
+
+MouseListener::MouseListener(Callback callback)
+    : callback_{prepareCallback(std::move(callback))}
+{}
 
 void MouseListener::setPosition(double x, double y) {
+    callback_(x_, y_, x, y);
+
     x_ = x;
     y_ = y;
 }

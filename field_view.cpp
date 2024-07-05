@@ -63,6 +63,18 @@ void FieldView::update(const ca::FieldModel& field, GraphicsData& data) {
     data.i.storage().clear();
 
     for (auto index : field.indexRange()) {
-        cells.cell(index).update(field.cell(index), {0.1, 0.1}, data);
+        cells.cell(index).update(field.cell(index), getOrigin(), data);
     }
+}
+
+void FieldView::setOrigin(int oX, int oY) {
+    oX_ = oX;
+    oY_ = oY;
+}
+
+ut::Point FieldView::getOrigin() const {
+    return {
+        oX_ / 100.f,
+        oY_ / 100.f
+    };
 }
