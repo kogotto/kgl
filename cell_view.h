@@ -8,11 +8,11 @@ class GraphicsData;
 
 class CellView {
 public:
-    void setPosition(ut::Rect newPosition) {
+    void setPosition(ut::Rectf newPosition) {
         position = newPosition;
     }
 
-    void update(const ca::Cell& cell, ut::Point origin, GraphicsData& data);
+    void update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data);
 private:
-    ut::Rect position;
+    ut::Rectf position;
 };

@@ -71,7 +71,7 @@ void GraphicsData::update() {
     i.update();
 }
 
-size_t GraphicsData::pushVertex(ut::Point point, const ut::Color color) {
+size_t GraphicsData::pushVertex(ut::Pointf point, const ut::Color color) {
     v.storage().push_back({
         {point.x, point.y},
         {color[0], color[1], color[2], color[3]}

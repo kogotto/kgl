@@ -22,7 +22,7 @@ public:
 
     void update();
 
-    size_t pushVertex(ut::Point point, const ut::Color color);
+    size_t pushVertex(ut::Pointf point, const ut::Color color);
 
     void pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id);
 

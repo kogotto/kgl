@@ -4,27 +4,30 @@
 
 namespace ut {
 
+template <typename T>
 struct Rect {
-    float left;
-    float top;
-    float right;
-    float bottom;
+    T left;
+    T top;
+    T right;
+    T bottom;
 
-    Point leftTop() const {
+    Point<T> leftTop() const {
         return {left, top};
     }
 
-    Point rightTop() const {
+    Point<T> rightTop() const {
         return {right, top};
     }
 
-    Point leftBottom() const {
+    Point<T> leftBottom() const {
         return {left, bottom};
     }
 
-    Point rightBottom() const {
+    Point<T> rightBottom() const {
         return {right, bottom};
     }
 };
+
+using Rectf = Rect<float>;
 
 } // namespace ut

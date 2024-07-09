@@ -2,23 +2,28 @@
 
 namespace ut {
 
+template <typename T>
 struct Point {
-    float x;
-    float y;
+    T x;
+    T y;
 };
 
-inline Point operator+(Point lhs, Point rhs) {
+template <typename T>
+inline Point<T> operator+(Point<T> lhs, Point<T> rhs) {
     return {
         lhs.x + rhs.x,
         lhs.y + rhs.y
     };
 }
 
-inline Point operator-(Point lhs, Point rhs) {
+template <typename T>
+inline Point<T> operator-(Point<T> lhs, Point<T> rhs) {
     return {
         lhs.x - rhs.x,
         lhs.y - rhs.y
     };
 }
+
+using Pointf = Point<float>;
 
 } // namespace ut

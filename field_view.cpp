@@ -22,7 +22,7 @@ inline float linearInterpolation(float start, float finish, float ratio) {
 
 } // namespace
 
-FieldView::FieldView(ut::NormalizedIndex size, ut::Rect rect)
+FieldView::FieldView(ut::NormalizedIndex size, ut::Rectf rect)
     : cells{size}
 {
     const auto [rows, cols] = size;
@@ -72,7 +72,7 @@ void FieldView::setOrigin(float oX, float oY) {
     oY_ = oY;
 }
 
-ut::Point FieldView::getOrigin() const {
+ut::Pointf FieldView::getOrigin() const {
     return {
         oX_,
         oY_
