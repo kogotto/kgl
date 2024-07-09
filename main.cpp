@@ -115,7 +115,9 @@ int main() {
 
     ui::MouseListener mouseListener{
         [&fieldView] (int oldX, int oldY, int newX, int newY) {
-            fieldView.setOrigin(newX, newY);
+            const float x = static_cast<float>(newX) / ui::winWidth * 2 - 1.f;
+            const float y = -static_cast<float>(newY) / ui::winHeight * 2 + 1.f;
+            fieldView.setOrigin(x, y);
         }
     };
     setMouseListener(*window, mouseListener);

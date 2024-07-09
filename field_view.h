@@ -15,11 +15,11 @@ public:
 
     void update(const ca::FieldModel& field, GraphicsData& data);
 
-    void setOrigin(int oX, int oY);
+    void setOrigin(float oX, float oY);
 private:
     ut::Point getOrigin() const;
 
     ut::Field<CellView> cells;
-    int oX_{0};
-    int oY_{0};
+    float oX_{0};
+    float oY_{0};
 };
