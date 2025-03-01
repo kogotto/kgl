@@ -1,7 +1,5 @@
 #pragma once
 
-#include <type_traits>
-
 #include <utils/field.h>
 
 #include "cell.h"
