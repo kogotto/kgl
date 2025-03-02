@@ -27,60 +27,6 @@ constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -2;
 constexpr int GLEW_INIT_FAILED = -3;
 
-inline bool isPressed(int action) {
-    switch (action) {
-    case GLFW_PRESS: return true;
-    case GLFW_RELEASE: return false;
-    }
-
-    std::cout << "Unknown mouse button action, action = " << action << std::endl;
-    return false;
-}
-
-inline ui::MouseListener& getMouseListener(GLFWwindow& window) {
-    void* rawListener = glfwGetWindowUserPointer(&window);
-    return *static_cast<ui::MouseListener*>(rawListener);
-}
-
-template <typename T>
-ut::Pointf rawToGl(ut::Point<T> rawPos) {
-    const float xGl = static_cast<float>(rawPos.x) / ui::winWidth * 2 - 1.f;
-    const float yGl = -static_cast<float>(rawPos.y) / ui::winHeight * 2 + 1.f;
-    return {xGl, yGl};
-}
-
-void setMouseListener(GLFWwindow& window, ui::MouseListener& listener) {
-    glfwSetWindowUserPointer(&window, &listener);
-
-    glfwSetCursorPosCallback(&window,
-        +[] (GLFWwindow* window, double x, double y) {
-            auto& listener = getMouseListener(*window);
-
-            ut::Point rawPos{x, y};
-            const auto glPos = rawToGl(rawPos);
-            listener.setPosition(glPos);
-        }
-    );
-
-    glfwSetMouseButtonCallback(&window,
-        +[] (GLFWwindow* window, int button, int action, int mods) {
-            auto& listener = getMouseListener(*window);
-
-            switch (button) {
-            case GLFW_MOUSE_BUTTON_LEFT:
-                listener.setLeftButtonPressed(isPressed(action));
-                break;
-            case GLFW_MOUSE_BUTTON_RIGHT:
-                listener.setRightButtonPressed(isPressed(action));
-                break;
-            default:
-                std::cout << "Unknown mouse button pressed, button = " <<
-                         button << std::endl;
-            }
-        }
-    );
-}
-
 } // namespace
 
 int main() {
@@ -124,7 +70,7 @@ int main() {
 
     Timer time{std::chrono::milliseconds{25}};
 
-    ui::MouseListener mouseListener;
+    ui::MouseListener mouseListener(*window);
 
     FieldViewMouseAdapter viewMouseAdapter{fieldView};
     mouseListener.setStartDragCallback(
@@ -137,7 +83,9 @@ int main() {
             viewMouseAdapter.drag(mousePos);
         }
     );
-    setMouseListener(*window, mouseListener);
+
+    fieldView.update(field, gd);
+    gd.update();
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();

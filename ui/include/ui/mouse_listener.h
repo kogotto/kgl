@@ -3,6 +3,8 @@
 
 #include <utils/point.h>
 
+struct GLFWwindow;
+
 namespace ui::detail {
 
 inline auto nullCallback = [] (ut::Pointf) {};
@@ -20,7 +22,7 @@ public:
         Drag
     };
 
-    MouseListener() = default;
+    MouseListener(GLFWwindow& window);
 
     MouseListener(const MouseListener&) = delete;
     MouseListener(MouseListener&&) = default;
