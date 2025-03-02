@@ -84,6 +84,9 @@ int main() {
         }
     );
 
+    fieldView.update(field, gd);
+    gd.update();
+
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
 
