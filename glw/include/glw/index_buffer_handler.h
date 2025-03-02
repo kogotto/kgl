@@ -16,13 +16,13 @@ public:
 
     ~IndexBufferHandler();
 
+    void update(const unsigned int* data, std::ptrdiff_t size);
+
     void bind() const;
     void unbind() const;
 
-    auto getCount() const { return count; }
 private:
     unsigned int id;
-    std::ptrdiff_t count;
 };
 
 } // namespace glw

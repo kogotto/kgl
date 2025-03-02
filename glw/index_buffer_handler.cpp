@@ -10,7 +10,6 @@
 namespace glw {
 
 IndexBufferHandler::IndexBufferHandler(const unsigned int* data, std::ptrdiff_t count)
-    : count{count}
 {
     GLCALL(glGenBuffers(1, &id));
     GLCALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id));
@@ -29,6 +28,11 @@ IndexBufferHandler& IndexBufferHandler::operator=(IndexBufferHandler&& rhs) noex
 
 IndexBufferHandler::~IndexBufferHandler() {
     GLCALL(glDeleteBuffers(1, &id));
+}
+
+void IndexBufferHandler::update(const unsigned int* data, std::ptrdiff_t size) {
+    bind();
+    GLCALL(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data));
 }
 
 void IndexBufferHandler::bind() const {

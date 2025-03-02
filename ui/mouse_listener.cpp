@@ -2,12 +2,22 @@
 
 namespace ui {
 
-void MouseListener::setPosition(double x, double y) {
-    x_ = x;
-    y_ = y;
+void MouseListener::setPosition(ut::Pointf position) {
+    if (state_ == State::Drag) {
+        dragCallback_(position);
+    }
+
+    position_ = position;
 }
 
 void MouseListener::setLeftButtonPressed(bool pressed) {
+    if (!leftButtonPressed_ && pressed) {
+        state_ = State::Drag;
+        startDragCallback_(position_);
+    }
+    if (leftButtonPressed_ && !pressed) {
+        state_ = State::Idle;
+    }
     leftButtonPressed_ = pressed;
 }
 
@@ -16,7 +26,8 @@ void MouseListener::setRightButtonPressed(bool pressed) {
 }
 
 std::string MouseListener::makeCaption() const {
-    return "(" + std::to_string(x_) + ", " + std::to_string(y_) + ")" +
+    return "(" + std::to_string(position_.x) +
+           ", " + std::to_string(position_.y) + ")" +
            " LMB: " + std::to_string(leftButtonPressed_) +
            " RMB: " + std::to_string(rightButtonPressed_);
 }

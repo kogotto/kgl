@@ -4,14 +4,7 @@
 
 #include <glw/vertex_buffer_handler.h>
 
-namespace glw::detail {
-
-template <typename T>
-std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
-    return vec.size() * sizeof(T);
-}
-
-} // namespace glw::detail
+#include <utils/size_in_bytes.h>
 
 namespace glw {
 
@@ -23,7 +16,7 @@ public:
 
     VertexBuffer(storage_t storage)
         : storage_(std::move(storage))
-        , vb_{storage_.data(), detail::sizeInBytes(storage_)}
+        , vb_{storage_.data(), ut::sizeInBytes(storage_)}
     {}
 
     VertexBuffer(const VertexBuffer&) = delete;
@@ -38,7 +31,7 @@ public:
     const VertexBufferHandler& handler() { return vb_; }
 
     void update() const {
-        vb_.update(storage_.data(), detail::sizeInBytes(storage_));
+        vb_.update(storage_.data(), ut::sizeInBytes(storage_));
     }
 
 private:

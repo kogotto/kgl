@@ -6,10 +6,13 @@
 #include <GLFW/glfw3.h>
 
 #include <glw/renderer.h>
+#include <ui/defs.hpp>
 #include <ui/mouse_listener.h>
 
 #include "timer.h"
 #include "prepare_views.h"
+#include "field_view.h"
+#include "FieldViewMouseAdapter.hpp"
 
 namespace
 {
@@ -39,6 +42,13 @@ inline ui::MouseListener& getMouseListener(GLFWwindow& window) {
     return *static_cast<ui::MouseListener*>(rawListener);
 }
 
+template <typename T>
+ut::Pointf rawToGl(ut::Point<T> rawPos) {
+    const float xGl = static_cast<float>(rawPos.x) / ui::winWidth * 2 - 1.f;
+    const float yGl = -static_cast<float>(rawPos.y) / ui::winHeight * 2 + 1.f;
+    return {xGl, yGl};
+}
+
 void setMouseListener(GLFWwindow& window, ui::MouseListener& listener) {
     glfwSetWindowUserPointer(&window, &listener);
 
@@ -46,7 +56,9 @@ void setMouseListener(GLFWwindow& window, ui::MouseListener& listener) {
         +[] (GLFWwindow* window, double x, double y) {
             auto& listener = getMouseListener(*window);
 
-            listener.setPosition(x, y);
+            ut::Point rawPos{x, y};
+            const auto glPos = rawToGl(rawPos);
+            listener.setPosition(glPos);
         }
     );
 
@@ -102,13 +114,29 @@ int main() {
 
     constexpr ut::normal_index_t sideSize{100};
     constexpr ca::NormalizedIndex fieldSize{sideSize, sideSize};
+    const ut::Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
+
     ca::FieldModel field{fieldSize};
     ca::insertRPentamino(field, ca::CellIndex{fieldSize} / 2);
 
     GraphicsData gd{field.getSize()};
+    FieldView fieldView{fieldSize, screenRect};
+
     Timer time{std::chrono::milliseconds{25}};
 
     ui::MouseListener mouseListener;
+
+    FieldViewMouseAdapter viewMouseAdapter{fieldView};
+    mouseListener.setStartDragCallback(
+        [&viewMouseAdapter] (ut::Pointf mousePos) {
+            viewMouseAdapter.startDrag(mousePos);
+        }
+    );
+    mouseListener.setDragCallback(
+        [&viewMouseAdapter] (ut::Pointf mousePos) {
+            viewMouseAdapter.drag(mousePos);
+        }
+    );
     setMouseListener(*window, mouseListener);
 
     while (!glfwWindowShouldClose(window)) {
@@ -116,10 +144,11 @@ int main() {
 
         if (time.hasCome()) {
             field = ca::nextGeneration(field);
+            fieldView.update(field, gd);
+            gd.update();
         }
 
-        gd.update(field);
-        renderer.draw(gd.va, gd.i.handler(), gd.shader);
+        renderer.draw(gd.va, gd.i, gd.shader);
 
         glfwSetWindowTitle(window, mouseListener.makeCaption().c_str());
 

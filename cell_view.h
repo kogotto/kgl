@@ -1,20 +1,18 @@
 #pragma once
 
 #include <cell.h>
+#include <utils/rect.h>
 
 class Vertex;
+class GraphicsData;
 
 class CellView {
 public:
-    CellView() noexcept
-        : firstVertex(nullptr)
-    {}
+    void setPosition(ut::Rectf newPosition) {
+        position = newPosition;
+    }
 
-    CellView(Vertex& vertex) noexcept
-        : firstVertex(&vertex)
-    {}
-
-    void update(const ca::Cell& cell);
+    void update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data);
 private:
-    Vertex* firstVertex;
+    ut::Rectf position;
 };

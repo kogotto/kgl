@@ -4,6 +4,8 @@
 
 #include <glw/index_buffer_handler.h>
 
+#include <utils/size_in_bytes.h>
+
 namespace glw {
 
 class IndexBuffer {
@@ -21,9 +23,16 @@ public:
     IndexBuffer& operator=(const IndexBuffer&) = delete;
     IndexBuffer& operator=(IndexBuffer&&) noexcept = default;
 
+    storage_t& storage() { return storage_; }
+    const storage_t& storage() const { return storage_; }
+
     const IndexBufferHandler& handler() const { return ib_; }
 
-    auto getCount() const { return ib_.getCount(); }
+    void update() {
+        ib_.update(storage_.data(), ut::sizeInBytes(storage_));
+    }
+
+    auto getCount() const { return storage_.size(); }
 
 private:
     storage_t storage_;

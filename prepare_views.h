@@ -7,8 +7,10 @@
 #include <glw/shader.h>
 
 #include <utils/cell_index.h>
+#include <utils/color.h>
+#include <utils/point.h>
 
-#include "field_view.h"
+#include "storage.h"
 
 using IndexStorage = std::vector<unsigned int>;
 
@@ -18,7 +20,11 @@ public:
 
     GraphicsData(ut::NormalizedIndex size);
 
-    void update(const ca::FieldModel& field);
+    void update();
+
+    size_t pushVertex(ut::Pointf point, const ut::Color color);
+
+    void pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id);
 
 private:
 public:
@@ -28,5 +34,4 @@ public:
     glw::VertexArray va;
     glw::IndexBuffer i;
     glw::Shader shader;
-    FieldView fieldView;
 };

@@ -1,17 +1,24 @@
 #pragma once
 
-#include "storage.h"
+#include <utils/point.h>
+
 #include "cell_view.h"
 
 #include <field_model.h>
 
 class Field;
+class GraphicsData;
 
 class FieldView {
 public:
-    FieldView(ut::NormalizedIndex size, Storage& storage);
+    FieldView(ut::NormalizedIndex size, ut::Rectf rect);
 
-    void update(const ca::FieldModel& field);
+    void update(const ca::FieldModel& field, GraphicsData& data);
+
+    void setOrigin(ut::Pointf origin);
+    ut::Pointf getOrigin() const;
+
 private:
     ut::Field<CellView> cells;
+    ut::Pointf origin_;
 };

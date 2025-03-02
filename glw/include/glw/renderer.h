@@ -3,7 +3,7 @@
 namespace glw {
 
 class VertexArray;
-class IndexBufferHandler;
+class IndexBuffer;
 class Shader;
 
 } // namespace glw
@@ -15,7 +15,7 @@ public:
     const unsigned char* getOpenGlVersion() const;
     void clear() const;
     void draw(const VertexArray& va,
-              const IndexBufferHandler& ib,
+              const IndexBuffer& ib,
               const Shader& shader) const;
 private:
 };

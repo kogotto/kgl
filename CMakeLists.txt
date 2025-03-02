@@ -14,6 +14,7 @@ add_executable(
     cell_view.cpp
     field_view.cpp
     prepare_views.cpp
+    FieldViewMouseAdapter.cpp
 )
 
 find_package(
