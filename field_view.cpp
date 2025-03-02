@@ -56,7 +56,7 @@ FieldView::FieldView(ut::NormalizedIndex size, ut::Rectf rect)
     }
 }
 
-void FieldView::update(const ca::FieldModel& field, GraphicsData& data) {
+void FieldView::update(const ca::FieldModel& field, GraphicsData& data) const {
     assert(field.getSize() == cells.getSize());
 
     data.v.storage().clear();

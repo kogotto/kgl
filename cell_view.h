@@ -12,7 +12,7 @@ public:
         position = newPosition;
     }
 
-    void update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data);
+    void update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data) const;
 private:
     ut::Rectf position;
 };

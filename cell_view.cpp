@@ -21,7 +21,7 @@ const auto& pickColor(ca::Cell cell) {
 
 } // namespace
 
-void CellView::update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data) {
+void CellView::update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data) const {
     const auto& color = pickColor(cell);
 
     const auto leftTop = data.pushVertex(origin + position.leftTop(), color);
