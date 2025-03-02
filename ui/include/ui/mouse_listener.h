@@ -22,7 +22,7 @@ public:
         Drag
     };
 
-    MouseListener() = default;
+    MouseListener(GLFWwindow& window);
 
     MouseListener(const MouseListener&) = delete;
     MouseListener(MouseListener&&) = default;
