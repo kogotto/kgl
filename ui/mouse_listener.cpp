@@ -1,5 +1,7 @@
 #include <ui/mouse_listener.h>
 
+#include <GLFW/glfw3.h>
+
 namespace ui {
 
 void MouseListener::setPosition(ut::Pointf position) {

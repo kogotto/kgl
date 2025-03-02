@@ -9,6 +9,7 @@ target_link_libraries(
     ui
 
     ut
+    glw
 )
 
 target_include_directories(
