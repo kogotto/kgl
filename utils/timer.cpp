@@ -1,4 +1,6 @@
-#include "timer.h"
+#include <utils/timer.h>
+
+namespace ut {
 
 Timer::Timer(Duration duration)
     : lastTick(Clock::now())
@@ -14,3 +16,5 @@ bool Timer::hasCome() const {
 
     return false;
 }
+
+} // namespace ut

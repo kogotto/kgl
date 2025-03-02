@@ -9,7 +9,7 @@
 #include <ui/defs.hpp>
 #include <ui/mouse_listener.h>
 
-#include "timer.h"
+#include <utils/timer.h>
 #include "prepare_views.h"
 #include "field_view.h"
 #include "FieldViewMouseAdapter.hpp"
@@ -68,7 +68,7 @@ int main() {
     GraphicsData gd{field.getSize()};
     FieldView fieldView{fieldSize, screenRect};
 
-    Timer time{std::chrono::milliseconds{25}};
+    ut::Timer time{std::chrono::milliseconds{25}};
 
     ui::MouseListener mouseListener(*window);
 
