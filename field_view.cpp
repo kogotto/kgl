@@ -67,14 +67,10 @@ void FieldView::update(const ca::FieldModel& field, GraphicsData& data) {
     }
 }
 
-void FieldView::setOrigin(float oX, float oY) {
-    oX_ = oX;
-    oY_ = oY;
+void FieldView::setOrigin(ut::Pointf origin) {
+    origin_ = origin;
 }
 
 ut::Pointf FieldView::getOrigin() const {
-    return {
-        oX_,
-        oY_
-    };
+    return origin_;
 }

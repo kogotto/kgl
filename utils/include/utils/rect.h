@@ -6,10 +6,10 @@ namespace ut {
 
 template <typename T>
 struct Rect {
-    T left;
-    T top;
-    T right;
-    T bottom;
+    T left{};
+    T top{};
+    T right{};
+    T bottom{};
 
     Point<T> leftTop() const {
         return {left, top};

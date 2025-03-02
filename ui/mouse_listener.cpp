@@ -1,33 +1,23 @@
 #include <ui/mouse_listener.h>
 
 namespace ui {
-namespace {
 
-MouseListener::Callback prepareCallback(MouseListener::Callback callback) {
-    if (callback) {
-        return callback;
+void MouseListener::setPosition(ut::Pointf position) {
+    if (state_ == State::Drag) {
+        dragCallback_(position);
     }
 
-    return [] (int, int, int, int) {};
-}
-
-} // namespace
-} // namespace ui
-
-namespace ui {
-
-MouseListener::MouseListener(Callback callback)
-    : callback_{prepareCallback(std::move(callback))}
-{}
-
-void MouseListener::setPosition(double x, double y) {
-    callback_(x_, y_, x, y);
-
-    x_ = x;
-    y_ = y;
+    position_ = position;
 }
 
 void MouseListener::setLeftButtonPressed(bool pressed) {
+    if (!leftButtonPressed_ && pressed) {
+        state_ = State::Drag;
+        startDragCallback_(position_);
+    }
+    if (leftButtonPressed_ && !pressed) {
+        state_ = State::Idle;
+    }
     leftButtonPressed_ = pressed;
 }
 
@@ -36,7 +26,8 @@ void MouseListener::setRightButtonPressed(bool pressed) {
 }
 
 std::string MouseListener::makeCaption() const {
-    return "(" + std::to_string(x_) + ", " + std::to_string(y_) + ")" +
+    return "(" + std::to_string(position_.x) +
+           ", " + std::to_string(position_.y) + ")" +
            " LMB: " + std::to_string(leftButtonPressed_) +
            " RMB: " + std::to_string(rightButtonPressed_);
 }

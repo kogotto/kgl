@@ -1,18 +1,26 @@
 #include <string>
 #include <functional>
 
-namespace ui {
+#include <utils/point.h>
 
-constexpr int winWidth = 1280;
-constexpr int winHeight = 960;
+namespace ui::detail {
+
+inline auto nullCallback = [] (ut::Pointf) {};
+
+} // namespace ui::detail
+
+namespace ui {
 
 class MouseListener {
 public:
-    using Callback = std::function<void(int, int, int, int)>;
+    using Callback = std::function<void(ut::Pointf)>;
+
+    enum class State {
+        Idle,
+        Drag
+    };
 
     MouseListener() = default;
-
-    MouseListener(Callback callback);
 
     MouseListener(const MouseListener&) = delete;
     MouseListener(MouseListener&&) = default;
@@ -20,19 +28,28 @@ public:
     MouseListener& operator=(const MouseListener&) = delete;
     MouseListener& operator=(MouseListener&&) = default;
 
-    void setPosition(double x, double y);
+    void setStartDragCallback(Callback callback) {
+        startDragCallback_ = std::move(callback);
+    }
+    void setDragCallback(Callback callback) {
+        dragCallback_ = std::move(callback);
+    }
+
+    void setPosition(ut::Pointf position);
     void setLeftButtonPressed(bool pressed);
     void setRightButtonPressed(bool pressed);
 
     std::string makeCaption() const;
 private:
-    double x_{0.0};
-    double y_{0.0};
+    ut::Pointf position_{};
 
     bool leftButtonPressed_{false};
     bool rightButtonPressed_{false};
 
-    Callback callback_;
+    State state_{State::Idle};
+
+    Callback startDragCallback_{detail::nullCallback};
+    Callback dragCallback_{detail::nullCallback};
 };
 
 }
