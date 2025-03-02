@@ -2,6 +2,8 @@
 
 #include <chrono>
 
+namespace ut {
+
 class Timer {
 public:
     using Clock = std::chrono::steady_clock;
@@ -15,3 +17,5 @@ private:
     mutable Timepoint lastTick;
     Duration duration;
 };
+
+} // namespace ut

@@ -9,8 +9,6 @@ add_executable(
     ${PROJECT_NAME}
     main.cpp
 
-    timer.cpp
-
     cell_view.cpp
     field_view.cpp
     prepare_views.cpp

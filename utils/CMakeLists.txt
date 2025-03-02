@@ -11,6 +11,7 @@ add_library(
     color.cpp
     point.cpp
     rect.cpp
+    timer.cpp
 )
 
 target_include_directories(
