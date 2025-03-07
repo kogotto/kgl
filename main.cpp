@@ -188,10 +188,10 @@ int main() {
     };
 
     keyboardListener.setKeyPressedCallback(
-            gKeySpace,
-            [&timeController]() {
-                timeController.togglePause();
-            }
+        gKeySpace,
+        [&timeController]() {
+            timeController.togglePause();
+        }
     );
 
     keyboardListener.setKeyPressedCallback(
