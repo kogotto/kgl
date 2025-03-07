@@ -194,6 +194,13 @@ int main() {
             }
     );
 
+    keyboardListener.setKeyPressedCallback(
+        gKeyEsc,
+        [window]() {
+            glfwSetWindowShouldClose(window, 1);
+        }
+    );
+
     fieldView.update(field, gd);
     gd.update();
 
