@@ -14,6 +14,7 @@
 #include "prepare_views.h"
 #include "field_view.h"
 #include "FieldViewMouseAdapter.hpp"
+#include "TimeController.hpp"
 
 namespace
 {
@@ -27,6 +28,9 @@ struct GLFWTerminator {
 constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -2;
 constexpr int GLEW_INIT_FAILED = -3;
+
+constexpr int gKeySpace = 32;
+constexpr int gKeyEsc = 256;
 
 struct Holder {
     ui::MouseListener* mouseListener;
@@ -158,8 +162,6 @@ int main() {
     GraphicsData gd{field.getSize()};
     FieldView fieldView{fieldSize, screenRect};
 
-    ut::Timer time{std::chrono::milliseconds{25}};
-
     ui::MouseListener mouseListener(*window);
     ui::KeyboardListener keyboardListener;
     auto holder = setInputListeners(*window, mouseListener, keyboardListener);
@@ -176,17 +178,29 @@ int main() {
         }
     );
 
+    TimeController timeController{
+        std::chrono::milliseconds{25},
+        [&]() {
+            field = ca::nextGeneration(field);
+            fieldView.update(field, gd);
+            gd.update();
+        }
+    };
+
+    keyboardListener.setKeyPressedCallback(
+            gKeySpace,
+            [&timeController]() {
+                timeController.togglePause();
+            }
+    );
+
     fieldView.update(field, gd);
     gd.update();
 
     while (!glfwWindowShouldClose(window)) {
         renderer.clear();
 
-        if (time.hasCome()) {
-            field = ca::nextGeneration(field);
-            fieldView.update(field, gd);
-            gd.update();
-        }
+        timeController.tick();
 
         renderer.draw(gd.va, gd.i, gd.shader);
 

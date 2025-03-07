@@ -13,6 +13,7 @@ add_executable(
     field_view.cpp
     prepare_views.cpp
     FieldViewMouseAdapter.cpp
+    TimeController.cpp
 )
 
 find_package(

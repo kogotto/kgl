@@ -2,8 +2,6 @@
 
 #include <GLFW/glfw3.h>
 
-#include <iostream>
-
 namespace ui {
 namespace {
 
@@ -13,11 +11,26 @@ namespace {
 namespace ui {
 
 void KeyboardListener::keyPressed(int key) {
-    std::cout << "Key " << key << " pressed" << std::endl;
+    keys_[key] = true;
 }
 
 void KeyboardListener::keyReleased(int key) {
-    std::cout << "Key " << key << " released" << std::endl;
+    if (keys_[key]) {
+        callCallback(key);
+    }
+    keys_[key] = false;
+}
+
+void KeyboardListener::setKeyPressedCallback(int key, Callback callback) {
+    callbacks_[key] = std::move(callback);
+}
+
+void KeyboardListener::callCallback(int key) {
+    const auto it = callbacks_.find(key);
+    if (it == callbacks_.end()) {
+        return;
+    }
+    (it->second)();
 }
 
 } // namespace ui
