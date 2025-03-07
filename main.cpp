@@ -7,6 +7,7 @@
 
 #include <glw/renderer.h>
 #include <ui/defs.hpp>
+#include <ui/KeyboardListener.hpp>
 #include <ui/mouse_listener.h>
 
 #include <utils/timer.h>
@@ -26,6 +27,95 @@ struct GLFWTerminator {
 constexpr int GLFW_INIT_FAILED = -1;
 constexpr int GLFW_WINDOW_CREATION_FAILED = -2;
 constexpr int GLEW_INIT_FAILED = -3;
+
+struct Holder {
+    ui::MouseListener* mouseListener;
+    ui::KeyboardListener* keyboardListener;
+};
+
+inline Holder& getHolder(GLFWwindow& window) {
+    void* rawHolder = glfwGetWindowUserPointer(&window);
+    return *static_cast<Holder*>(rawHolder);
+}
+
+inline ui::MouseListener& getMouseListener(GLFWwindow& window) {
+    return *getHolder(window).mouseListener;
+}
+
+inline ui::KeyboardListener& getKeyboardListener(GLFWwindow& window) {
+    return *getHolder(window).keyboardListener;
+}
+
+inline bool isPressed(int action) {
+    switch (action) {
+    case GLFW_PRESS: return true;
+    case GLFW_RELEASE: return false;
+    }
+
+    std::cout << "Unknown mouse button action, action = " << action << std::endl;
+    return false;
+}
+
+void setMouseCalbacks(GLFWwindow& window, ui::MouseListener& listener) {
+    glfwSetCursorPosCallback(&window,
+        +[] (GLFWwindow* window, double x, double y) {
+            auto& listener = getMouseListener(*window);
+
+            ut::Point rawPos{x, y};
+            const auto glPos = ui::rawToGl(rawPos);
+            listener.setPosition(glPos);
+        }
+    );
+
+    glfwSetMouseButtonCallback(&window,
+        +[] (GLFWwindow* window, int button, int action, int mods) {
+            auto& listener = getMouseListener(*window);
+
+            switch (button) {
+            case GLFW_MOUSE_BUTTON_LEFT:
+                listener.setLeftButtonPressed(isPressed(action));
+                break;
+            case GLFW_MOUSE_BUTTON_RIGHT:
+                listener.setRightButtonPressed(isPressed(action));
+                break;
+            default:
+                std::cout << "Unknown mouse button pressed, button = " <<
+                         button << std::endl;
+            }
+        }
+    );
+}
+
+void setKeyboardCallbacks(GLFWwindow& window, ui::KeyboardListener& listener) {
+    glfwSetKeyCallback(&window,
+        +[] (GLFWwindow* window, int key, int scancode, int action, int mods) {
+            auto& listener = getKeyboardListener(*window);
+
+            switch (action) {
+            case GLFW_RELEASE:
+                listener.keyReleased(key);
+                break;
+            case GLFW_PRESS:
+            case GLFW_REPEAT:
+                listener.keyPressed(key);
+                break;
+            default:
+                std::cout << "Unknown action " << action << std::endl;
+            };
+        }
+    );
+}
+
+auto setInputListeners(GLFWwindow& window,
+        ui::MouseListener& mouseListener,
+        ui::KeyboardListener& keyboardListener) {
+    auto holder = std::make_unique<Holder>(&mouseListener, &keyboardListener);
+    glfwSetWindowUserPointer(&window, holder.get());
+
+    setMouseCalbacks(window, mouseListener);
+    setKeyboardCallbacks(window, keyboardListener);
+    return holder;
+}
 
 } // namespace
 
@@ -71,6 +161,8 @@ int main() {
     ut::Timer time{std::chrono::milliseconds{25}};
 
     ui::MouseListener mouseListener(*window);
+    ui::KeyboardListener keyboardListener;
+    auto holder = setInputListeners(*window, mouseListener, keyboardListener);
 
     FieldViewMouseAdapter viewMouseAdapter{fieldView};
     mouseListener.setStartDragCallback(
