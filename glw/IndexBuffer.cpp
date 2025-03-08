@@ -1,4 +1,4 @@
-#include <glw/index_buffer.h>
+#include <glw/IndexBuffer.hpp>
 
 namespace glw {
 } // namespace glw

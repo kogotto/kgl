@@ -1,9 +1,9 @@
-#include <glw/uniform_location.h>
+#include <glw/UniformLocation.hpp>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include <glw/debug.h>
+#include <glw/Debug.hpp>
 
 namespace glw {
 

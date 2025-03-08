@@ -1,11 +1,11 @@
-#include <glw/vertex_array.h>
+#include <glw/VertexArray.hpp>
 
 #include <utility>
 
-#include <glw/debug.h>
+#include <glw/Debug.hpp>
 
-#include <glw/vertex_buffer_handler.h>
-#include <glw/vertex_buffer_layout.h>
+#include <glw/VertexBufferHandler.hpp>
+#include <glw/VertexBufferLayout.hpp>
 
 namespace glw {
 

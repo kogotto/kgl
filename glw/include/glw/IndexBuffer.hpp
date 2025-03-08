@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <glw/index_buffer_handler.h>
+#include <glw/IndexBufferHandler.hpp>
 
 #include <utils/size_in_bytes.h>
 

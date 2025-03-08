@@ -1,11 +1,11 @@
-#include <glw/vertex_buffer_handler.h>
+#include <glw/VertexBufferHandler.hpp>
 
 #include <utility>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include <glw/debug.h>
+#include <glw/Debug.hpp>
 
 namespace glw {
 

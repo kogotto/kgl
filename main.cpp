@@ -5,7 +5,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include <glw/renderer.h>
+#include <glw/Renderer.hpp>
 #include <ui/defs.hpp>
 #include <ui/KeyboardListener.hpp>
 #include <ui/mouse_listener.h>

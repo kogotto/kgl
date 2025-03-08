@@ -1,12 +1,12 @@
-#include <glw/renderer.h>
+#include <glw/Renderer.hpp>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
 
-#include <glw/debug.h>
-#include <glw/vertex_array.h>
-#include <glw/index_buffer.h>
-#include <glw/shader.h>
+#include <glw/Debug.hpp>
+#include <glw/VertexArray.hpp>
+#include <glw/IndexBuffer.hpp>
+#include <glw/Shader.hpp>
 
 namespace glw {
 

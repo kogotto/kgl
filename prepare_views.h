@@ -1,10 +1,10 @@
 #pragma once
 
-#include <glw/vertex_array.h>
-#include <glw/vertex_buffer.h>
-#include <glw/vertex_buffer_layout.h>
-#include <glw/index_buffer.h>
-#include <glw/shader.h>
+#include <glw/VertexArray.hpp>
+#include <glw/VertexBuffer.hpp>
+#include <glw/VertexBufferLayout.hpp>
+#include <glw/IndexBuffer.hpp>
+#include <glw/Shader.hpp>
 
 #include <utils/cell_index.h>
 #include <utils/color.h>

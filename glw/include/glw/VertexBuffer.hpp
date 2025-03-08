@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include <glw/vertex_buffer_handler.h>
+#include <glw/VertexBufferHandler.hpp>
 
 #include <utils/size_in_bytes.h>
 

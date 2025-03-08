@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "uniform_location.h"
+#include <glw/UniformLocation.hpp>
 
 namespace glw {
 
