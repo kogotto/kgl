@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cell.h>
-#include <cells.h>
+#include <cell-autom/Cell.hpp>
+#include <cell-autom/Cells.hpp>
 
 namespace ca {
 

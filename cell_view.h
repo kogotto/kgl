@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cell.h>
+#include <cell-autom/Cell.hpp>
 #include <utils/rect.h>
 
 class Vertex;

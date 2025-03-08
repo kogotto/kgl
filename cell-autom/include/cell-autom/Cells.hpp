@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include <cell.h>
+#include <cell-autom/Cell.hpp>
 
 namespace ca {
 

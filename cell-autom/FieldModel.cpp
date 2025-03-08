@@ -1,9 +1,9 @@
-#include "field_model.h"
+#include <cell-autom/FieldModel.hpp>
 
 #include <cassert>
 
-#include "cells.h"
-#include "rule.h"
+#include <cell-autom/Cells.hpp>
+#include <cell-autom/Rule.hpp>
 
 namespace ca {
 namespace {

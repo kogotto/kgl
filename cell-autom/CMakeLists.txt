@@ -1,14 +1,15 @@
 
 add_library(
     cell-autom
-    cell.cpp
-    field_model.cpp
-    rule.cpp
+
+    Cell.cpp
+    FieldModel.cpp
+    Rule.cpp
 )
 
 target_include_directories(
     cell-autom
-    PUBLIC .
+    PUBLIC include
 )
 
 target_link_libraries(

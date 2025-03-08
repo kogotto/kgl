@@ -4,9 +4,8 @@
 
 #include "cell_view.h"
 
-#include <field_model.h>
+#include <cell-autom/FieldModel.hpp>
 
-class Field;
 class GraphicsData;
 
 class FieldView {

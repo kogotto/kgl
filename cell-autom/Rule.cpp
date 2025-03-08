@@ -1,4 +1,4 @@
-#include "rule.h"
+#include <cell-autom/Rule.hpp>
 
 #include <cassert>
 #include <algorithm>
