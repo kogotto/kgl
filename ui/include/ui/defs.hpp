@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utils/point.h>
+#include <utils/Point.hpp>
 
 namespace ui {
 

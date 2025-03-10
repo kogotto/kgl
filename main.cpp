@@ -5,14 +5,14 @@
 
 #include <GLFW/glfw3.h>
 
-#include <glw/renderer.h>
+#include <glw/Renderer.hpp>
 #include <ui/defs.hpp>
 #include <ui/KeyboardListener.hpp>
-#include <ui/mouse_listener.h>
+#include <ui/MouseListener.hpp>
 
-#include <utils/timer.h>
-#include "prepare_views.h"
-#include "field_view.h"
+#include <utils/Timer.hpp>
+#include "PrepareViews.hpp"
+#include "FieldView.hpp"
 #include "FieldViewMouseAdapter.hpp"
 #include "TimeController.hpp"
 

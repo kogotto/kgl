@@ -9,10 +9,10 @@ add_executable(
     ${PROJECT_NAME}
     main.cpp
 
-    cell_view.cpp
-    field_view.cpp
-    prepare_views.cpp
+    CellView.cpp
+    FieldView.cpp
     FieldViewMouseAdapter.cpp
+    PrepareViews.cpp
     TimeController.cpp
 )
 

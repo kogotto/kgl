@@ -2,15 +2,15 @@
 add_library(
     glw
 
-    debug.cpp
-    index_buffer_handler.cpp
-    index_buffer.cpp
-    renderer.cpp
-    shader.cpp
-    uniform_location.cpp
-    vertex_array.cpp
-    vertex_buffer_handler.cpp
-    vertex_buffer.cpp
+    Debug.cpp
+    IndexBuffer.cpp
+    IndexBufferHandler.cpp
+    Renderer.cpp
+    Shader.cpp
+    UniformLocation.cpp
+    VertexArray.cpp
+    VertexBuffer.cpp
+    VertexBufferHandler.cpp
 )
 
 target_include_directories(
