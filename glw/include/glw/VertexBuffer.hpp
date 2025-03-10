@@ -4,7 +4,7 @@
 
 #include <glw/VertexBufferHandler.hpp>
 
-#include <utils/size_in_bytes.h>
+#include <utils/SizeInBytes.hpp>
 
 namespace glw {
 

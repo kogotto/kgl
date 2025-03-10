@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cell-autom/Cell.hpp>
-#include <utils/rect.h>
+#include <utils/Rect.hpp>
 
 class Vertex;
 class GraphicsData;

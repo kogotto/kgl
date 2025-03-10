@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-#include <utils/field.h>
+#include <utils/Field.hpp>
 
 #include "prepare_views.h"
 

@@ -1,7 +1,7 @@
 #include "prepare_views.h"
 
 #include <glw/Debug.hpp>
-#include <utils/rect.h>
+#include <utils/Rect.hpp>
 
 namespace {
 

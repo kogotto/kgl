@@ -6,9 +6,9 @@
 #include <glw/IndexBuffer.hpp>
 #include <glw/Shader.hpp>
 
-#include <utils/cell_index.h>
-#include <utils/color.h>
-#include <utils/point.h>
+#include <utils/CellIndex.hpp>
+#include <utils/Color.hpp>
+#include <utils/Point.hpp>
 
 #include "storage.h"
 

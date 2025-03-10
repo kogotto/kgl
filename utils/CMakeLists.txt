@@ -4,14 +4,14 @@ find_package(Boost REQUIRED)
 add_library(
     ut
 
-    cell_index.cpp
-    field.cpp
-    index_iterator.cpp
-    index_range.cpp
-    color.cpp
-    point.cpp
-    rect.cpp
-    timer.cpp
+    CellIndex.cpp
+    Color.cpp
+    Field.cpp
+    IndexIterator.cpp
+    IndexRange.cpp
+    Point.cpp
+    Rect.cpp
+    Timer.cpp
 )
 
 target_include_directories(

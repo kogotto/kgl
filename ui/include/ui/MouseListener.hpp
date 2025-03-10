@@ -1,7 +1,7 @@
 #include <string>
 #include <functional>
 
-#include <utils/point.h>
+#include <utils/Point.hpp>
 
 struct GLFWwindow;
 

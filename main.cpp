@@ -10,7 +10,7 @@
 #include <ui/KeyboardListener.hpp>
 #include <ui/MouseListener.hpp>
 
-#include <utils/timer.h>
+#include <utils/Timer.hpp>
 #include "prepare_views.h"
 #include "field_view.h"
 #include "FieldViewMouseAdapter.hpp"

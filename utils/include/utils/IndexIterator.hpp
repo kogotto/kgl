@@ -4,7 +4,7 @@
 
 #include <boost/stl_interfaces/iterator_interface.hpp>
 
-#include <utils/cell_index.h>
+#include <utils/CellIndex.hpp>
 
 namespace ut::detail {
 

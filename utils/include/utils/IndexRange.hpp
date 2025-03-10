@@ -2,8 +2,8 @@
 
 #include <ranges>
 
-#include <utils/cell_index.h>
-#include <utils/index_iterator.h>
+#include <utils/CellIndex.hpp>
+#include <utils/IndexIterator.hpp>
 
 namespace ut {
 

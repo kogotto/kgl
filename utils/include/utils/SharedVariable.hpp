@@ -41,19 +41,19 @@ private:
 };
 
 template <typename Data, typename Mutex = std::mutex>
-class Variable {
+class SharedVariable {
 public:
 
     template <typename... Args>
-    Variable(Args&&... args):
+    SharedVariable(Args&&... args):
         data(std::forward<Args>(args)...)
     {}
 
-    Variable(const Variable&) = delete;
-    Variable& operator=(const Variable&) = delete;
+    SharedVariable(const SharedVariable&) = delete;
+    SharedVariable& operator=(const SharedVariable&) = delete;
 
-    Variable(Variable&&) = default;
-    Variable& operator=(Variable&&) = default;
+    SharedVariable(SharedVariable&&) = default;
+    SharedVariable& operator=(SharedVariable&&) = default;
 
     LockedPtr<std::unique_lock<Mutex>, Data> uniqueLock() {
         return {std::unique_lock{mutex}, data};

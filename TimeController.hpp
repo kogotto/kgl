@@ -2,7 +2,7 @@
 
 #include <functional>
 
-#include <utils/timer.h>
+#include <utils/Timer.hpp>
 
 class TimeController {
 public:

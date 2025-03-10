@@ -1,6 +1,6 @@
 #include "cell_view.h"
 
-#include <utils/color.h>
+#include <utils/Color.hpp>
 
 #include "prepare_views.h"
 
