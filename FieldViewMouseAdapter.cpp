@@ -1,6 +1,6 @@
 #include "FieldViewMouseAdapter.hpp"
 
-#include "field_view.h"
+#include "FieldView.hpp"
 
 FieldViewMouseAdapter::FieldViewMouseAdapter(FieldView& view)
     : view_(view)

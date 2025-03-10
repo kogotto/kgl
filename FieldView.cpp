@@ -1,10 +1,10 @@
-#include "field_view.h"
+#include "FieldView.hpp"
 
 #include <cassert>
 
 #include <utils/Field.hpp>
 
-#include "prepare_views.h"
+#include "PrepareViews.hpp"
 
 namespace {
 

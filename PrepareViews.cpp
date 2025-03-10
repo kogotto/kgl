@@ -1,4 +1,4 @@
-#include "prepare_views.h"
+#include "PrepareViews.hpp"
 
 #include <glw/Debug.hpp>
 #include <utils/Rect.hpp>

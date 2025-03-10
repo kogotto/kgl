@@ -2,7 +2,7 @@
 
 #include <utils/Point.hpp>
 
-#include "cell_view.h"
+#include "CellView.hpp"
 
 #include <cell-autom/FieldModel.hpp>
 

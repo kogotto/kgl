@@ -1,8 +1,8 @@
-#include "cell_view.h"
+#include "CellView.hpp"
 
 #include <utils/Color.hpp>
 
-#include "prepare_views.h"
+#include "PrepareViews.hpp"
 
 namespace {
 

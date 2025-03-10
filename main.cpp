@@ -11,8 +11,8 @@
 #include <ui/MouseListener.hpp>
 
 #include <utils/Timer.hpp>
-#include "prepare_views.h"
-#include "field_view.h"
+#include "PrepareViews.hpp"
+#include "FieldView.hpp"
 #include "FieldViewMouseAdapter.hpp"
 #include "TimeController.hpp"
 
