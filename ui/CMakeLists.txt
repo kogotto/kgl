@@ -3,7 +3,7 @@ add_library(
     ui
 
     KeyboardListener.cpp
-    mouse_listener.cpp
+    MouseListener.cpp
 )
 
 target_link_libraries(

@@ -8,7 +8,7 @@
 #include <glw/Renderer.hpp>
 #include <ui/defs.hpp>
 #include <ui/KeyboardListener.hpp>
-#include <ui/mouse_listener.h>
+#include <ui/MouseListener.hpp>
 
 #include <utils/timer.h>
 #include "prepare_views.h"

@@ -1,4 +1,4 @@
-#include <ui/mouse_listener.h>
+#include <ui/MouseListener.hpp>
 
 #include <GLFW/glfw3.h>
 
