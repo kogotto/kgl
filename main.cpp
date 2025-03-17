@@ -6,11 +6,13 @@
 #include <GLFW/glfw3.h>
 
 #include <glw/Renderer.hpp>
+
 #include <ui/defs.hpp>
 #include <ui/KeyboardListener.hpp>
 #include <ui/MouseListener.hpp>
 
-#include <utils/Timer.hpp>
+#include <cell-autom/FieldModel.hpp>
+
 #include "PrepareViews.hpp"
 #include "FieldView.hpp"
 #include "FieldViewMouseAdapter.hpp"
@@ -153,7 +155,7 @@ int main() {
     std::cout << renderer.getOpenGlVersion() << std::endl;
 
     constexpr ut::normal_index_t sideSize{100};
-    constexpr ca::NormalizedIndex fieldSize{sideSize, sideSize};
+    constexpr ut::NormalizedIndex fieldSize{sideSize, sideSize};
     const ut::Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
 
     ca::FieldModel field{fieldSize};

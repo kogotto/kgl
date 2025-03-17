@@ -2,6 +2,8 @@
 
 #include <cassert>
 
+#include <cell-autom/FieldModel.hpp>
+
 #include <utils/Field.hpp>
 
 #include "PrepareViews.hpp"
