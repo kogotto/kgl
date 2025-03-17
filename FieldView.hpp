@@ -1,10 +1,11 @@
 #pragma once
 
+#include <utils/Field.hpp>
 #include <utils/Point.hpp>
 
-#include "CellView.hpp"
-
 #include <cell-autom/FieldModel.hpp>
+
+#include "CellView.hpp"
 
 class GraphicsData;
 
