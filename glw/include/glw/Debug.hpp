@@ -20,10 +20,10 @@ private:
 
 #else // #ifdef NDEBUG
 
-#define GLCALL(x)                                               \
-    [&] {                                                       \
+#define GLCALL(x)                                                    \
+    [&] {                                                            \
         glw::debug::GLErrorHandler handler{#x, __FILE__, __LINE__};  \
-        return (x);                                             \
+        return (x);                                                  \
     } ()
 
 #endif
