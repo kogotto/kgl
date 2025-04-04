@@ -184,8 +184,6 @@ int main() {
         std::chrono::milliseconds{25},
         [&]() {
             field = ca::nextGeneration(field);
-            fieldView.update(field, gd);
-            gd.update();
         }
     };
 
@@ -211,6 +209,8 @@ int main() {
 
         timeController.tick();
 
+        fieldView.update(field, gd);
+        gd.update();
         renderer.draw(gd.va, gd.i, gd.shader);
 
         glfwSetWindowTitle(window, mouseListener.makeCaption().c_str());
