@@ -28,14 +28,11 @@ constexpr CellIndex bottomRight{bottom + right};
 
 using CellIndices = std::array<CellIndex, 8u>;
 
-constexpr CellIndices neighbourIndices {
-    topLeft,      top,     topRight,
-    left,                     right,
-    bottomLeft, bottom, bottomRight,
+constexpr CellIndices neighbourIndices{
+    topLeft, top, topRight, left, right, bottomLeft, bottom, bottomRight,
 };
 
-template <typename Func>
-auto combine(CellIndices input, Func func) {
+template <typename Func> auto combine(CellIndices input, Func func) {
     Cells result;
     for (size_t i = 0; i < input.size(); ++i) {
         result[i] = func(input[i]);
@@ -44,14 +41,13 @@ auto combine(CellIndices input, Func func) {
 }
 
 Cells neighbours(const FieldModel& field, CellIndex index) {
-    return combine(
-            neighbourIndices,
-            [&field, index] (CellIndex neighbourIndex) -> Cell {
-                return field.cell(index + neighbourIndex);
-            });
+    return combine(neighbourIndices,
+                   [&field, index](CellIndex neighbourIndex) -> Cell {
+                       return field.cell(index + neighbourIndex);
+                   });
 }
 
-}
+} // namespace
 } // namespace ca
 
 namespace ca {
@@ -60,8 +56,8 @@ void nextGeneration(FieldModel& result, const FieldModel& current) {
     assert(current.getSize() == result.getSize());
 
     for (const auto index : current.indexRange()) {
-        result.cell(index) = rule(current.cell(index),
-                                  neighbours(current, CellIndex(index)));
+        result.cell(index) =
+            rule(current.cell(index), neighbours(current, CellIndex(index)));
     }
 }
 
@@ -71,8 +67,7 @@ void insertGlider(FieldModel& field, CellIndex offset) {
         CellIndex{RowIndex{1}, ColIndex{2}},
         CellIndex{RowIndex{2}, ColIndex{0}},
         CellIndex{RowIndex{2}, ColIndex{1}},
-        CellIndex{RowIndex{2}, ColIndex{2}}
-    };
+        CellIndex{RowIndex{2}, ColIndex{2}}};
 
     for (const auto index : aliveCells) {
         field.cell(offset + index) = Cell::Alive;

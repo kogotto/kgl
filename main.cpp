@@ -7,24 +7,21 @@
 
 #include <glw/Renderer.hpp>
 
-#include <ui/defs.hpp>
 #include <ui/KeyboardListener.hpp>
 #include <ui/MouseListener.hpp>
+#include <ui/defs.hpp>
 
 #include <cell-autom/FieldModel.hpp>
 
-#include "PrepareViews.hpp"
 #include "FieldView.hpp"
 #include "FieldViewMouseAdapter.hpp"
+#include "PrepareViews.hpp"
 #include "TimeController.hpp"
 
-namespace
-{
+namespace {
 
 struct GLFWTerminator {
-    ~GLFWTerminator() {
-        glfwTerminate();
-    }
+    ~GLFWTerminator() { glfwTerminate(); }
 };
 
 constexpr int GLFW_INIT_FAILED = -1;
@@ -54,27 +51,29 @@ inline ui::KeyboardListener& getKeyboardListener(GLFWwindow& window) {
 
 inline bool isPressed(int action) {
     switch (action) {
-    case GLFW_PRESS: return true;
-    case GLFW_RELEASE: return false;
+    case GLFW_PRESS:
+        return true;
+    case GLFW_RELEASE:
+        return false;
     }
 
-    std::cout << "Unknown mouse button action, action = " << action << std::endl;
+    std::cout << "Unknown mouse button action, action = " << action
+              << std::endl;
     return false;
 }
 
 void setMouseCalbacks(GLFWwindow& window, ui::MouseListener& listener) {
-    glfwSetCursorPosCallback(&window,
-        +[] (GLFWwindow* window, double x, double y) {
+    glfwSetCursorPosCallback(
+        &window, +[](GLFWwindow* window, double x, double y) {
             auto& listener = getMouseListener(*window);
 
             ut::Point rawPos{x, y};
             const auto glPos = ui::rawToGl(rawPos);
             listener.setPosition(glPos);
-        }
-    );
+        });
 
-    glfwSetMouseButtonCallback(&window,
-        +[] (GLFWwindow* window, int button, int action, int mods) {
+    glfwSetMouseButtonCallback(
+        &window, +[](GLFWwindow* window, int button, int action, int mods) {
             auto& listener = getMouseListener(*window);
 
             switch (button) {
@@ -85,16 +84,16 @@ void setMouseCalbacks(GLFWwindow& window, ui::MouseListener& listener) {
                 listener.setRightButtonPressed(isPressed(action));
                 break;
             default:
-                std::cout << "Unknown mouse button pressed, button = " <<
-                         button << std::endl;
+                std::cout << "Unknown mouse button pressed, button = " << button
+                          << std::endl;
             }
-        }
-    );
+        });
 }
 
 void setKeyboardCallbacks(GLFWwindow& window, ui::KeyboardListener& listener) {
-    glfwSetKeyCallback(&window,
-        +[] (GLFWwindow* window, int key, int scancode, int action, int mods) {
+    glfwSetKeyCallback(
+        &window,
+        +[](GLFWwindow* window, int key, int scancode, int action, int mods) {
             auto& listener = getKeyboardListener(*window);
 
             switch (action) {
@@ -108,13 +107,11 @@ void setKeyboardCallbacks(GLFWwindow& window, ui::KeyboardListener& listener) {
             default:
                 std::cout << "Unknown action " << action << std::endl;
             };
-        }
-    );
+        });
 }
 
-auto setInputListeners(GLFWwindow& window,
-        ui::MouseListener& mouseListener,
-        ui::KeyboardListener& keyboardListener) {
+auto setInputListeners(GLFWwindow& window, ui::MouseListener& mouseListener,
+                       ui::KeyboardListener& keyboardListener) {
     auto holder = std::make_unique<Holder>(&mouseListener, &keyboardListener);
     glfwSetWindowUserPointer(&window, holder.get());
 
@@ -136,7 +133,8 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(ui::winWidth, ui::winHeight, "Hello GLFW", NULL, NULL);
+    GLFWwindow* window =
+        glfwCreateWindow(ui::winWidth, ui::winHeight, "Hello GLFW", NULL, NULL);
     if (!window) {
         std::cout << "glfw window creation failed" << std::endl;
         return GLFW_WINDOW_CREATION_FAILED;
@@ -170,36 +168,21 @@ int main() {
 
     FieldViewMouseAdapter viewMouseAdapter{fieldView};
     mouseListener.setStartDragCallback(
-        [&viewMouseAdapter] (ut::Pointf mousePos) {
+        [&viewMouseAdapter](ut::Pointf mousePos) {
             viewMouseAdapter.startDrag(mousePos);
-        }
-    );
-    mouseListener.setDragCallback(
-        [&viewMouseAdapter] (ut::Pointf mousePos) {
-            viewMouseAdapter.drag(mousePos);
-        }
-    );
+        });
+    mouseListener.setDragCallback([&viewMouseAdapter](ut::Pointf mousePos) {
+        viewMouseAdapter.drag(mousePos);
+    });
 
-    TimeController timeController{
-        std::chrono::milliseconds{25},
-        [&]() {
-            field = ca::nextGeneration(field);
-        }
-    };
+    TimeController timeController{std::chrono::milliseconds{25},
+                                  [&]() { field = ca::nextGeneration(field); }};
 
     keyboardListener.setKeyPressedCallback(
-        gKeySpace,
-        [&timeController]() {
-            timeController.togglePause();
-        }
-    );
+        gKeySpace, [&timeController]() { timeController.togglePause(); });
 
     keyboardListener.setKeyPressedCallback(
-        gKeyEsc,
-        [window]() {
-            glfwSetWindowShouldClose(window, 1);
-        }
-    );
+        gKeyEsc, [window]() { glfwSetWindowShouldClose(window, 1); });
 
     fieldView.update(field, gd);
     gd.update();

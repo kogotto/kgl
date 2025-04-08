@@ -14,10 +14,8 @@ size_t normalize(size_t modulo, int32_t raw) {
 namespace ut {
 
 NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index) {
-    return {
-        ::normalize(modulo.row, index.getRawRow()),
-        ::normalize(modulo.col, index.getRawCol())
-    };
+    return {::normalize(modulo.row, index.getRawRow()),
+            ::normalize(modulo.col, index.getRawCol())};
 }
 
 } // namespace ut

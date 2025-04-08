@@ -20,23 +20,20 @@ auto genVertexArray() {
 } // namespace
 
 VertexArray::VertexArray()
-    : id{genVertexArray()}
-{}
+    : id{genVertexArray()} {}
 
 VertexArray::VertexArray(VertexArray&& rhs) noexcept
-    : id{std::exchange(rhs.id, 0)}
-{}
+    : id{std::exchange(rhs.id, 0)} {}
 
 VertexArray& VertexArray::operator=(VertexArray&& rhs) noexcept {
     std::swap(id, rhs.id);
     return *this;
 }
 
-VertexArray::~VertexArray() {
-    GLCALL(glDeleteVertexArrays(1, &id));
-}
+VertexArray::~VertexArray() { GLCALL(glDeleteVertexArrays(1, &id)); }
 
-void VertexArray::addBuffer(const VertexBufferHandler& buffer, const VertexBufferLayout& layout) {
+void VertexArray::addBuffer(const VertexBufferHandler& buffer,
+                            const VertexBufferLayout& layout) {
     bind();
     buffer.bind();
 
@@ -44,23 +41,14 @@ void VertexArray::addBuffer(const VertexBufferHandler& buffer, const VertexBuffe
     for (int i = 0; i < elements.size(); ++i) {
         const auto& element = elements[i];
         GLCALL(glEnableVertexAttribArray(i));
-        GLCALL(glVertexAttribPointer(
-                    i,
-                    element.count,
-                    element.type,
-                    element.normalized,
-                    layout.getStride(),
-                    (void*)element.offset
-                ));
+        GLCALL(glVertexAttribPointer(i, element.count, element.type,
+                                     element.normalized, layout.getStride(),
+                                     (void*)element.offset));
     }
 }
 
-void VertexArray::bind() const {
-    GLCALL(glBindVertexArray(id));
-}
+void VertexArray::bind() const { GLCALL(glBindVertexArray(id)); }
 
-void VertexArray::unbind() const {
-    GLCALL(glBindVertexArray(0));
-}
+void VertexArray::unbind() const { GLCALL(glBindVertexArray(0)); }
 
 } // namespace glw
