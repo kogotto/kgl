@@ -1,17 +1,16 @@
 #pragma once
 
+#include <concepts>
 #include <cstddef>
 #include <vector>
-#include <concepts>
 
 #include <utils/CellIndex.hpp>
 #include <utils/IndexRange.hpp>
 
 namespace ut {
 
-template <std::default_initializable T>
-class Field {
-public:
+template <std::default_initializable T> class Field {
+  public:
     using value_type = T;
     using container_type = std::vector<value_type>;
     using size_type = size_t;
@@ -27,8 +26,7 @@ public:
     Field& operator=(const Field& other) = default;
     Field& operator=(Field&& other) = default;
 
-    template <typename U = T>
-    Field<U> createWithSameSize() const;
+    template <typename U = T> Field<U> createWithSameSize() const;
 
     size_type getRowsCount() const { return size.row; }
     size_type getColsCount() const { return size.col; }
@@ -42,7 +40,7 @@ public:
 
     IndexRange indexRange() const;
 
-private:
+  private:
     NormalizedIndex size;
     container_type field;
 };

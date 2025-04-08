@@ -9,4 +9,4 @@ inline std::ptrdiff_t sizeInBytes(const std::vector<T>& vec) {
     return vec.size() * sizeof(T);
 }
 
-} // namespace glw::detail
+} // namespace ut

@@ -5,7 +5,7 @@
 #include <utils/Timer.hpp>
 
 class TimeController {
-public:
+  public:
     using Callback = std::function<void()>;
     using Duration = ut::Timer::Duration;
 
@@ -14,7 +14,8 @@ public:
     void tick();
 
     void togglePause();
-private:
+
+  private:
     bool pause{false};
     ut::Timer time_;
     Callback callback_;

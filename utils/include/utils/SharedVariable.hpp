@@ -1,53 +1,40 @@
-#include <utility>
 #include <mutex>
+#include <utility>
 
 namespace ut {
 
-template <typename Lock, typename Data>
-class LockedPtr {
-public:
+template <typename Lock, typename Data> class LockedPtr {
+  public:
+    LockedPtr(Lock&& lock, Data& data)
+        : lock(std::move(lock))
+        , data(data) {}
 
-    LockedPtr(Lock&& lock, Data& data):
-        lock(std::move(lock)), data(data)
-    {}
+    Data& operator*() & { return data; }
 
-    Data& operator*() & {
-        return data;
-    }
-
-    const Data& operator*() const& {
-        return data;
-    }
+    const Data& operator*() const& { return data; }
 
     Data& operator*() && {
         // some crush
     }
 
-    Data* operator->() & {
-        return &data;
-    }
+    Data* operator->() & { return &data; }
 
-    const Data* operator->() const& {
-        return &data;
-    }
+    const Data* operator->() const& { return &data; }
 
     Data* operator->() && {
         // some crush
     }
 
-private:
+  private:
     Lock lock;
     Data& data;
 };
 
-template <typename Data, typename Mutex = std::mutex>
-class SharedVariable {
-public:
-
+template <typename Data, typename Mutex = std::mutex> class SharedVariable {
+  public:
     template <typename... Args>
-    SharedVariable(Args&&... args):
-        data(std::forward<Args>(args)...)
-    {}
+    SharedVariable(Args&&... args)
+        : data(std::forward<Args>(args)...) {}
 
     SharedVariable(const SharedVariable&) = delete;
     SharedVariable& operator=(const SharedVariable&) = delete;
@@ -63,7 +50,7 @@ public:
         return {std::unique_lock{mutex}, data};
     }
 
-private:
+  private:
     mutable Mutex mutex;
     Data data;
 };

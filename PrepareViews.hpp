@@ -1,10 +1,10 @@
 #pragma once
 
+#include <glw/IndexBuffer.hpp>
+#include <glw/Shader.hpp>
 #include <glw/VertexArray.hpp>
 #include <glw/VertexBuffer.hpp>
 #include <glw/VertexBufferLayout.hpp>
-#include <glw/IndexBuffer.hpp>
-#include <glw/Shader.hpp>
 
 #include <utils/CellIndex.hpp>
 #include <utils/Color.hpp>
@@ -15,7 +15,7 @@
 using IndexStorage = std::vector<unsigned int>;
 
 class GraphicsData {
-public:
+  public:
     using VertexBuffer = glw::VertexBuffer<Vertex>;
 
     GraphicsData(ut::NormalizedIndex size);
@@ -26,8 +26,8 @@ public:
 
     void pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id);
 
-private:
-public:
+  private:
+  public:
     GraphicsData(ut::NormalizedIndex size, size_t cellRows, size_t cellCols);
 
     VertexBuffer v;

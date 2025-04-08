@@ -10,26 +10,20 @@ namespace ut::detail {
 
 template <typename Derived>
 using IndexIteratorBase = boost::stl_interfaces::proxy_iterator_interface<
-        Derived,
-        std::forward_iterator_tag,
-        NormalizedIndex
-    >;
+    Derived, std::forward_iterator_tag, NormalizedIndex>;
 
 } // namespace ut::detail
 
 namespace ut {
 
-class IndexIterator :
-    public detail::IndexIteratorBase<IndexIterator>
-{
-public:
+class IndexIterator : public detail::IndexIteratorBase<IndexIterator> {
+  public:
     using Base = detail::IndexIteratorBase<IndexIterator>;
 
     constexpr IndexIterator() noexcept = default;
     constexpr IndexIterator(size_t positionInContainer, size_t cols) noexcept
         : positionInContainer{positionInContainer}
-        , cols{cols}
-    {}
+        , cols{cols} {}
 
     constexpr NormalizedIndex operator*() const noexcept {
         return detail::fromContainerIndex(cols, positionInContainer);
@@ -45,7 +39,8 @@ public:
                                      const IndexIterator& rhs) noexcept {
         return lhs.positionInContainer == rhs.positionInContainer;
     }
-private:
+
+  private:
     size_t positionInContainer{0u};
     size_t cols{0u};
 };

@@ -8,16 +8,14 @@
 
 namespace glw {
 
-template <typename VRTX>
-class VertexBuffer {
-public:
+template <typename VRTX> class VertexBuffer {
+  public:
     using vertex_t = VRTX;
     using storage_t = std::vector<vertex_t>;
 
     VertexBuffer(storage_t storage)
         : storage_(std::move(storage))
-        , vb_{storage_.data(), ut::sizeInBytes(storage_)}
-    {}
+        , vb_{storage_.data(), ut::sizeInBytes(storage_)} {}
 
     VertexBuffer(const VertexBuffer&) = delete;
     VertexBuffer(VertexBuffer&&) noexcept = default;
@@ -34,7 +32,7 @@ public:
         vb_.update(storage_.data(), ut::sizeInBytes(storage_));
     }
 
-private:
+  private:
     storage_t storage_;
     VertexBufferHandler vb_;
 };

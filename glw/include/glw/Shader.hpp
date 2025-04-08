@@ -7,8 +7,7 @@
 namespace glw {
 
 class Shader {
-public:
-
+  public:
     explicit Shader(unsigned int id)
         : id{id} {}
     ~Shader();
@@ -20,7 +19,7 @@ public:
 
     UniformLocation getUniformLocation(const std::string& name) const;
 
-private:
+  private:
     unsigned int id;
 };
 

@@ -5,7 +5,7 @@
 namespace glw {
 
 class IndexBufferHandler {
-public:
+  public:
     IndexBufferHandler(const unsigned int* data, std::ptrdiff_t count);
 
     IndexBufferHandler(const IndexBufferHandler&) = delete;
@@ -21,7 +21,7 @@ public:
     void bind() const;
     void unbind() const;
 
-private:
+  private:
     unsigned int id;
 };
 
