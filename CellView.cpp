@@ -12,8 +12,10 @@ constexpr ut::Color unknownColor{0.f, 0.f, 0.f, 1.f}; // black
 
 const auto& pickColor(ca::Cell cell) {
     switch (cell) {
-    case ca::Cell::Died: return deathColor;
-    case ca::Cell::Alive: return aliveColor;
+    case ca::Cell::Died:
+        return deathColor;
+    case ca::Cell::Alive:
+        return aliveColor;
     };
 
     return unknownColor;
@@ -21,23 +23,18 @@ const auto& pickColor(ca::Cell cell) {
 
 } // namespace
 
-void CellView::update(const ca::Cell& cell, ut::Pointf origin, GraphicsData& data) const {
+void CellView::update(const ca::Cell& cell, ut::Pointf origin,
+                      GraphicsData& data) const {
     const auto& color = pickColor(cell);
 
     const auto leftTop = data.pushVertex(origin + position.leftTop(), color);
     const auto rightTop = data.pushVertex(origin + position.rightTop(), color);
-    const auto leftBottom = data.pushVertex(origin + position.leftBottom(), color);
-    const auto rightBottom = data.pushVertex(origin + position.rightBottom(), color);
+    const auto leftBottom =
+        data.pushVertex(origin + position.leftBottom(), color);
+    const auto rightBottom =
+        data.pushVertex(origin + position.rightBottom(), color);
 
-    data.pushPolygon(
-        leftTop,
-        rightTop,
-        leftBottom
-    );
+    data.pushPolygon(leftTop, rightTop, leftBottom);
 
-    data.pushPolygon(
-        rightTop,
-        rightBottom,
-        leftBottom
-    );
+    data.pushPolygon(rightTop, rightBottom, leftBottom);
 }

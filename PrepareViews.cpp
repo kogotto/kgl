@@ -6,12 +6,11 @@
 namespace {
 
 inline void insertVertex(Storage& storage, float x, float y) {
-    storage.push_back({
-        {x, y}, {/*1.f, 1.f, 1.f, 1.f*/}
-    });
+    storage.push_back({{x, y}, {/*1.f, 1.f, 1.f, 1.f*/}});
 }
 
-inline void insertRect(Storage& storage, float left, float top, float sizeX, float sizeY) {
+inline void insertRect(Storage& storage, float left, float top, float sizeX,
+                       float sizeY) {
     const auto right = left + sizeX;
     const auto bottom = top + sizeY;
     insertVertex(storage, left, top);
@@ -60,11 +59,7 @@ const ut::Rect screenRect{-0.7f, 0.7f, 0.7f, -0.7f};
 } // namespace
 
 GraphicsData::GraphicsData(ut::NormalizedIndex size)
-    : GraphicsData(
-        size,
-        size.row,
-        size.col)
-{}
+    : GraphicsData(size, size.row, size.col) {}
 
 void GraphicsData::update() {
     v.update();
@@ -72,27 +67,22 @@ void GraphicsData::update() {
 }
 
 size_t GraphicsData::pushVertex(ut::Pointf point, const ut::Color color) {
-    v.storage().push_back({
-        {point.x, point.y},
-        {color[0], color[1], color[2], color[3]}
-    });
+    v.storage().push_back(
+        {{point.x, point.y}, {color[0], color[1], color[2], color[3]}});
 
     return v.storage().size() - 1;
 }
 
-void GraphicsData::pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id) {
+void GraphicsData::pushPolygon(size_t vertex1Id, size_t vertex2Id,
+                               size_t vertex3Id) {
     i.storage().push_back(vertex1Id);
     i.storage().push_back(vertex2Id);
     i.storage().push_back(vertex3Id);
 }
 
-GraphicsData::GraphicsData(
-        ut::NormalizedIndex size,
-        size_t cellRows,
-        size_t cellCols)
+GraphicsData::GraphicsData(ut::NormalizedIndex size, size_t cellRows,
+                           size_t cellCols)
     : v{prepareVertexStorage(cellRows, cellCols)}
     , va{prepareVertexArray(v.handler())}
     , i{prepareIndexStorage(cellRows, cellCols)}
-    , shader(glw::Shader::fromFile("res/shaders/automata.shader"))
-{
-}
+    , shader(glw::Shader::fromFile("res/shaders/automata.shader")) {}

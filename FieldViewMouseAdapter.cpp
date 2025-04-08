@@ -3,8 +3,7 @@
 #include "FieldView.hpp"
 
 FieldViewMouseAdapter::FieldViewMouseAdapter(FieldView& view)
-    : view_(view)
-{}
+    : view_(view) {}
 
 void FieldViewMouseAdapter::startDrag(ut::Pointf mousePos) {
     startMousePos_ = mousePos;

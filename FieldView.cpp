@@ -25,8 +25,7 @@ inline float linearInterpolation(float start, float finish, float ratio) {
 } // namespace
 
 FieldView::FieldView(ut::NormalizedIndex size, ut::Rectf rect)
-    : cells{size}
-{
+    : cells{size} {
     const auto [rows, cols] = size;
 
     const float stepX = step(rect.left, rect.right, cols);
@@ -35,24 +34,13 @@ FieldView::FieldView(ut::NormalizedIndex size, ut::Rectf rect)
     for (const auto index : ut::IndexRange{size}) {
         auto&& targetCell = cells.cell(index);
 
-        const auto left = linearInterpolation(
-            rect.left,
-            rect.right,
-            ratio(index.col, cols)
-        );
+        const auto left =
+            linearInterpolation(rect.left, rect.right, ratio(index.col, cols));
 
-        const auto top = linearInterpolation(
-            rect.top,
-            rect.bottom,
-            ratio(index.row, rows)
-        );
+        const auto top =
+            linearInterpolation(rect.top, rect.bottom, ratio(index.row, rows));
 
-        ut::Rect rect{
-            left,
-            top,
-            left + stepX,
-            top + stepY
-        };
+        ut::Rect rect{left, top, left + stepX, top + stepY};
 
         targetCell.setPosition(rect);
     }
@@ -69,10 +57,6 @@ void FieldView::update(const ca::FieldModel& field, GraphicsData& data) const {
     }
 }
 
-void FieldView::setOrigin(ut::Pointf origin) {
-    origin_ = origin;
-}
+void FieldView::setOrigin(ut::Pointf origin) { origin_ = origin; }
 
-ut::Pointf FieldView::getOrigin() const {
-    return origin_;
-}
+ut::Pointf FieldView::getOrigin() const { return origin_; }

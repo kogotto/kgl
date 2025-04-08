@@ -1,9 +1,9 @@
 #include <glw/Shader.hpp>
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 #define GLEW_NO_GLU
 #include <GL/glew.h>
@@ -22,8 +22,10 @@ struct ShaderParseResult {
 ShaderParseResult parseShaderFile(const std::string& filename) {
     std::ifstream stream(filename);
     if (!stream.is_open()) {
-        std::cout << "Failed to open shader source file " << filename << std::endl;
-        std::cout << "Current dir is " << std::filesystem::current_path() << std::endl;
+        std::cout << "Failed to open shader source file " << filename
+                  << std::endl;
+        std::cout << "Current dir is " << std::filesystem::current_path()
+                  << std::endl;
         return {};
     }
 
@@ -41,7 +43,9 @@ ShaderParseResult parseShaderFile(const std::string& filename) {
             }
         } else {
             if (!current) {
-                std::cout << "Warning: Next string do not belong to any shader type" << std::endl;
+                std::cout
+                    << "Warning: Next string do not belong to any shader type"
+                    << std::endl;
                 std::cout << line << std::endl;
             } else {
                 (*current) << line << '\n';
@@ -76,10 +80,10 @@ unsigned int compileShader(unsigned int type, std::string_view source) {
     if (result == GL_FALSE) {
         int length;
         GLCALL(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
-        char* message = (char*) alloca(length);
+        char* message = (char*)alloca(length);
         GLCALL(glGetShaderInfoLog(id, length, &length, message));
-        std::cout << "Failed to compile " <<
-            shaderTypeToStr(type) << " shader!" << std::endl;
+        std::cout << "Failed to compile " << shaderTypeToStr(type) << " shader!"
+                  << std::endl;
         std::cout << message << std::endl;
         GLCALL(glDeleteShader(id));
         return 0;
@@ -88,7 +92,8 @@ unsigned int compileShader(unsigned int type, std::string_view source) {
     return id;
 }
 
-unsigned int compileProgram(std::string_view vertexShaderSource, std::string_view fragmentShaderSource) {
+unsigned int compileProgram(std::string_view vertexShaderSource,
+                            std::string_view fragmentShaderSource) {
     const unsigned int id = GLCALL(glCreateProgram());
     unsigned int vs = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
     unsigned int fs = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
@@ -107,23 +112,16 @@ unsigned int compileProgram(std::string_view vertexShaderSource, std::string_vie
 
 } // namespace
 
-Shader::~Shader() {
-    GLCALL(glDeleteProgram(id));
-}
+Shader::~Shader() { GLCALL(glDeleteProgram(id)); }
 
 Shader Shader::fromFile(const std::string& filepath) {
-    auto [vertexShaderSource, fragmentShaderSource] =
-        parseShaderFile(filepath);
+    auto [vertexShaderSource, fragmentShaderSource] = parseShaderFile(filepath);
     return Shader{compileProgram(vertexShaderSource, fragmentShaderSource)};
 }
 
-void Shader::bind() const {
-    GLCALL(glUseProgram(id));
-}
+void Shader::bind() const { GLCALL(glUseProgram(id)); }
 
-void Shader::unbind() const {
-    GLCALL(glUseProgram(0));
-}
+void Shader::unbind() const { GLCALL(glUseProgram(0)); }
 
 UniformLocation Shader::getUniformLocation(const std::string& name) const {
     auto uniformId = GLCALL(glGetUniformLocation(id, name.data()));
