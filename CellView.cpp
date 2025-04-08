@@ -38,3 +38,5 @@ void CellView::update(const ca::Cell& cell, ut::Pointf origin,
 
     data.pushPolygon(rightTop, rightBottom, leftBottom);
 }
+
+bool CellView::contains(ut::Pointf pos) const { return position.contains(pos); }
