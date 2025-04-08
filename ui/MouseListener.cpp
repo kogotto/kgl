@@ -26,6 +26,7 @@ void MouseListener::setLeftButtonPressed(bool pressed) {
         startDragCallback_(position_);
     }
     if (leftButtonPressed_ && !pressed) {
+        releaseCallback_(position_);
         state_ = State::Idle;
     }
     leftButtonPressed_ = pressed;

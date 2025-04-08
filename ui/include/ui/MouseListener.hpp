@@ -36,6 +36,9 @@ public:
     void setDragCallback(Callback callback) {
         dragCallback_ = std::move(callback);
     }
+    void setReleaseCallback(Callback callback) {
+        releaseCallback_ = std::move(callback);
+    }
 
     void setPosition(ut::Pointf position);
     void setLeftButtonPressed(bool pressed);
@@ -52,6 +55,7 @@ private:
 
     Callback startDragCallback_{detail::nullCallback};
     Callback dragCallback_{detail::nullCallback};
+    Callback releaseCallback_{detail::nullCallback};
 };
 
 }
