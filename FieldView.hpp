@@ -10,7 +10,7 @@
 class GraphicsData;
 
 class FieldView {
-  public:
+public:
     FieldView(ut::NormalizedIndex size, ut::Rectf rect);
 
     void update(const ca::FieldModel& field, GraphicsData& data) const;
@@ -20,7 +20,7 @@ class FieldView {
 
     std::optional<ut::NormalizedIndex> getIndexByMousePos(ut::Pointf pos) const;
 
-  private:
+private:
     ut::Field<CellView> cells;
     ut::Pointf origin_;
 };

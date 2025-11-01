@@ -9,7 +9,7 @@
 namespace glw {
 
 class IndexBuffer {
-  public:
+public:
     using storage_t = std::vector<unsigned int>;
 
     IndexBuffer(storage_t storage)
@@ -31,7 +31,7 @@ class IndexBuffer {
 
     auto getCount() const { return storage_.size(); }
 
-  private:
+private:
     storage_t storage_;
     IndexBufferHandler ib_;
 };

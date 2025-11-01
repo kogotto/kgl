@@ -9,7 +9,7 @@
 namespace glw {
 
 template <typename VRTX> class VertexBuffer {
-  public:
+public:
     using vertex_t = VRTX;
     using storage_t = std::vector<vertex_t>;
 
@@ -32,7 +32,7 @@ template <typename VRTX> class VertexBuffer {
         vb_.update(storage_.data(), ut::sizeInBytes(storage_));
     }
 
-  private:
+private:
     storage_t storage_;
     VertexBufferHandler vb_;
 };

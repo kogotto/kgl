@@ -17,7 +17,7 @@ using IndexIteratorBase = boost::stl_interfaces::proxy_iterator_interface<
 namespace ut {
 
 class IndexIterator : public detail::IndexIteratorBase<IndexIterator> {
-  public:
+public:
     using Base = detail::IndexIteratorBase<IndexIterator>;
 
     constexpr IndexIterator() noexcept = default;
@@ -40,7 +40,7 @@ class IndexIterator : public detail::IndexIteratorBase<IndexIterator> {
         return lhs.positionInContainer == rhs.positionInContainer;
     }
 
-  private:
+private:
     size_t positionInContainer{0u};
     size_t cols{0u};
 };

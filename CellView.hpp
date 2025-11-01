@@ -7,7 +7,7 @@ class Vertex;
 class GraphicsData;
 
 class CellView {
-  public:
+public:
     void setPosition(ut::Rectf newPosition) { position = newPosition; }
 
     void update(const ca::Cell& cell, ut::Pointf origin,
@@ -15,6 +15,6 @@ class CellView {
 
     bool contains(ut::Pointf position) const;
 
-  private:
+private:
     ut::Rectf position;
 };

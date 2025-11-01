@@ -5,7 +5,7 @@
 namespace glw {
 
 class VertexBufferHandler {
-  public:
+public:
     VertexBufferHandler(const void* data, std::ptrdiff_t size);
 
     VertexBufferHandler(const VertexBufferHandler&) = delete;
@@ -21,7 +21,7 @@ class VertexBufferHandler {
     void bind() const;
     void unbind() const;
 
-  private:
+private:
     unsigned int id;
 };
 

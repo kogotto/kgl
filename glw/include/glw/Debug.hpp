@@ -6,7 +6,7 @@ struct GLErrorHandler {
     GLErrorHandler(const char* function, const char* file, int line);
     ~GLErrorHandler();
 
-  private:
+private:
     const char* function;
     const char* file;
     int line;

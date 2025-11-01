@@ -11,13 +11,13 @@ class Shader;
 namespace glw {
 
 class Renderer {
-  public:
+public:
     const unsigned char* getOpenGlVersion() const;
     void clear() const;
     void draw(const VertexArray& va, const IndexBuffer& ib,
               const Shader& shader) const;
 
-  private:
+private:
 };
 
 } // namespace glw

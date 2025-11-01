@@ -15,7 +15,7 @@
 using IndexStorage = std::vector<unsigned int>;
 
 class GraphicsData {
-  public:
+public:
     using VertexBuffer = glw::VertexBuffer<Vertex>;
 
     GraphicsData(ut::NormalizedIndex size);
@@ -26,8 +26,8 @@ class GraphicsData {
 
     void pushPolygon(size_t vertex1Id, size_t vertex2Id, size_t vertex3Id);
 
-  private:
-  public:
+private:
+public:
     GraphicsData(ut::NormalizedIndex size, size_t cellRows, size_t cellCols);
 
     VertexBuffer v;

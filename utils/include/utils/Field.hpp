@@ -10,7 +10,7 @@
 namespace ut {
 
 template <std::default_initializable T> class Field {
-  public:
+public:
     using value_type = T;
     using container_type = std::vector<value_type>;
     using size_type = size_t;
@@ -40,7 +40,7 @@ template <std::default_initializable T> class Field {
 
     IndexRange indexRange() const;
 
-  private:
+private:
     NormalizedIndex size;
     container_type field;
 };

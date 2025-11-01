@@ -48,7 +48,7 @@ struct VertexBufferLayoutElement {
 };
 
 class VertexBufferLayout {
-  public:
+public:
     const auto& getElements() const { return elements; };
 
     auto getStride() const { return stride; }
@@ -61,7 +61,7 @@ class VertexBufferLayout {
         stride += count * sizeof(T);
     }
 
-  private:
+private:
     std::vector<VertexBufferLayoutElement> elements;
     unsigned int stride{0};
 };

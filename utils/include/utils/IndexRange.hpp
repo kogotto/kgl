@@ -8,7 +8,7 @@
 namespace ut {
 
 class IndexRange : public std::ranges::view_interface<IndexRange> {
-  public:
+public:
     using Base = std::ranges::view_interface<IndexRange>;
 
     constexpr explicit IndexRange(NormalizedIndex size) noexcept
@@ -20,7 +20,7 @@ class IndexRange : public std::ranges::view_interface<IndexRange> {
         return {size.row * size.col, size.col};
     }
 
-  private:
+private:
     NormalizedIndex size;
 };
 

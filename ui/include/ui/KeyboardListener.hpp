@@ -6,7 +6,7 @@
 namespace ui {
 
 class KeyboardListener {
-  public:
+public:
     using Callback = std::function<void()>;
 
     void keyPressed(int key);
@@ -14,7 +14,7 @@ class KeyboardListener {
 
     void setKeyPressedCallback(int key, Callback callback);
 
-  private:
+private:
     void callCallback(int key);
 
     std::unordered_map<int, bool> keys_;

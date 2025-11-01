@@ -5,7 +5,7 @@
 namespace ut {
 
 class Timer {
-  public:
+public:
     using Clock = std::chrono::steady_clock;
     using Timepoint = Clock::time_point;
     using Duration = Timepoint::duration;
@@ -14,7 +14,7 @@ class Timer {
 
     bool hasCome() const;
 
-  private:
+private:
     mutable Timepoint lastTick;
     Duration duration;
 };

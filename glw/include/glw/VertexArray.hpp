@@ -10,7 +10,7 @@ class VertexBufferLayout;
 namespace glw {
 
 class VertexArray {
-  public:
+public:
     VertexArray();
 
     VertexArray(const VertexArray&) = delete;
@@ -27,7 +27,7 @@ class VertexArray {
     void bind() const;
     void unbind() const;
 
-  private:
+private:
     unsigned int id;
 };
 

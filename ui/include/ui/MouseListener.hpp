@@ -14,7 +14,7 @@ inline auto nullCallback = [](ut::Pointf) {};
 namespace ui {
 
 class MouseListener {
-  public:
+public:
     using Callback = std::function<void(ut::Pointf)>;
 
     enum class State { Idle, Drag };
@@ -43,7 +43,7 @@ class MouseListener {
 
     std::string makeCaption() const;
 
-  private:
+private:
     ut::Pointf position_{};
 
     bool leftButtonPressed_{false};

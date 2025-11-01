@@ -4,7 +4,7 @@
 namespace ut {
 
 template <typename Lock, typename Data> class LockedPtr {
-  public:
+public:
     LockedPtr(Lock&& lock, Data& data)
         : lock(std::move(lock))
         , data(data) {}
@@ -25,13 +25,13 @@ template <typename Lock, typename Data> class LockedPtr {
         // some crush
     }
 
-  private:
+private:
     Lock lock;
     Data& data;
 };
 
 template <typename Data, typename Mutex = std::mutex> class SharedVariable {
-  public:
+public:
     template <typename... Args>
     SharedVariable(Args&&... args)
         : data(std::forward<Args>(args)...) {}
@@ -50,7 +50,7 @@ template <typename Data, typename Mutex = std::mutex> class SharedVariable {
         return {std::unique_lock{mutex}, data};
     }
 
-  private:
+private:
     mutable Mutex mutex;
     Data data;
 };
