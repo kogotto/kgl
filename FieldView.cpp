@@ -63,8 +63,9 @@ ut::Pointf FieldView::getOrigin() const { return origin_; }
 
 std::optional<ut::NormalizedIndex>
 FieldView::getIndexByMousePos(ut::Pointf pos) const {
+    const auto actualPos = pos - origin_;
     for (auto index : cells.indexRange()) {
-        if (cells.cell(index).contains(pos)) {
+        if (cells.cell(index).contains(actualPos)) {
             return index;
         }
     }
