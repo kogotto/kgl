@@ -14,6 +14,7 @@ public:
     void tick();
 
     void togglePause();
+
 private:
     bool pause{false};
     ut::Timer time_;

@@ -6,16 +6,15 @@
 
 namespace ca {
 
+using ut::CellIndex;
+using ut::ColIndex;
 using ut::NormalizedIndex;
 using ut::RowIndex;
-using ut::ColIndex;
-using ut::CellIndex;
 using FieldModel = ut::Field<Cell>;
 
 void nextGeneration(FieldModel& result, const FieldModel& current);
 
-inline
-FieldModel nextGeneration(const FieldModel& current) {
+inline FieldModel nextGeneration(const FieldModel& current) {
     FieldModel result = current.createWithSameSize();
 
     nextGeneration(result, current);

@@ -8,7 +8,6 @@ namespace glw {
 
 class Shader {
 public:
-
     explicit Shader(unsigned int id)
         : id{id} {}
     ~Shader();

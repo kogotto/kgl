@@ -18,6 +18,8 @@ public:
     void setOrigin(ut::Pointf origin);
     ut::Pointf getOrigin() const;
 
+    std::optional<ut::NormalizedIndex> getIndexByMousePos(ut::Pointf pos) const;
+
 private:
     ut::Field<CellView> cells;
     ut::Pointf origin_;

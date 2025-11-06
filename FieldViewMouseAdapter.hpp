@@ -9,6 +9,7 @@ public:
     explicit FieldViewMouseAdapter(FieldView& view);
     void startDrag(ut::Pointf mousePos);
     void drag(ut::Pointf mousePos);
+
 private:
     FieldView& view_;
     ut::Pointf startMousePos_;

@@ -6,14 +6,12 @@ namespace ut {
 
 template <std::default_initializable T>
 inline Field<T>::Field(size_type rowsCount, size_type colsCount)
-    : Field(NormalizedIndex{rowsCount, colsCount})
-{}
+    : Field(NormalizedIndex{rowsCount, colsCount}) {}
 
 template <std::default_initializable T>
 inline Field<T>::Field(NormalizedIndex size)
     : size{size}
-    , field(size.row * size.col)
-{}
+    , field(size.row * size.col) {}
 
 template <std::default_initializable T>
 template <typename U>

@@ -13,6 +13,7 @@ public:
     Timer(Duration duration);
 
     bool hasCome() const;
+
 private:
     mutable Timepoint lastTick;
     Duration duration;

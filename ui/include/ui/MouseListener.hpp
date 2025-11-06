@@ -1,5 +1,5 @@
-#include <string>
 #include <functional>
+#include <string>
 
 #include <utils/Point.hpp>
 
@@ -7,7 +7,7 @@ struct GLFWwindow;
 
 namespace ui::detail {
 
-inline auto nullCallback = [] (ut::Pointf) {};
+inline auto nullCallback = [](ut::Pointf) {};
 
 } // namespace ui::detail
 
@@ -17,10 +17,7 @@ class MouseListener {
 public:
     using Callback = std::function<void(ut::Pointf)>;
 
-    enum class State {
-        Idle,
-        Drag
-    };
+    enum class State { Idle, Drag };
 
     MouseListener(GLFWwindow& window);
 
@@ -36,12 +33,16 @@ public:
     void setDragCallback(Callback callback) {
         dragCallback_ = std::move(callback);
     }
+    void setReleaseCallback(Callback callback) {
+        releaseCallback_ = std::move(callback);
+    }
 
     void setPosition(ut::Pointf position);
     void setLeftButtonPressed(bool pressed);
     void setRightButtonPressed(bool pressed);
 
     std::string makeCaption() const;
+
 private:
     ut::Pointf position_{};
 
@@ -52,6 +53,7 @@ private:
 
     Callback startDragCallback_{detail::nullCallback};
     Callback dragCallback_{detail::nullCallback};
+    Callback releaseCallback_{detail::nullCallback};
 };
 
-}
+} // namespace ui

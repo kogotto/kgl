@@ -13,8 +13,8 @@ struct NormalizedIndex {
     normal_index_t row;
     normal_index_t col;
 
-    friend
-    bool operator==(const NormalizedIndex& lhs, const NormalizedIndex& rhs) = default;
+    friend bool operator==(const NormalizedIndex& lhs,
+                           const NormalizedIndex& rhs) = default;
 };
 
 struct RowIndex {
@@ -48,21 +48,15 @@ struct ColIndex {
 struct CellIndex {
     constexpr CellIndex(RowIndex rowIndex, ColIndex colIndex) noexcept
         : row{rowIndex}
-        , col{colIndex}
-    {}
+        , col{colIndex} {}
 
     constexpr CellIndex(NormalizedIndex index)
         : row{static_cast<signed_index_t>(index.row)}
-        , col{static_cast<signed_index_t>(index.col)}
-    {}
+        , col{static_cast<signed_index_t>(index.col)} {}
 
-    constexpr auto getRawRow() const {
-        return row.row;
-    }
+    constexpr auto getRawRow() const { return row.row; }
 
-    constexpr auto getRawCol() const {
-        return col.col;
-    }
+    constexpr auto getRawCol() const { return col.col; }
 
     constexpr CellIndex& operator+=(const CellIndex& rhs) {
         row += rhs.row;
@@ -70,7 +64,8 @@ struct CellIndex {
         return *this;
     }
 
-    friend constexpr CellIndex operator+(const CellIndex& lhs, const CellIndex& rhs) {
+    friend constexpr CellIndex operator+(const CellIndex& lhs,
+                                         const CellIndex& rhs) {
         auto temp{lhs};
         return temp += rhs;
     }
@@ -96,18 +91,17 @@ NormalizedIndex normalize(NormalizedIndex modulo, CellIndex index);
 
 namespace ut::detail {
 
-constexpr
-size_t toContainerIndex(normal_index_t colsCount, NormalizedIndex index) noexcept {
+constexpr size_t toContainerIndex(normal_index_t colsCount,
+                                  NormalizedIndex index) noexcept {
     return index.row * colsCount + index.col;
 }
 
-constexpr
-NormalizedIndex fromContainerIndex(normal_index_t colsCount, size_t containerIndex) noexcept {
-    const auto div = std::div(containerIndex, static_cast<signed_index_t>(colsCount));
-    return {
-        static_cast<normal_index_t>(div.quot),
-        static_cast<normal_index_t>(div.rem)
-    };
+constexpr NormalizedIndex fromContainerIndex(normal_index_t colsCount,
+                                             size_t containerIndex) noexcept {
+    const auto div =
+        std::div(containerIndex, static_cast<signed_index_t>(colsCount));
+    return {static_cast<normal_index_t>(div.quot),
+            static_cast<normal_index_t>(div.rem)};
 }
 
-} // namespace ut::details
+} // namespace ut::detail

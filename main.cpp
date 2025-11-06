@@ -174,6 +174,11 @@ int main() {
     mouseListener.setDragCallback([&viewMouseAdapter](ut::Pointf mousePos) {
         viewMouseAdapter.drag(mousePos);
     });
+    mouseListener.setReleaseCallback([&fieldView, &field](ut::Pointf mousePos) {
+        if (auto index = fieldView.getIndexByMousePos(mousePos)) {
+            toggle(field.cell(*index));
+        }
+    });
 
     TimeController timeController{std::chrono::milliseconds{25},
                                   [&]() { field = ca::nextGeneration(field); }};

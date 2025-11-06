@@ -60,3 +60,15 @@ void FieldView::update(const ca::FieldModel& field, GraphicsData& data) const {
 void FieldView::setOrigin(ut::Pointf origin) { origin_ = origin; }
 
 ut::Pointf FieldView::getOrigin() const { return origin_; }
+
+std::optional<ut::NormalizedIndex>
+FieldView::getIndexByMousePos(ut::Pointf pos) const {
+    const auto actualPos = pos - origin_;
+    for (auto index : cells.indexRange()) {
+        if (cells.cell(index).contains(actualPos)) {
+            return index;
+        }
+    }
+
+    return std::nullopt;
+}
